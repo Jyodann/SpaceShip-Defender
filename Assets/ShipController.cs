@@ -13,7 +13,6 @@ public class ShipController : MonoBehaviour
     [SerializeField] private float rotateSpeed = 10f;
     public bool verticalMovement = false;
     public bool horizontalMovement = false;
-    public bool isShooting = false;
     public Rigidbody2D rb2d;
     private bool isWrappingX = false;
     private bool isWrappingY = false;
@@ -31,7 +30,6 @@ public class ShipController : MonoBehaviour
     {
         verticalMovement = Input.GetButton("Vertical");
         horizontalMovement = Input.GetButton("Horizontal");
-        isShooting = Input.GetButton("Fire1");
     }
 
     private void FixedUpdate()
@@ -48,10 +46,6 @@ public class ShipController : MonoBehaviour
         {
             float v = Input.GetAxisRaw("Horizontal");
             transform.Rotate(new Vector3(0, 0, -v) * rotateSpeed);
-        }
-
-        if (isShooting)
-        {
         }
 
         ScreenWrap();
