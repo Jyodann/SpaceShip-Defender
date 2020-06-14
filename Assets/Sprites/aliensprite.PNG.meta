@@ -1,0 +1,599 @@
+fileFormatVersion: 2
+guid: 46fba3d944f0ea44fa95b70b7860d26a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6862747551334188862
+    second: aliensprite_0
+  - first:
+      213: 3938914617291735528
+    second: aliensprite_1
+  - first:
+      213: 4338219078816251271
+    second: aliensprite_2
+  - first:
+      213: 2220821092111211650
+    second: aliensprite_3
+  - first:
+      213: 4963590128169976292
+    second: aliensprite_4
+  - first:
+      213: 1286211138491346279
+    second: aliensprite_5
+  - first:
+      213: -2774922679420012179
+    second: aliensprite_6
+  - first:
+      213: 525217763845428653
+    second: aliensprite_7
+  - first:
+      213: 447079513369307163
+    second: aliensprite_8
+  - first:
+      213: 1606310883685862295
+    second: aliensprite_9
+  - first:
+      213: -59276076845795505
+    second: aliensprite_10
+  - first:
+      213: 8770323826863643363
+    second: aliensprite_11
+  - first:
+      213: 2788075184776773900
+    second: aliensprite_12
+  - first:
+      213: 6705101877116093822
+    second: aliensprite_13
+  - first:
+      213: 4920096340300649638
+    second: aliensprite_14
+  - first:
+      213: -998337301423316871
+    second: aliensprite_15
+  - first:
+      213: -2188047208754338871
+    second: aliensprite_16
+  - first:
+      213: 4428668982576159109
+    second: aliensprite_17
+  - first:
+      213: 332280408219482846
+    second: aliensprite_18
+  - first:
+      213: 6373935055364457798
+    second: aliensprite_19
+  - first:
+      213: -8776594517822068005
+    second: aliensprite_20
+  - first:
+      213: 5579764449603474596
+    second: aliensprite_21
+  - first:
+      213: -4623494017516417220
+    second: aliensprite_22
+  - first:
+      213: -4054061500360386875
+    second: aliensprite_23
+  - first:
+      213: -341102348022889642
+    second: aliensprite_24
+  - first:
+      213: 793680345884329292
+    second: aliensprite_25
+  - first:
+      213: -2751442753326619827
+    second: aliensprite_26
+  - first:
+      213: -5897325290072017558
+    second: aliensprite_27
+  - first:
+      213: 6703946608927421076
+    second: aliensprite_28
+  - first:
+      213: 1466913354475041505
+    second: aliensprite_29
+  - first:
+      213: -2906770429583224779
+    second: aliensprite_30
+  - first:
+      213: 9102509801102811990
+    second: aliensprite_31
+  - first:
+      213: -6980361871220369891
+    second: aliensprite_32
+  - first:
+      213: 5101050603387096798
+    second: aliensprite_33
+  - first:
+      213: -330229093882984664
+    second: aliensprite_34
+  - first:
+      213: -8002248809101592568
+    second: aliensprite_35
+  - first:
+      213: -2992252033063025458
+    second: aliensprite_36
+  - first:
+      213: 809899435277322043
+    second: aliensprite_37
+  - first:
+      213: 1413313782144628415
+    second: aliensprite_38
+  - first:
+      213: -267433468967056949
+    second: aliensprite_39
+  - first:
+      213: 5435279128233016987
+    second: aliensprite_40
+  - first:
+      213: -9162875352663107382
+    second: aliensprite_41
+  - first:
+      213: -7767654746493749587
+    second: aliensprite_42
+  - first:
+      213: -6316017620167246719
+    second: aliensprite_43
+  - first:
+      213: 5380130869615083820
+    second: aliensprite_44
+  - first:
+      213: 4051143372916477215
+    second: aliensprite_45
+  - first:
+      213: 5010208004160191546
+    second: aliensprite_46
+  - first:
+      213: 3952884621549686877
+    second: aliensprite_47
+  - first:
+      213: -6632642332562982077
+    second: aliensprite_48
+  - first:
+      213: 4553342538361615083
+    second: aliensprite_49
+  - first:
+      213: -2538200199253211443
+    second: aliensprite_50
+  - first:
+      213: 2806199765341760017
+    second: aliensprite_51
+  - first:
+      213: 763962216288320660
+    second: aliensprite_52
+  - first:
+      213: -6101699672704902858
+    second: aliensprite_53
+  - first:
+      213: 49361271393052738
+    second: aliensprite_54
+  - first:
+      213: 6832453101177109101
+    second: aliensprite_55
+  - first:
+      213: 4525060570067500012
+    second: aliensprite_56
+  - first:
+      213: 3826929936862242264
+    second: aliensprite_57
+  - first:
+      213: -7901854673630627285
+    second: aliensprite_58
+  - first:
+      213: 6845903508300840396
+    second: aliensprite_59
+  - first:
+      213: 1321885978372871500
+    second: aliensprite_60
+  - first:
+      213: -1598294491570215193
+    second: aliensprite_61
+  - first:
+      213: 554660877144513334
+    second: aliensprite_62
+  - first:
+      213: 1664623237864098552
+    second: aliensprite_63
+  - first:
+      213: -5308605440333569388
+    second: aliensprite_64
+  - first:
+      213: -1942284167208660502
+    second: aliensprite_65
+  - first:
+      213: 6313073303874187146
+    second: aliensprite_66
+  - first:
+      213: -4461495259316835477
+    second: aliensprite_67
+  - first:
+      213: 8174783993377443754
+    second: aliensprite_68
+  - first:
+      213: -1908926194434445679
+    second: aliensprite_69
+  - first:
+      213: -3647908747554778845
+    second: aliensprite_70
+  - first:
+      213: -3695835326689851105
+    second: aliensprite_71
+  - first:
+      213: -3525787842844907756
+    second: aliensprite_72
+  - first:
+      213: -4153768135931653626
+    second: aliensprite_73
+  - first:
+      213: -4162314526603311325
+    second: aliensprite_74
+  - first:
+      213: -5631386294322578011
+    second: aliensprite_75
+  - first:
+      213: 5561273046297507642
+    second: aliensprite_76
+  - first:
+      213: 4113503807533494818
+    second: aliensprite_77
+  - first:
+      213: -3687297236585797287
+    second: aliensprite_78
+  - first:
+      213: -1467173820890036822
+    second: aliensprite_79
+  - first:
+      213: -5142605669127897472
+    second: aliensprite_80
+  - first:
+      213: 1939825742897496709
+    second: aliensprite_81
+  - first:
+      213: -8938403058076265881
+    second: aliensprite_82
+  - first:
+      213: -137865778272164592
+    second: aliensprite_83
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 25
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: aliensprite_0
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 1079
+        width: 104
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e37c47c99806d3f50800000000000000
+      internalID: 6862747551334188862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aliensprite_1
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 1079
+        width: 104
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e18444a9f5d9a630800000000000000
+      internalID: 3938914617291735528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aliensprite_2
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 871
+        width: 104
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78d3aae6443743c30800000000000000
+      internalID: 4338219078816251271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aliensprite_3
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 871
+        width: 104
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28cdbf05401f1de10800000000000000
+      internalID: 2220821092111211650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aliensprite_4
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 858
+        width: 104
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e105306ce632e440800000000000000
+      internalID: 4963590128169976292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aliensprite_5
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 663
+        width: 104
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76d6def373a89d110800000000000000
+      internalID: 1286211138491346279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aliensprite_6
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 663
+        width: 104
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d69bef5768e7d79d0800000000000000
+      internalID: -2774922679420012179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aliensprite_7
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 663
+        width: 104
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da55bb306c2f94700800000000000000
+      internalID: 525217763845428653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aliensprite_8
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 455
+        width: 104
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b186bbcd278543600800000000000000
+      internalID: 447079513369307163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aliensprite_9
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 468
+        width: 104
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79b80f4fc33ca4610800000000000000
+      internalID: 1606310883685862295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aliensprite_10
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 468
+        width: 104
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f477defd8b86d2ff0800000000000000
+      internalID: -59276076845795505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
