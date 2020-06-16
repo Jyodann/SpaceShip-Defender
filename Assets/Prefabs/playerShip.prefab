@@ -194,12 +194,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e495338ca9058974c93f1b2b625e1405, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletObject: {fileID: 2415551998115927411, guid: 5c84fd461324b7f428f7083509730a26,
+  bulletObject: {fileID: 9149756014913222673, guid: 7245e3953cfda0547a2a211e71f50da3,
     type: 3}
   mainCannon: {fileID: 6051054199228944086}
   leftCannon: {fileID: 3204335262171338556}
   rightCannon: {fileID: 5373103563043612064}
-  fireRate: 0.1
+  fireRate: 0.3
   bulletSpeed: 50
 --- !u!1 &6051054199228944081
 GameObject:

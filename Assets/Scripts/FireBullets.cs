@@ -10,12 +10,7 @@ public class FireBullets : MonoBehaviour
     [SerializeField] private Transform leftCannon;
     [SerializeField] private Transform rightCannon;
     [SerializeField] private float fireRate = 0.5f;
-    [SerializeField] private float bulletSpeed = 50f;
-
-    // Start is called before the first frame update
-    private void Start()
-    {
-    }
+    [SerializeField] private float bulletSpeed = 100f;
 
     // Update is called once per frame
     private void Update()
