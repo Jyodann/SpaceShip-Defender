@@ -19,8 +19,11 @@ public class GameManager : MonoBehaviour
     public Text coinsText;
     public Text scoreText;
 
+    public GameObject asteroidObject;
+
     private void Awake()
     {
+        Instantiate(asteroidObject, transform.position, Quaternion.identity);
         if (Instance == null)
         {
             Instance = this;
@@ -33,27 +36,37 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        livesText.text = Lives.ToString();
-        scoreText.text = Score.ToString().PadLeft(8, '0');
-        coinsText.text = Coins.ToString();
+    }
+
+    public void UpdateDifficulty()
+    {
+        int difficultyFactor = Score / 1000 + 1;
+        print(difficultyFactor);
     }
 
     public void TakeDamage()
     {
         Lives--;
+        livesText.text = Lives.ToString();
     }
 
     public void AddScore(int scoreToAdd)
     {
         Score += scoreToAdd;
+        scoreText.text = Score.ToString().PadLeft(8, '0');
+        UpdateDifficulty();
     }
 
     public void AddCoins(int coinsToAdd)
     {
         Coins += coinsToAdd;
+        coinsText.text = Coins.ToString();
     }
 
     private void Start()
     {
+        coinsText.text = Coins.ToString();
+        livesText.text = Lives.ToString();
+        scoreText.text = Score.ToString().PadLeft(8, '0');
     }
 }

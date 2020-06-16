@@ -18,6 +18,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (enemyHealth <= 0)
         {
+            print("Generic Destory");
             GameManager.Instance.AddCoins(coinsToAdd);
             GameManager.Instance.AddScore(scoreToAdd);
             Destroy(gameObject);
