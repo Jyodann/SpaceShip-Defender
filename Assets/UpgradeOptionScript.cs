@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class UpgradeOptionScript : MonoBehaviour
 {
+    /// <summary>
+    /// Text following object script provided by: https://www.youtube.com/watch?v=0bvDmqqMXcA
+    /// </summary>
+
     public Text UpgradeLabel;
     public Transform shipLocation;
 
