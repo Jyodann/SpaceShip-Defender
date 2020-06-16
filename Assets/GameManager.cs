@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public static int Coins = 0;
 
     public Transform[] spawnLocations;
+    public Transform playerLocation;
 
     public Text livesText;
     public Text coinsText;

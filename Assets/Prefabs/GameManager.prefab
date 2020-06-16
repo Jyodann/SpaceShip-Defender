@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnLocations: []
+  playerLocation: {fileID: 0}
   livesText: {fileID: 0}
   coinsText: {fileID: 0}
   scoreText: {fileID: 0}
