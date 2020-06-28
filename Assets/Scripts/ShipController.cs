@@ -39,7 +39,6 @@ public class ShipController : MonoBehaviour
             float v = Input.GetAxisRaw("Vertical");
 
             rb2d.AddRelativeForce(new Vector2(0, v).normalized * speed);
-            print(rb2d.velocity);
         }
 
         if (horizontalMovement)

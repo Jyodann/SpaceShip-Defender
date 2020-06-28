@@ -1112,9 +1112,21 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
-      propertyPath: spawnLocations.Array.size
-      value: 4
-      objectReference: {fileID: 0}
+      propertyPath: spawnLocations.Array.data[0]
+      value: 
+      objectReference: {fileID: 371464189}
+    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
+      propertyPath: spawnLocations.Array.data[1]
+      value: 
+      objectReference: {fileID: 1887664496}
+    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
+      propertyPath: spawnLocations.Array.data[2]
+      value: 
+      objectReference: {fileID: 558390375}
+    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
+      propertyPath: spawnLocations.Array.data[3]
+      value: 
+      objectReference: {fileID: 1472333312}
     - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
       propertyPath: playerLocation
       value: 
@@ -1131,27 +1143,6 @@ PrefabInstance:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 1304687831}
-    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
-      propertyPath: asteroidObject
-      value: 
-      objectReference: {fileID: 4513244087482888664, guid: 9491c968127e9d0448e4fa79e32f90ae,
-        type: 3}
-    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
-      propertyPath: spawnLocations.Array.data[0]
-      value: 
-      objectReference: {fileID: 371464189}
-    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
-      propertyPath: spawnLocations.Array.data[1]
-      value: 
-      objectReference: {fileID: 1887664496}
-    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
-      propertyPath: spawnLocations.Array.data[2]
-      value: 
-      objectReference: {fileID: 558390375}
-    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
-      propertyPath: spawnLocations.Array.data[3]
-      value: 
-      objectReference: {fileID: 1472333312}
     - target: {fileID: 1133721369239201910, guid: bbcdd9a2e7be351449d00a2dff305921,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1326,7 +1317,7 @@ PrefabInstance:
     - target: {fileID: 6051054198046076315, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 6051054198046076315, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
         type: 3}

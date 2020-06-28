@@ -43,8 +43,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dffe934f5fd4c0345a151bd7a8449eb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnLocations: []
+  spawnLocations:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   playerLocation: {fileID: 0}
   livesText: {fileID: 0}
   coinsText: {fileID: 0}
   scoreText: {fileID: 0}
+  asteroidObject: {fileID: 4513244087482888664, guid: 9491c968127e9d0448e4fa79e32f90ae,
+    type: 3}

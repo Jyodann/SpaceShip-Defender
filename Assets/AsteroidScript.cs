@@ -12,7 +12,6 @@ public class AsteroidScript : MonoBehaviour
 
     public AsteroidSize asteroidSize;
     public float rotateSpeed = 10f;
-    private EnemyBehaviour enemyBehaviorScript;
 
     // Start is called before the first frame update
     private void Start()
@@ -36,7 +35,6 @@ public class AsteroidScript : MonoBehaviour
         }
         GetComponent<SpriteRenderer>().sprite = asteroidSprites[UnityEngine.Random.Range(0, asteroidSprites.Length)];
         GetComponent<Rigidbody2D>().velocity = new Vector2(UnityEngine.Random.Range(-30, 30), UnityEngine.Random.Range(-30, 30));
-        enemyBehaviorScript = GetComponent<EnemyBehaviour>();
     }
 
     // Update is called once per frame
@@ -45,26 +43,25 @@ public class AsteroidScript : MonoBehaviour
         transform.Rotate(0, 0, 10 * Time.deltaTime * rotateSpeed);
     }
 
-    private void OnDestroy()
+    public void SpawnChildAsteroids()
     {
         switch (asteroidSize)
         {
             case AsteroidSize.Large:
-                //Instantiate 2 Medium:
-                SpawnAsteroids(2);
+                for (int i = 0; i < 2; i++)
+                {
+                    Instantiate(asteroidToSpawn, transform.position, Quaternion.identity);
+                }
                 break;
 
             case AsteroidSize.Medium:
-                SpawnAsteroids(4);
+                for (int i = 0; i < 4; i++)
+                {
+                    Instantiate(asteroidToSpawn, transform.position, Quaternion.identity);
+                }
                 break;
         }
-    }
 
-    private void SpawnAsteroids(int numberToSpawn)
-    {
-        for (int i = 0; i < numberToSpawn; i++)
-        {
-            Instantiate(asteroidToSpawn, transform.position, Quaternion.identity);
-        }
+        Destroy(gameObject);
     }
 }

@@ -12,11 +12,12 @@ GameObject:
   - component: {fileID: 4513244087482888645}
   - component: {fileID: 4513244087482888667}
   - component: {fileID: 4513244087482888666}
+  - component: {fileID: 6442264315535611254}
   - component: {fileID: 4513244087482888665}
   - component: {fileID: 4513244087482888644}
   m_Layer: 0
   m_Name: AsteroidSmall
-  m_TagString: Enemy
+  m_TagString: Asteroid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133,6 +134,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4, y: 4}
   m_EdgeRadius: 0
+--- !u!114 &6442264315535611254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4513244087482888664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42abd307a406632478d481c0df8c5ea9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4513244087482888665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,6 +173,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c97f5cb7a99254a419ef16816ec84528, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyHealth: 100
+  scoreToAdd: 10
+  coinsToAdd: 5
   asteroidSprites:
   - {fileID: 8353322238163133960, guid: 0ed462b1b22337f40a87f6f150692410, type: 3}
   - {fileID: -7210273973612257260, guid: 0ed462b1b22337f40a87f6f150692410, type: 3}

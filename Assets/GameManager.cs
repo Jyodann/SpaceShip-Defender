@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public static int Lives = 3;
     public static int Score = 0;
     public static int Coins = 0;
+    public static int NumberOfEnemies = 0;
 
     public Transform[] spawnLocations;
     public Transform playerLocation;
@@ -23,7 +24,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Instantiate(asteroidObject, transform.position, Quaternion.identity);
+        InvokeRepeating("SpawnEnemies", 0f, 1f);
         if (Instance == null)
         {
             Instance = this;
@@ -38,10 +39,14 @@ public class GameManager : MonoBehaviour
     {
     }
 
+    private void SpawnEnemies()
+    {
+        Instantiate(asteroidObject, spawnLocations[UnityEngine.Random.Range(0, 4)].position, Quaternion.identity);
+    }
+
     public void UpdateDifficulty()
     {
         int difficultyFactor = Score / 1000 + 1;
-        print(difficultyFactor);
     }
 
     public void TakeDamage()
