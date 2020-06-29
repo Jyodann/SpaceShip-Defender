@@ -7,6 +7,7 @@ TagManager:
   - Bullet
   - Enemy
   - Asteroid
+  - BoundingBox
   layers:
   - Default
   - TransparentFX

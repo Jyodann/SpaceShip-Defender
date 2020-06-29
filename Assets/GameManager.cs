@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -41,7 +42,16 @@ public class GameManager : MonoBehaviour
 
     private void SpawnEnemies()
     {
-        Instantiate(asteroidObject, spawnLocations[UnityEngine.Random.Range(0, 4)].position, Quaternion.identity);
+        if (Random.Range(0, 2) == 1)
+        {
+            //only spawn in the negative regions:
+            Instantiate(asteroidObject, playerLocation.position + new Vector3(Random.Range(-50, -5), Random.Range(-50, -5)), Quaternion.identity);
+        }
+        else
+        {
+            //only spawn in the positive regions:
+            Instantiate(asteroidObject, playerLocation.position + new Vector3(Random.Range(5, 50), Random.Range(5, 50)), Quaternion.identity);
+        }
     }
 
     public void UpdateDifficulty()
