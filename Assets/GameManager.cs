@@ -20,12 +20,34 @@ public class GameManager : MonoBehaviour
     public Text livesText;
     public Text coinsText;
     public Text scoreText;
+    public Text upgradeText;
 
-    public GameObject asteroidObject;
+    public GameObject[] asteroidObjects;
+    public float spawnRate = 1.5f;
+
+    public static UpgradeClass nextUpgrade;
+
+    public static List<UpgradeClass> upgrades = new List<UpgradeClass>()
+    {
+        //Upgrade Class Constructor: Name, Cost, CannonCount, FireRate, Damage per shot
+        new UpgradeClass("BaseShip", 0, 1, 0.4f, 1),
+        new UpgradeClass("+1 Cannon", 100, 2, 0.4f, 1),
+        new UpgradeClass("+Fire Rate", 150, 2, 0.3f, 1),
+        new UpgradeClass("+Increased Damage", 200, 2, 0.3f, 3),
+        new UpgradeClass("+1 Cannon", 250, 3, 0.3f, 3),
+        new UpgradeClass("+Fire Rate", 300, 3, 0.2f, 3),
+        new UpgradeClass("+Increased Damage", 350, 3, 0.2f, 5)
+    };
+
+    private FireBullets playerFireBullets;
+    private bool nextUpgradePossible = true;
 
     private void Awake()
     {
-        InvokeRepeating("SpawnEnemies", 0f, 1f);
+        playerFireBullets = GameObject.FindObjectOfType<FireBullets>();
+        upgradeText.text = string.Empty;
+        nextUpgrade = upgrades[1];
+        InvokeRepeating("SpawnEnemies", 0f, spawnRate);
         if (Instance == null)
         {
             Instance = this;
@@ -36,21 +58,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-    }
-
     private void SpawnEnemies()
     {
         if (Random.Range(0, 2) == 1)
         {
             //only spawn in the negative regions:
-            Instantiate(asteroidObject, playerLocation.position + new Vector3(Random.Range(-50, -5), Random.Range(-50, -5)), Quaternion.identity);
+            Instantiate(asteroidObjects[Random.Range(0, asteroidObjects.Length)], playerLocation.position + new Vector3(Random.Range(-50, -5), Random.Range(-50, -5)), Quaternion.identity);
         }
         else
         {
             //only spawn in the positive regions:
-            Instantiate(asteroidObject, playerLocation.position + new Vector3(Random.Range(5, 50), Random.Range(5, 50)), Quaternion.identity);
+            Instantiate(asteroidObjects[Random.Range(0, asteroidObjects.Length)], playerLocation.position + new Vector3(Random.Range(5, 50), Random.Range(5, 50)), Quaternion.identity);
         }
     }
 
@@ -83,5 +101,36 @@ public class GameManager : MonoBehaviour
         coinsText.text = Coins.ToString();
         livesText.text = Lives.ToString();
         scoreText.text = Score.ToString().PadLeft(8, '0');
+    }
+
+    private void Update()
+    {
+        print(nextUpgrade.UpgradeName);
+        if (nextUpgrade.UpgradeCost <= Coins && nextUpgradePossible)
+        {
+            upgradeText.text = $"{nextUpgrade.UpgradeName} (Press B To Upgrade)";
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                playerFireBullets.DamageDealt = nextUpgrade.DamageCount;
+                playerFireBullets.CannonCount = nextUpgrade.CannonCount;
+                playerFireBullets.fireRate = nextUpgrade.FireRate;
+                Coins -= nextUpgrade.UpgradeCost;
+                if (upgrades.IndexOf(nextUpgrade) + 1 != upgrades.Count)
+                {
+                    nextUpgrade = upgrades[upgrades.IndexOf(nextUpgrade) + 1];
+                }
+                else
+                {
+                    nextUpgradePossible = false;
+                }
+
+                upgradeText.text = string.Empty;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            AddCoins(50);
+        }
     }
 }

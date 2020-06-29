@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb86c50dda56bf04bb82edb0b3d2e568, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 1
+  enemyHealth: 2
   scoreToAdd: 10
   coinsToAdd: 5
 --- !u!114 &4513244087482888644
@@ -173,9 +173,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c97f5cb7a99254a419ef16816ec84528, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 100
-  scoreToAdd: 10
-  coinsToAdd: 5
   asteroidSprites:
   - {fileID: 8353322238163133960, guid: 0ed462b1b22337f40a87f6f150692410, type: 3}
   - {fileID: -7210273973612257260, guid: 0ed462b1b22337f40a87f6f150692410, type: 3}

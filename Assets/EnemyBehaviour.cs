@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,13 +8,19 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private int enemyHealth = 100;
     [SerializeField] private int scoreToAdd = 10;
     [SerializeField] private int coinsToAdd = 5;
+    private FireBullets playerObject;
+
+    private void Start()
+    {
+        playerObject = GameObject.FindObjectOfType<FireBullets>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
+            DealDamage(playerObject.DamageDealt);
             Destroy(collision.gameObject);
-            enemyHealth--;
         }
 
         if (enemyHealth <= 0)
@@ -24,7 +31,6 @@ public class EnemyBehaviour : MonoBehaviour
             switch (gameObject.tag)
             {
                 case "Asteroid":
-
                     gameObject.GetComponent<AsteroidScript>().SpawnChildAsteroids();
                     break;
 
@@ -33,5 +39,10 @@ public class EnemyBehaviour : MonoBehaviour
                     break;
             }
         }
+    }
+
+    private void DealDamage(int damageDealt)
+    {
+        enemyHealth -= damageDealt;
     }
 }

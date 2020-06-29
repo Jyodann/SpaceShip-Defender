@@ -1112,6 +1112,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
+      propertyPath: asteroidObjects.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
       propertyPath: spawnLocations.Array.data[0]
       value: 
       objectReference: {fileID: 371464189}
@@ -1143,6 +1147,21 @@ PrefabInstance:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 1304687831}
+    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
+      propertyPath: asteroidObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 4513244087482888664, guid: 9491c968127e9d0448e4fa79e32f90ae,
+        type: 3}
+    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
+      propertyPath: asteroidObjects.Array.data[1]
+      value: 
+      objectReference: {fileID: 4513244087482888664, guid: e828f1565d9f4c44f916223da106c40b,
+        type: 3}
+    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
+      propertyPath: asteroidObjects.Array.data[2]
+      value: 
+      objectReference: {fileID: 4513244087482888664, guid: 7d48093d08c2bcd49a886be4e999f4dc,
+        type: 3}
     - target: {fileID: 1133721369239201910, guid: bbcdd9a2e7be351449d00a2dff305921,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1350,6 +1369,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6051054198046076319, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
+        type: 3}
+      propertyPath: CannonCount
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c4351b4e0d294042ad735c4d5a56a0d, type: 3}
