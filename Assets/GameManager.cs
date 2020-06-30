@@ -30,13 +30,13 @@ public class GameManager : MonoBehaviour
     public static List<UpgradeClass> upgrades = new List<UpgradeClass>()
     {
         //Upgrade Class Constructor: Name, Cost, CannonCount, FireRate, Damage per shot
-        new UpgradeClass("BaseShip", 0, 1, 0.4f, 1),
-        new UpgradeClass("+1 Cannon", 100, 2, 0.4f, 1),
-        new UpgradeClass("+Fire Rate", 150, 2, 0.3f, 1),
-        new UpgradeClass("+Increased Damage", 200, 2, 0.3f, 3),
-        new UpgradeClass("+1 Cannon", 250, 3, 0.3f, 3),
-        new UpgradeClass("+Fire Rate", 300, 3, 0.2f, 3),
-        new UpgradeClass("+Increased Damage", 350, 3, 0.2f, 5)
+        new UpgradeClass("BaseShip", 0, 1, 0.3f, 1),
+        new UpgradeClass("+1 Cannon", 100, 2, 0.3f, 1),
+        new UpgradeClass("+Fire Rate", 150, 2, 0.2f, 1),
+        new UpgradeClass("+Increased Damage", 200, 2, 0.2f, 3),
+        new UpgradeClass("+1 Cannon", 250, 3, 0.2f, 3),
+        new UpgradeClass("+Fire Rate", 300, 3, 0.1f, 3),
+        new UpgradeClass("+Increased Damage", 350, 3, 0.1f, 5)
     };
 
     private FireBullets playerFireBullets;
