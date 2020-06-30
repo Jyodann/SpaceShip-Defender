@@ -16,50 +16,59 @@ public class FireBullets : MonoBehaviour
     [Range(1, 3)] public int CannonCount = 1;
     public int DamageDealt = 1;
 
+    public bool canFire = true;
+
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButton("Fire1"))
         {
-            InvokeRepeating("Fire", 0f, fireRate);
-        }
-        if (Input.GetButtonUp("Fire1"))
-        {
-            CancelInvoke();
+            Fire();
         }
     }
 
     private void Fire()
     {
-        switch (CannonCount)
+        if (canFire)
         {
-            case 1:
-                GameObject mainbulletClone = Instantiate(bulletObject, mainCannon.position, transform.rotation);
-                mainbulletClone.GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector3.up * bulletSpeed);
-                break;
+            canFire = false;
+            switch (CannonCount)
+            {
+                case 1:
+                    GameObject mainbulletClone = Instantiate(bulletObject, mainCannon.position, transform.rotation);
+                    mainbulletClone.GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector3.up * bulletSpeed);
+                    break;
 
-            case 2:
-                GameObject rightBulletClone = Instantiate(bulletObject, rightCannon.position, transform.rotation);
-                rightBulletClone.GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector3.up * bulletSpeed);
+                case 2:
+                    GameObject rightBulletClone = Instantiate(bulletObject, rightCannon.position, transform.rotation);
+                    rightBulletClone.GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector3.up * bulletSpeed);
 
-                GameObject leftBulletClone = Instantiate(bulletObject, leftCannon.position, transform.rotation);
-                leftBulletClone.GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector3.up * bulletSpeed);
-                break;
+                    GameObject leftBulletClone = Instantiate(bulletObject, leftCannon.position, transform.rotation);
+                    leftBulletClone.GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector3.up * bulletSpeed);
+                    break;
 
-            case 3:
-                GameObject mainbulletCloneUpgraded = Instantiate(bulletObject, mainCannon.position, transform.rotation);
-                mainbulletCloneUpgraded.GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector3.up * bulletSpeed);
+                case 3:
+                    GameObject mainbulletCloneUpgraded = Instantiate(bulletObject, mainCannon.position, transform.rotation);
+                    mainbulletCloneUpgraded.GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector3.up * bulletSpeed);
 
-                GameObject rightBulletCloneUpgraded = Instantiate(bulletObject, rightCannon.position, transform.rotation);
-                rightBulletCloneUpgraded.GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector3.up * bulletSpeed);
+                    GameObject rightBulletCloneUpgraded = Instantiate(bulletObject, rightCannon.position, transform.rotation);
+                    rightBulletCloneUpgraded.GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector3.up * bulletSpeed);
 
-                GameObject leftBulletCloneUpgraded = Instantiate(bulletObject, leftCannon.position, transform.rotation);
-                leftBulletCloneUpgraded.GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector3.up * bulletSpeed);
-                break;
+                    GameObject leftBulletCloneUpgraded = Instantiate(bulletObject, leftCannon.position, transform.rotation);
+                    leftBulletCloneUpgraded.GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector3.up * bulletSpeed);
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
+
+            Invoke("EnableFire", fireRate);
         }
+    }
+
+    private void EnableFire()
+    {
+        canFire = true;
     }
 
     public void AttemptUpgrade()

@@ -1162,6 +1162,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4513244087482888664, guid: 7d48093d08c2bcd49a886be4e999f4dc,
         type: 3}
+    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
+      propertyPath: upgradeText
+      value: 
+      objectReference: {fileID: 1078834785}
     - target: {fileID: 1133721369239201910, guid: bbcdd9a2e7be351449d00a2dff305921,
         type: 3}
       propertyPath: m_LocalPosition.x
