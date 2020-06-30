@@ -62,8 +62,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        InvokeRepeating("CheckDifficulty", 0f, 10f);
     }
 
     private void SpawnAsteroids()
@@ -81,7 +79,8 @@ public class GameManager : MonoBehaviour
 
         print("Current Factor: (y)" + factor);
 
-        CancelInvoke();
+        CancelInvoke("SpawnAsteroids");
+        CancelInvoke("SpawnAliens");
 
         var asteroidSpawn = asteroidSpawnRate - Mathf.Clamp(factor, 0f, 0.75f);
         var alienSpawn = alienSpawnRate - Mathf.Clamp(factor, 0f, 5f);
@@ -140,6 +139,8 @@ public class GameManager : MonoBehaviour
         coinsText.text = Coins.ToString();
         livesText.text = Lives.ToString();
         scoreText.text = Score.ToString().PadLeft(8, '0');
+
+        InvokeRepeating("CheckDifficulty", 0f, 5f);
     }
 
     private void Update()
@@ -174,11 +175,6 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             AddScore(100);
-        }
-
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            CheckDifficulty();
         }
     }
 }
