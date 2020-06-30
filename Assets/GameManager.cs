@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance = null;
 
-    public static int Lives = 3;
+    public static int Lives = 10;
     public static int Score = 0;
     public static int Coins = 0;
     public static int NumberOfEnemies = 0;
@@ -23,7 +23,10 @@ public class GameManager : MonoBehaviour
     public Text upgradeText;
 
     public GameObject[] asteroidObjects;
-    public float spawnRate = 1.5f;
+    public GameObject[] alienObjects;
+
+    public float asteroidSpawnRate = 1.5f;
+    public float alienSpawnRate = 10f;
 
     public static UpgradeClass nextUpgrade;
 
@@ -33,10 +36,13 @@ public class GameManager : MonoBehaviour
         new UpgradeClass("BaseShip", 0, 1, 0.3f, 1),
         new UpgradeClass("+1 Cannon", 100, 2, 0.3f, 1),
         new UpgradeClass("+Fire Rate", 150, 2, 0.2f, 1),
-        new UpgradeClass("+Increased Damage", 200, 2, 0.2f, 3),
+        new UpgradeClass("+Damage", 200, 2, 0.2f, 3),
         new UpgradeClass("+1 Cannon", 250, 3, 0.2f, 3),
         new UpgradeClass("+Fire Rate", 300, 3, 0.1f, 3),
-        new UpgradeClass("+Increased Damage", 350, 3, 0.1f, 5)
+        new UpgradeClass("+Damage", 350, 3, 0.1f, 5),
+        new UpgradeClass("+1 Cannon", 400, 4, 0.1f, 5),
+        new UpgradeClass("+Fire Rate", 350, 4, 0.05f, 5),
+        new UpgradeClass("+1 Cannon", 350, 5, 0.1f, 5)
     };
 
     private FireBullets playerFireBullets;
@@ -47,7 +53,7 @@ public class GameManager : MonoBehaviour
         playerFireBullets = GameObject.FindObjectOfType<FireBullets>();
         upgradeText.text = string.Empty;
         nextUpgrade = upgrades[1];
-        InvokeRepeating("SpawnEnemies", 0f, spawnRate);
+
         if (Instance == null)
         {
             Instance = this;
@@ -56,25 +62,59 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        InvokeRepeating("CheckDifficulty", 0f, 10f);
     }
 
-    private void SpawnEnemies()
+    private void SpawnAsteroids()
+    {
+        Spawner(asteroidObjects, playerLocation.transform);
+    }
+
+    public void CheckDifficulty()
+    {
+        int difficultyFactor = Score / 500;
+
+        print("Current Difficulty Factor: (x) " + difficultyFactor);
+
+        float factor = (Mathf.Pow(1.05f, difficultyFactor) - 1);
+
+        print("Current Factor: (y)" + factor);
+
+        CancelInvoke();
+
+        var asteroidSpawn = asteroidSpawnRate - Mathf.Clamp(factor, 0f, 0.75f);
+        var alienSpawn = alienSpawnRate - Mathf.Clamp(factor, 0f, 5f);
+
+        print($"Current SpawnRates: {alienSpawn} (Alien) {asteroidSpawn} (Asteroid)");
+
+        InvokeRepeating("SpawnAsteroids", 0f, asteroidSpawn);
+
+        if (factor > 0)
+        {
+            InvokeRepeating("SpawnAliens", 0f, alienSpawn);
+        }
+    }
+
+    private void SpawnAliens()
+    {
+        Spawner(alienObjects, spawnLocations[Random.Range(0, spawnLocations.Length)]);
+    }
+
+    private void Spawner(GameObject[] objectsToSpawn, Transform relativeTo)
     {
         if (Random.Range(0, 2) == 1)
         {
             //only spawn in the negative regions:
-            Instantiate(asteroidObjects[Random.Range(0, asteroidObjects.Length)], playerLocation.position + new Vector3(Random.Range(-50, -5), Random.Range(-50, -5)), Quaternion.identity);
+            Instantiate(objectsToSpawn[Random.Range(0, objectsToSpawn.Length)],
+                relativeTo.position + new Vector3(Random.Range(-50, -5), Random.Range(-50, -5)), Quaternion.identity);
         }
         else
         {
             //only spawn in the positive regions:
-            Instantiate(asteroidObjects[Random.Range(0, asteroidObjects.Length)], playerLocation.position + new Vector3(Random.Range(5, 50), Random.Range(5, 50)), Quaternion.identity);
+            Instantiate(objectsToSpawn[Random.Range(0, objectsToSpawn.Length)],
+                relativeTo.position + new Vector3(Random.Range(5, 50), Random.Range(5, 50)), Quaternion.identity);
         }
-    }
-
-    public void UpdateDifficulty()
-    {
-        int difficultyFactor = Score / 1000 + 1;
     }
 
     public void TakeDamage()
@@ -87,7 +127,6 @@ public class GameManager : MonoBehaviour
     {
         Score += scoreToAdd;
         scoreText.text = Score.ToString().PadLeft(8, '0');
-        UpdateDifficulty();
     }
 
     public void AddCoins(int coinsToAdd)
@@ -105,7 +144,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        print(nextUpgrade.UpgradeName);
         if (nextUpgrade.UpgradeCost <= Coins && nextUpgradePossible)
         {
             upgradeText.text = $"{nextUpgrade.UpgradeName} (Press B To Upgrade)";
@@ -114,7 +152,7 @@ public class GameManager : MonoBehaviour
                 playerFireBullets.DamageDealt = nextUpgrade.DamageCount;
                 playerFireBullets.CannonCount = nextUpgrade.CannonCount;
                 playerFireBullets.fireRate = nextUpgrade.FireRate;
-                Coins -= nextUpgrade.UpgradeCost;
+                AddCoins(-nextUpgrade.UpgradeCost);
                 if (upgrades.IndexOf(nextUpgrade) + 1 != upgrades.Count)
                 {
                     nextUpgrade = upgrades[upgrades.IndexOf(nextUpgrade) + 1];
@@ -131,6 +169,16 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             AddCoins(50);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            AddScore(100);
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            CheckDifficulty();
         }
     }
 }

@@ -52,5 +52,12 @@ MonoBehaviour:
   livesText: {fileID: 0}
   coinsText: {fileID: 0}
   scoreText: {fileID: 0}
-  asteroidObject: {fileID: 4513244087482888664, guid: 9491c968127e9d0448e4fa79e32f90ae,
-    type: 3}
+  upgradeText: {fileID: 0}
+  asteroidObjects:
+  - {fileID: 4513244087482888664, guid: 9491c968127e9d0448e4fa79e32f90ae, type: 3}
+  - {fileID: 4513244087482888664, guid: e828f1565d9f4c44f916223da106c40b, type: 3}
+  - {fileID: 4513244087482888664, guid: 7d48093d08c2bcd49a886be4e999f4dc, type: 3}
+  alienObjects:
+  - {fileID: 8471160928321115163, guid: 687f416db9d6cf54dbf9167ca4609f30, type: 3}
+  asteroidSpawnRate: 1.5
+  alienSpawnRate: 8

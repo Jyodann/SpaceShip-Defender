@@ -9,6 +9,7 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private int scoreToAdd = 10;
     [SerializeField] private int coinsToAdd = 5;
     private FireBullets playerObject;
+    private bool isDead = false;
 
     private void Start()
     {
@@ -23,8 +24,9 @@ public class EnemyBehaviour : MonoBehaviour
             Destroy(collision.gameObject);
         }
 
-        if (enemyHealth <= 0)
+        if (enemyHealth <= 0 && !isDead)
         {
+            isDead = true;
             GameManager.Instance.AddCoins(coinsToAdd);
             GameManager.Instance.AddScore(scoreToAdd);
 

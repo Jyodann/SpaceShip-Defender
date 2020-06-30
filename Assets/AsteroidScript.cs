@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AsteroidScript : MonoBehaviour
 {
@@ -48,14 +49,16 @@ public class AsteroidScript : MonoBehaviour
         switch (asteroidSize)
         {
             case AsteroidSize.Large:
-                for (int i = 0; i < 2; i++)
+                var mediumAsteroidsToSpawn = Random.Range(1, 4);
+                for (int i = 0; i < mediumAsteroidsToSpawn; i++)
                 {
                     Instantiate(asteroidToSpawn, transform.position, Quaternion.identity);
                 }
                 break;
 
             case AsteroidSize.Medium:
-                for (int i = 0; i < 4; i++)
+                var smallAsteroidsToSpawn = Random.Range(1, 6);
+                for (int i = 0; i < smallAsteroidsToSpawn; i++)
                 {
                     Instantiate(asteroidToSpawn, transform.position, Quaternion.identity);
                 }

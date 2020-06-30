@@ -151,7 +151,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 371464188}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -80, y: 40, z: 0}
+  m_LocalPosition: {x: -126, y: 65.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1197124934}
@@ -314,7 +314,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 60
+  orthographic size: 80
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -368,7 +368,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 558390374}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 78.2, y: -49.5, z: 0}
+  m_LocalPosition: {x: 126.2, y: -71.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1197124934}
@@ -588,7 +588,7 @@ Transform:
   m_GameObject: {fileID: 924543967}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 300, y: 200, z: 1}
+  m_LocalScale: {x: 500, y: 300, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -759,7 +759,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1197124934}
   m_Layer: 0
-  m_Name: AsteroidSpawnLocations
+  m_Name: AlienSpawnLocations
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -885,7 +885,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1472333311}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -75.3, y: -29.8, z: 0}
+  m_LocalPosition: {x: -114.1, y: -66, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1197124934}
@@ -987,7 +987,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1887664495}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 89.5, y: 40, z: 0}
+  m_LocalPosition: {x: 131, y: 74.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1197124934}
@@ -1112,10 +1112,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
-      propertyPath: asteroidObjects.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
       propertyPath: spawnLocations.Array.data[0]
       value: 
       objectReference: {fileID: 371464189}
@@ -1147,21 +1143,6 @@ PrefabInstance:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 1304687831}
-    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
-      propertyPath: asteroidObjects.Array.data[0]
-      value: 
-      objectReference: {fileID: 4513244087482888664, guid: 9491c968127e9d0448e4fa79e32f90ae,
-        type: 3}
-    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
-      propertyPath: asteroidObjects.Array.data[1]
-      value: 
-      objectReference: {fileID: 4513244087482888664, guid: e828f1565d9f4c44f916223da106c40b,
-        type: 3}
-    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
-      propertyPath: asteroidObjects.Array.data[2]
-      value: 
-      objectReference: {fileID: 4513244087482888664, guid: 7d48093d08c2bcd49a886be4e999f4dc,
-        type: 3}
     - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
       propertyPath: upgradeText
       value: 
