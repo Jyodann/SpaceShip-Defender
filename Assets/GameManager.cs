@@ -135,6 +135,12 @@ public class GameManager : MonoBehaviour
         coinsText.text = Coins.ToString();
     }
 
+    public void AddLives(int livesToAdd)
+    {
+        Lives += livesToAdd;
+        livesText.text = Lives.ToString();
+    }
+
     private void Start()
     {
         coinsText.text = Coins.ToString();

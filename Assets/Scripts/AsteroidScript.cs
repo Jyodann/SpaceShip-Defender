@@ -13,6 +13,7 @@ public class AsteroidScript : MonoBehaviour
 
     public AsteroidSize asteroidSize;
     public float rotateSpeed = 10f;
+    public Vector2 originalVelocity;
 
     // Start is called before the first frame update
     private void Start()
@@ -36,6 +37,8 @@ public class AsteroidScript : MonoBehaviour
         }
         GetComponent<SpriteRenderer>().sprite = asteroidSprites[Random.Range(0, asteroidSprites.Length)];
         GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(-30, 30), Random.Range(-30, 30));
+
+        originalVelocity = GetComponent<Rigidbody2D>().velocity;
     }
 
     // Update is called once per frame
