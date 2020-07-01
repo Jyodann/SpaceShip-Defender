@@ -37,9 +37,15 @@ public class EnemyBehaviour : MonoBehaviour
                     break;
 
                 default:
+                    gameObject.GetComponent<ItemDrop>().DropItem();
                     Destroy(gameObject);
                     break;
             }
+        }
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.GetComponent<Player>().Invincibility();
         }
     }
 

@@ -10,31 +10,15 @@ public class Player : MonoBehaviour
     public float flickerRate = 0.3f;
     public float invincibilityLength = 2f;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void Invincibility()
     {
         if (!isInvincible)
         {
-            switch (collision.tag)
-            {
-                case "BoundingBox":
-                    break;
-
-                case "Bullet":
-                    break;
-
-                default:
-                    Invincibility();
-                    Invoke("DisableInvincibility", invincibilityLength);
-                    GameManager.Instance.TakeDamage();
-                    break;
-            }
+            isInvincible = true;
+            Invoke("DisableInvincibility", invincibilityLength);
+            GameManager.Instance.TakeDamage();
+            InvokeRepeating("Flicker", 0f, flickerRate);
         }
-    }
-
-    private void Invincibility()
-    {
-        isInvincible = true;
-        InvokeRepeating("Flicker", 0f, flickerRate);
     }
 
     private void DisableInvincibility()

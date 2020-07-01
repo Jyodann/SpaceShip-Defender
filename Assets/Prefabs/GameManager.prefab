@@ -60,4 +60,4 @@ MonoBehaviour:
   alienObjects:
   - {fileID: 8471160928321115163, guid: 687f416db9d6cf54dbf9167ca4609f30, type: 3}
   asteroidSpawnRate: 1.5
-  alienSpawnRate: 8
+  alienSpawnRate: 10

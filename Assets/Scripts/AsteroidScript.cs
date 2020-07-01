@@ -34,8 +34,8 @@ public class AsteroidScript : MonoBehaviour
             default:
                 break;
         }
-        GetComponent<SpriteRenderer>().sprite = asteroidSprites[UnityEngine.Random.Range(0, asteroidSprites.Length)];
-        GetComponent<Rigidbody2D>().velocity = new Vector2(UnityEngine.Random.Range(-30, 30), UnityEngine.Random.Range(-30, 30));
+        GetComponent<SpriteRenderer>().sprite = asteroidSprites[Random.Range(0, asteroidSprites.Length)];
+        GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(-30, 30), Random.Range(-30, 30));
     }
 
     // Update is called once per frame

@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public static int Score = 0;
     public static int Coins = 0;
     public static int NumberOfEnemies = 0;
+    public static System.Random RandomGen = new System.Random();
 
     public Transform[] spawnLocations;
     public Transform playerLocation;
@@ -175,6 +176,11 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             AddScore(100);
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            CheckDifficulty();
         }
     }
 }

@@ -160,7 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyHealth: 2
   scoreToAdd: 10
-  coinsToAdd: 10
+  coinsToAdd: 25
 --- !u!114 &4513244087482888644
 MonoBehaviour:
   m_ObjectHideFlags: 0
