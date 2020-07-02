@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Asteroid
   - BoundingBox
+  - Powerup
+  - Alien
   layers:
   - Default
   - TransparentFX

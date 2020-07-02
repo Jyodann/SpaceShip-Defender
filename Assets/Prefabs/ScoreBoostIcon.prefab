@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1191763901291158079}
   m_Layer: 0
   m_Name: ScoreBoostIcon
-  m_TagString: Untagged
+  m_TagString: Powerup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 397105d423790ff4abce3518ac7e920d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerUp: 2
 --- !u!50 &5685378648657545737
 Rigidbody2D:
   serializedVersion: 4

@@ -9,11 +9,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance = null;
 
-    public static int Lives = 10;
-    public static int Score = 0;
-    public static int Coins = 0;
-    public static int NumberOfEnemies = 0;
-    public static System.Random RandomGen = new System.Random();
+    private int Lives = 10;
+    private int Score = 0;
+    private int Coins = 0;
+    private int NumberOfEnemies = 0;
+    public bool doubleScore { get; set; }
 
     public Transform[] spawnLocations;
     public Transform playerLocation;
@@ -62,6 +62,56 @@ public class GameManager : MonoBehaviour
         else if (Instance != this)
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        doubleScore = false;
+        coinsText.text = Coins.ToString();
+        livesText.text = Lives.ToString();
+        scoreText.text = Score.ToString().PadLeft(8, '0');
+
+        InvokeRepeating("CheckDifficulty", 0f, 5f);
+    }
+
+    private void Update()
+    {
+        if (nextUpgrade.UpgradeCost <= Coins && nextUpgradePossible)
+        {
+            upgradeText.text = $"{nextUpgrade.UpgradeName} (Press B To Upgrade)";
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                playerFireBullets.DamageDealt = nextUpgrade.DamageCount;
+                playerFireBullets.CannonCount = nextUpgrade.CannonCount;
+                playerFireBullets.fireRate = nextUpgrade.FireRate;
+                AddCoins(-nextUpgrade.UpgradeCost);
+                if (upgrades.IndexOf(nextUpgrade) + 1 != upgrades.Count)
+                {
+                    nextUpgrade = upgrades[upgrades.IndexOf(nextUpgrade) + 1];
+                }
+                else
+                {
+                    nextUpgradePossible = false;
+                }
+
+                upgradeText.text = string.Empty;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            AddCoins(50);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            AddScore(100);
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            CheckDifficulty();
         }
     }
 
@@ -141,52 +191,20 @@ public class GameManager : MonoBehaviour
         livesText.text = Lives.ToString();
     }
 
-    private void Start()
+    public void ChangeTimeFreeze(bool isEnabled)
     {
-        coinsText.text = Coins.ToString();
-        livesText.text = Lives.ToString();
-        scoreText.text = Score.ToString().PadLeft(8, '0');
-
-        InvokeRepeating("CheckDifficulty", 0f, 5f);
-    }
-
-    private void Update()
-    {
-        if (nextUpgrade.UpgradeCost <= Coins && nextUpgradePossible)
+        if (isEnabled)
         {
-            upgradeText.text = $"{nextUpgrade.UpgradeName} (Press B To Upgrade)";
-            if (Input.GetKeyDown(KeyCode.B))
-            {
-                playerFireBullets.DamageDealt = nextUpgrade.DamageCount;
-                playerFireBullets.CannonCount = nextUpgrade.CannonCount;
-                playerFireBullets.fireRate = nextUpgrade.FireRate;
-                AddCoins(-nextUpgrade.UpgradeCost);
-                if (upgrades.IndexOf(nextUpgrade) + 1 != upgrades.Count)
-                {
-                    nextUpgrade = upgrades[upgrades.IndexOf(nextUpgrade) + 1];
-                }
-                else
-                {
-                    nextUpgradePossible = false;
-                }
-
-                upgradeText.text = string.Empty;
-            }
+            CancelInvoke();
         }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            AddCoins(50);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            AddScore(100);
-        }
-
-        if (Input.GetKeyDown(KeyCode.O))
+        else
         {
             CheckDifficulty();
         }
+    }
+
+    public void ChangeDoubleScore(bool isEnabled)
+    {
+        doubleScore = isEnabled;
     }
 }

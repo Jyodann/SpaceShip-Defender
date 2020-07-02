@@ -7,9 +7,10 @@ public class BoundingBoxScript : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         //This script is here to do Optimisation: It destorys anything out of the player's current
-        //vision 
+        //vision
         if (!collision.gameObject.CompareTag("Player"))
         {
+            print("Destroyed: " + collision.gameObject.name);
             Destroy(collision.gameObject);
         }
     }

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4513244087482888645}
   - component: {fileID: 4513244087482888667}
   - component: {fileID: 4513244087482888666}
-  - component: {fileID: 1826416161017241025}
   - component: {fileID: 4513244087482888665}
   - component: {fileID: 4513244087482888644}
   m_Layer: 0
@@ -134,18 +133,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4, y: 4}
   m_EdgeRadius: 0
---- !u!114 &1826416161017241025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4513244087482888664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42abd307a406632478d481c0df8c5ea9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4513244087482888665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,3 +229,4 @@ MonoBehaviour:
     type: 3}
   asteroidSize: 1
   rotateSpeed: 10
+  originalVelocity: {x: 0, y: 0}

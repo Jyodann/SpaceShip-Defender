@@ -28,7 +28,15 @@ public class EnemyBehaviour : MonoBehaviour
         {
             isDead = true;
             GameManager.Instance.AddCoins(coinsToAdd);
-            GameManager.Instance.AddScore(scoreToAdd);
+
+            if (GameManager.Instance.doubleScore)
+            {
+                GameManager.Instance.AddScore(scoreToAdd * 2);
+            }
+            else
+            {
+                GameManager.Instance.AddScore(scoreToAdd);
+            }
 
             switch (gameObject.tag)
             {

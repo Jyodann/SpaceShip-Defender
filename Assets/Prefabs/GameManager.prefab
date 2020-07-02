@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dffe934f5fd4c0345a151bd7a8449eb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTimeFrozen: 0
   spawnLocations:
   - {fileID: 0}
   - {fileID: 0}

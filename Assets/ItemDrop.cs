@@ -9,7 +9,7 @@ public class ItemDrop : MonoBehaviour
     public void DropItem()
     {
         //10% Chance to Drop an Item:
-        if (Random.Range(0, 11) == 1)
+        if (Random.Range(0, 6) == 1)
         {
             Instantiate(powerupList[Random.Range(0, powerupList.Length)], transform.position, Quaternion.identity);
         }

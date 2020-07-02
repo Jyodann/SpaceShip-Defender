@@ -93,4 +93,9 @@ public class ShipController : MonoBehaviour
 
         return false;
     }
+
+    public void ChangeSpeed(float speedToChange)
+    {
+        speed = speedToChange;
+    }
 }

@@ -7,12 +7,11 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class PowerupScript : MonoBehaviour
 {
-    public enum PowerUps { HeartPowerup, IncreaseDamage, ScoreBoost, TimeFreeze, SpeedBoost };
+    public enum PowerUps { HeartPowerup, IncreaseDamage, ScoreBoost, TimeFreeze, SpeedBoost, PierceShot };
 
     public PowerUps powerUp;
     private GameObject playerObject;
     private SpriteRenderer spriteRenderer;
-    private BoxCollider2D collider;
     private int initialDamageDealt;
 
     // Start is called before the first frame update
@@ -21,7 +20,6 @@ public class PowerupScript : MonoBehaviour
         //finds first instance of player GameObject:
         playerObject = GameObject.FindGameObjectWithTag("Player");
         spriteRenderer = GetComponent<SpriteRenderer>();
-        collider = GetComponent<BoxCollider2D>();
 
         //Decides a random direction the powerup floats to:
         if (UnityEngine.Random.Range(0, 2) == 1)
@@ -35,7 +33,7 @@ public class PowerupScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
@@ -62,21 +60,36 @@ public class PowerupScript : MonoBehaviour
                 break;
 
             case PowerUps.ScoreBoost:
+                GameManager.Instance.doubleScore = true;
+                Invoke("ResetDoubleScore", 10f);
+                DisableThenDestroy(10f);
                 break;
 
             case PowerUps.TimeFreeze:
-                GameManager.Instance.asteroidSpawnRate = 100000000;
-                var asteroids = GameObject.FindGameObjectsWithTag("Asteroid");
 
+                GameManager.Instance.ChangeTimeFreeze(true);
+                var asteroids = GameObject.FindGameObjectsWithTag("Asteroid");
+                var aliens = GameObject.FindGameObjectsWithTag("Alien");
                 foreach (var asteroid in asteroids)
                 {
                     asteroid.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                }
+
+                foreach (var alien in aliens)
+                {
+                    alien.GetComponent<Alien>().SetFreeze(true);
                 }
                 Invoke("ResetTimeFreeze", 5f);
                 DisableThenDestroy(5f);
                 break;
 
             case PowerUps.SpeedBoost:
+                playerObject.GetComponent<ShipController>().ChangeSpeed(125f);
+                Invoke("ResetSpeedBoost", 10f);
+                DisableThenDestroy(10f);
+                break;
+
+            case PowerUps.PierceShot:
                 break;
 
             default:
@@ -84,25 +97,41 @@ public class PowerupScript : MonoBehaviour
         }
     }
 
+    private void ResetSpeedBoost()
+    {
+        playerObject.GetComponent<ShipController>().ChangeSpeed(75f);
+    }
+
     private void ResetPlayerDamage()
     {
         playerObject.GetComponent<FireBullets>().DamageDealt = initialDamageDealt;
     }
 
+    private void ResetDoubleScore()
+    {
+        GameManager.Instance.doubleScore = false;
+    }
+
     private void ResetTimeFreeze()
     {
+        print("ResetTime");
+        GameManager.Instance.ChangeTimeFreeze(false);
         var asteroids = GameObject.FindGameObjectsWithTag("Asteroid");
-
+        var aliens = GameObject.FindGameObjectsWithTag("Alien");
         foreach (var asteroid in asteroids)
         {
             asteroid.GetComponent<Rigidbody2D>().velocity = asteroid.GetComponent<AsteroidScript>().originalVelocity;
+        }
+
+        foreach (var alien in aliens)
+        {
+            alien.GetComponent<Alien>().SetFreeze(false);
         }
     }
 
     private void DisableThenDestroy(float destoryDelay)
     {
         spriteRenderer.enabled = false;
-        collider.enabled = false;
         Destroy(gameObject, destoryDelay);
     }
 }

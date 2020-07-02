@@ -85,8 +85,4 @@ public class FireBullets : MonoBehaviour
     {
         canFire = true;
     }
-
-    public void AttemptUpgrade()
-    {
-    }
 }
