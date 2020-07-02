@@ -43,8 +43,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dffe934f5fd4c0345a151bd7a8449eb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTimeFrozen: 0
-  spawnLocations:
+  alienSpawnLocations:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  ufoSpawnLocations:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -60,5 +64,8 @@ MonoBehaviour:
   - {fileID: 4513244087482888664, guid: 7d48093d08c2bcd49a886be4e999f4dc, type: 3}
   alienObjects:
   - {fileID: 8471160928321115163, guid: 687f416db9d6cf54dbf9167ca4609f30, type: 3}
+  ufoObjects:
+  - {fileID: 9208406912204127066, guid: 006c4aa5a6b43a84283d8f39648cfff4, type: 3}
   asteroidSpawnRate: 1.5
   alienSpawnRate: 10
+  UFOSpawnRate: 60

@@ -12,10 +12,10 @@ public class GameManager : MonoBehaviour
     private int Lives = 10;
     private int Score = 0;
     private int Coins = 0;
-    private int NumberOfEnemies = 0;
     public bool doubleScore { get; set; }
 
-    public Transform[] spawnLocations;
+    public Transform[] alienSpawnLocations;
+    public Transform[] ufoSpawnLocations;
     public Transform playerLocation;
 
     public Text livesText;
@@ -25,9 +25,11 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] asteroidObjects;
     public GameObject[] alienObjects;
+    public GameObject[] ufoObjects;
 
     public float asteroidSpawnRate = 1.5f;
     public float alienSpawnRate = 10f;
+    public float UFOSpawnRate = 60f;
 
     public static UpgradeClass nextUpgrade;
 
@@ -132,6 +134,7 @@ public class GameManager : MonoBehaviour
 
         CancelInvoke("SpawnAsteroids");
         CancelInvoke("SpawnAliens");
+        CancelInvoke("SpawnUFO");
 
         var asteroidSpawn = asteroidSpawnRate - Mathf.Clamp(factor, 0f, 0.75f);
         var alienSpawn = alienSpawnRate - Mathf.Clamp(factor, 0f, 5f);
@@ -140,15 +143,25 @@ public class GameManager : MonoBehaviour
 
         InvokeRepeating("SpawnAsteroids", 0f, asteroidSpawn);
 
-        if (factor > 0)
+        if (difficultyFactor > 0)
         {
             InvokeRepeating("SpawnAliens", 0f, alienSpawn);
         }
+        if (difficultyFactor >= 6)
+        {
+            InvokeRepeating("SpawnUFO", 0f, UFOSpawnRate);
+        }
+    }
+
+    private void SpawnUFO()
+    {
+        Instantiate(ufoObjects[Random.Range(0, ufoObjects.Length)],
+            ufoSpawnLocations[Random.Range(0, ufoSpawnLocations.Length)].transform.position, Quaternion.identity);
     }
 
     private void SpawnAliens()
     {
-        Spawner(alienObjects, spawnLocations[Random.Range(0, spawnLocations.Length)]);
+        Spawner(alienObjects, alienSpawnLocations[Random.Range(0, alienSpawnLocations.Length)]);
     }
 
     private void Spawner(GameObject[] objectsToSpawn, Transform relativeTo)
