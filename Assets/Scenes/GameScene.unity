@@ -240,6 +240,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1112314079 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3837553855338384721, guid: f2965283e626d884dbf10986ebd8c9ac,
+    type: 3}
+  m_PrefabInstance: {fileID: 2568845988927876296}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1170822054 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2101927978278607312, guid: 2a1e89b897538f547a935560c8dbf550,
@@ -275,6 +281,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7403792313231653786, guid: 5768ec8dc0d22494992bcc27c12c2dc2,
     type: 3}
   m_PrefabInstance: {fileID: 7403792312397118874}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1601273536 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 29714433224119419, guid: f2965283e626d884dbf10986ebd8c9ac,
+    type: 3}
+  m_PrefabInstance: {fileID: 2568845988927876296}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1819086625 stripped
 Transform:
@@ -395,6 +407,18 @@ PrefabInstance:
       propertyPath: gameOverOptions
       value: 
       objectReference: {fileID: 1836498647}
+    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
+      propertyPath: gameOverMenu
+      value: 
+      objectReference: {fileID: 1836498647}
+    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
+      propertyPath: inGameMenu
+      value: 
+      objectReference: {fileID: 1601273536}
+    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 1112314079}
     - target: {fileID: 1133721369239201910, guid: bbcdd9a2e7be351449d00a2dff305921,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -538,15 +562,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 543886509061349055, guid: f2965283e626d884dbf10986ebd8c9ac,
-        type: 3}
-      propertyPath: m_Text
-      value: 'Game Over
-
-        Score: 00000000
-
-        Hi-Score: 00000000'
-      objectReference: {fileID: 0}
     - target: {fileID: 2568845989248934166, guid: f2965283e626d884dbf10986ebd8c9ac,
         type: 3}
       propertyPath: shipLocation
@@ -612,15 +627,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3064809317790873910, guid: f2965283e626d884dbf10986ebd8c9ac,
+    - target: {fileID: 3837553855338384721, guid: f2965283e626d884dbf10986ebd8c9ac,
+        type: 3}
+      propertyPath: m_Name
+      value: Paused
+      objectReference: {fileID: 0}
+    - target: {fileID: 3837553855338384721, guid: f2965283e626d884dbf10986ebd8c9ac,
         type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3548299361863457155, guid: f2965283e626d884dbf10986ebd8c9ac,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 270
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2965283e626d884dbf10986ebd8c9ac, type: 3}
