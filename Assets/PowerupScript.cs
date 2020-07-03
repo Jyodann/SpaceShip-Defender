@@ -60,7 +60,7 @@ public class PowerupScript : MonoBehaviour
                 break;
 
             case PowerUps.ScoreBoost:
-                GameManager.Instance.doubleScore = true;
+                GameManager.Instance.ChangeDoubleScore(true);
                 Invoke("ResetDoubleScore", 10f);
                 DisableThenDestroy(10f);
                 break;
@@ -109,7 +109,7 @@ public class PowerupScript : MonoBehaviour
 
     private void ResetDoubleScore()
     {
-        GameManager.Instance.doubleScore = false;
+        GameManager.Instance.ChangeDoubleScore(false);
     }
 
     private void ResetTimeFreeze()

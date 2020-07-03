@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     public Text coinsText;
     public Text scoreText;
     public Text upgradeText;
+    public Text scoreBoostText;
+    public Text gameOverText;
 
     public GameObject[] asteroidObjects;
     public GameObject[] alienObjects;
@@ -115,6 +117,11 @@ public class GameManager : MonoBehaviour
         {
             CheckDifficulty();
         }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            TakeDamage();
+        }
     }
 
     private void SpawnAsteroids()
@@ -184,6 +191,17 @@ public class GameManager : MonoBehaviour
     {
         Lives--;
         livesText.text = Lives.ToString();
+
+        if (Lives <= 0)
+        {
+            TriggerLoseCondition();
+        }
+    }
+
+    private void TriggerLoseCondition()
+    {
+        gameOverText.text = $"Game Over\nScore: {Score.ToString().PadLeft(8, '0')}";
+        Time.timeScale = 0;
     }
 
     public void AddScore(int scoreToAdd)
@@ -219,5 +237,13 @@ public class GameManager : MonoBehaviour
     public void ChangeDoubleScore(bool isEnabled)
     {
         doubleScore = isEnabled;
+        if (doubleScore)
+        {
+            scoreBoostText.text = "x2";
+        }
+        else
+        {
+            scoreBoostText.text = "";
+        }
     }
 }
