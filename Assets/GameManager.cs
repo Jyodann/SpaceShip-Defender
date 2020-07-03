@@ -4,10 +4,12 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance = null;
+    public static int HighScore = 0;
 
     private int Lives = 10;
     private int Score = 0;
@@ -25,6 +27,10 @@ public class GameManager : MonoBehaviour
     public Text scoreBoostText;
     public Text gameOverText;
 
+    public GameObject inGameMenu;
+    public GameObject gameOverMenu;
+    public GameObject pauseMenu;
+
     public GameObject[] asteroidObjects;
     public GameObject[] alienObjects;
     public GameObject[] ufoObjects;
@@ -32,6 +38,10 @@ public class GameManager : MonoBehaviour
     public float asteroidSpawnRate = 1.5f;
     public float alienSpawnRate = 10f;
     public float UFOSpawnRate = 60f;
+
+    public enum GameState { InGame, Paused, GameOver }
+
+    public GameState currentGameState;
 
     public static UpgradeClass nextUpgrade;
 
@@ -71,56 +81,99 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        currentGameState = GameState.InGame;
         doubleScore = false;
         coinsText.text = Coins.ToString();
         livesText.text = Lives.ToString();
         scoreText.text = Score.ToString().PadLeft(8, '0');
-
+        print("HighScore: " + HighScore);
         InvokeRepeating("CheckDifficulty", 0f, 5f);
     }
 
     private void Update()
     {
-        if (nextUpgrade.UpgradeCost <= Coins && nextUpgradePossible)
+        switch (currentGameState)
         {
-            upgradeText.text = $"{nextUpgrade.UpgradeName} (Press B To Upgrade)";
-            if (Input.GetKeyDown(KeyCode.B))
-            {
-                playerFireBullets.DamageDealt = nextUpgrade.DamageCount;
-                playerFireBullets.CannonCount = nextUpgrade.CannonCount;
-                playerFireBullets.fireRate = nextUpgrade.FireRate;
-                AddCoins(-nextUpgrade.UpgradeCost);
-                if (upgrades.IndexOf(nextUpgrade) + 1 != upgrades.Count)
+            case GameState.InGame:
+                if (Input.GetKeyDown(KeyCode.Escape))
                 {
-                    nextUpgrade = upgrades[upgrades.IndexOf(nextUpgrade) + 1];
-                }
-                else
-                {
-                    nextUpgradePossible = false;
+                    currentGameState = GameState.Paused;
+                    Time.timeScale = 0;
+                    pauseMenu.SetActive(true);
                 }
 
-                upgradeText.text = string.Empty;
-            }
-        }
+                if (nextUpgrade.UpgradeCost <= Coins && nextUpgradePossible)
+                {
+                    upgradeText.text = $"{nextUpgrade.UpgradeName} (Press B To Upgrade)";
+                    if (Input.GetKeyDown(KeyCode.B))
+                    {
+                        playerFireBullets.DamageDealt = nextUpgrade.DamageCount;
+                        playerFireBullets.CannonCount = nextUpgrade.CannonCount;
+                        playerFireBullets.fireRate = nextUpgrade.FireRate;
+                        AddCoins(-nextUpgrade.UpgradeCost);
+                        if (upgrades.IndexOf(nextUpgrade) + 1 != upgrades.Count)
+                        {
+                            nextUpgrade = upgrades[upgrades.IndexOf(nextUpgrade) + 1];
+                        }
+                        else
+                        {
+                            nextUpgradePossible = false;
+                        }
 
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            AddCoins(50);
-        }
+                        upgradeText.text = string.Empty;
+                    }
+                }
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            AddScore(100);
-        }
+                if (Input.GetKeyDown(KeyCode.P))
+                {
+                    AddCoins(50);
+                }
 
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            CheckDifficulty();
-        }
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    AddScore(100);
+                }
 
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            TakeDamage();
+                if (Input.GetKeyDown(KeyCode.O))
+                {
+                    CheckDifficulty();
+                }
+
+                if (Input.GetKeyDown(KeyCode.I))
+                {
+                    TakeDamage();
+                }
+                break;
+
+            case GameState.Paused:
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    currentGameState = GameState.InGame;
+                    pauseMenu.SetActive(false);
+                    Time.timeScale = 1;
+                }
+                break;
+
+            case GameState.GameOver:
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    currentGameState = GameState.InGame;
+                    gameOverMenu.SetActive(false);
+                    Time.timeScale = 1;
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
+
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    currentGameState = GameState.InGame;
+                    gameOverMenu.SetActive(false);
+                    Time.timeScale = 1;
+                    SceneManager.LoadScene(0);
+                }
+                break;
+
+            default:
+                break;
         }
     }
 
@@ -200,7 +253,13 @@ public class GameManager : MonoBehaviour
 
     private void TriggerLoseCondition()
     {
-        gameOverText.text = $"Game Over\nScore: {Score.ToString().PadLeft(8, '0')}";
+        if (Score > HighScore)
+        {
+            HighScore = Score;
+        }
+        currentGameState = GameState.GameOver;
+        gameOverMenu.SetActive(true);
+        gameOverText.text = $"Game Over\nScore: {Score.ToString().PadLeft(8, '0')}\nHi-Score: {HighScore.ToString().PadLeft(8, '0')}";
         Time.timeScale = 0;
     }
 
