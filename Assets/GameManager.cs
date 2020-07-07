@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance = null;
     public static int HighScore = 0;
 
-    private int Lives = 10;
+    private int Lives = 1000;
     private int Score = 0;
     private int Coins = 0;
     public bool doubleScore { get; set; }
@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
     public float alienSpawnRate = 10f;
     public float UFOSpawnRate = 60f;
 
+    private List<Coroutine> coroutineList = new List<Coroutine>();
+
     public enum GameState { InGame, Paused, GameOver }
 
     public GameState currentGameState;
@@ -62,6 +64,7 @@ public class GameManager : MonoBehaviour
 
     private FireBullets playerFireBullets;
     private bool nextUpgradePossible = true;
+    private float currentFactor = -1f;
 
     private void Awake()
     {
@@ -172,13 +175,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnAsteroids(float rateOfSpawn)
-    {
-        print("Spawned Asteroid");
-        Spawner(asteroidObjects, playerLocation.transform);
-        yield return new WaitForSeconds(rateOfSpawn);
-    }
-
     private IEnumerator CheckDifficulty()
     {
         while (true)
@@ -187,58 +183,58 @@ public class GameManager : MonoBehaviour
 
             print("Current Difficulty Factor: (x) " + difficultyFactor);
 
-            float factor = (Mathf.Pow(1.05f, difficultyFactor) - 1);
+            var factor = (Mathf.Pow(1.05f, difficultyFactor) - 1);
 
-            print("Current Factor: (y)" + factor);
-
-            CancelInvoke("SpawnAsteroids");
-            CancelInvoke("SpawnAliens");
-            CancelInvoke("SpawnUFO");
-
-            var asteroidSpawn = asteroidSpawnRate - Mathf.Clamp(factor, 0f, 0.75f);
-            var alienSpawn = alienSpawnRate - Mathf.Clamp(factor, 0f, 5f);
-
-            print($"Current SpawnRates: {alienSpawn} (Alien) {asteroidSpawn} (Asteroid)");
-
-            StartCoroutine(SpawnAsteroids(asteroidSpawnRate));
-
-            if (difficultyFactor > 0)
+            if (factor != currentFactor)
             {
-                InvokeRepeating("SpawnAliens", 0f, alienSpawn);
-            }
-            if (difficultyFactor >= 6)
-            {
-                InvokeRepeating("SpawnUFO", 0f, UFOSpawnRate);
+                if (coroutineList.Count >= 0)
+                {
+                    foreach (var coroutine in coroutineList)
+                    {
+                        StopCoroutine(coroutine);
+                    }
+                }
+
+                currentFactor = factor;
+                var asteroidSpawn = asteroidSpawnRate - Mathf.Clamp(factor, 0f, 0.75f);
+                var alienSpawn = alienSpawnRate - Mathf.Clamp(factor, 0f, 5f);
+                var ufoSpawn = UFOSpawnRate - Mathf.Clamp(factor, 0f, 30f);
+                print($"Current SpawnRates: {alienSpawn} (Alien) {asteroidSpawn} (Asteroid) {ufoSpawn} (UFO)");
+
+                coroutineList.Add(StartCoroutine(Spawner(asteroidObjects, playerLocation.transform, asteroidSpawn)));
+
+                if (difficultyFactor > 0)
+                {
+                    coroutineList.Add(StartCoroutine(Spawner(alienObjects, playerLocation.transform, alienSpawn)));
+                }
+                if (difficultyFactor >= 6)
+                {
+                    coroutineList.Add(StartCoroutine(Spawner(ufoObjects, ufoSpawnLocations[Random.Range(0, ufoSpawnLocations.Length)], UFOSpawnRate)));
+                }
             }
 
             yield return new WaitForSeconds(5f);
         }
     }
 
-    private void SpawnUFO()
+    private IEnumerator Spawner(GameObject[] objectsToSpawn, Transform relativeTo, float spawnRate)
     {
-        Instantiate(ufoObjects[Random.Range(0, ufoObjects.Length)],
-            ufoSpawnLocations[Random.Range(0, ufoSpawnLocations.Length)].transform.position, Quaternion.identity);
-    }
-
-    private void SpawnAliens()
-    {
-        Spawner(alienObjects, alienSpawnLocations[Random.Range(0, alienSpawnLocations.Length)]);
-    }
-
-    private void Spawner(GameObject[] objectsToSpawn, Transform relativeTo)
-    {
-        if (Random.Range(0, 2) == 1)
+        while (true)
         {
-            //only spawn in the negative regions:
-            Instantiate(objectsToSpawn[Random.Range(0, objectsToSpawn.Length)],
-                relativeTo.position + new Vector3(Random.Range(-50, -5), Random.Range(-50, -5)), Quaternion.identity);
-        }
-        else
-        {
-            //only spawn in the positive regions:
-            Instantiate(objectsToSpawn[Random.Range(0, objectsToSpawn.Length)],
-                relativeTo.position + new Vector3(Random.Range(5, 50), Random.Range(5, 50)), Quaternion.identity);
+            if (Random.Range(0, 2) == 1)
+            {
+                //only spawn in the negative regions:
+                Instantiate(objectsToSpawn[Random.Range(0, objectsToSpawn.Length)],
+                    relativeTo.position + new Vector3(Random.Range(-50, -5), Random.Range(-50, -5)), Quaternion.identity);
+            }
+            else
+            {
+                //only spawn in the positive regions:
+                Instantiate(objectsToSpawn[Random.Range(0, objectsToSpawn.Length)],
+                    relativeTo.position + new Vector3(Random.Range(5, 50), Random.Range(5, 50)), Quaternion.identity);
+            }
+
+            yield return new WaitForSecondsRealtime(spawnRate);
         }
     }
 
