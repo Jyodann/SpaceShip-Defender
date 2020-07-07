@@ -86,8 +86,8 @@ public class GameManager : MonoBehaviour
         coinsText.text = Coins.ToString();
         livesText.text = Lives.ToString();
         scoreText.text = Score.ToString().PadLeft(8, '0');
-        print("HighScore: " + HighScore);
-        InvokeRepeating("CheckDifficulty", 0f, 5f);
+
+        StartCoroutine(CheckDifficulty());
     }
 
     private void Update()
@@ -134,11 +134,6 @@ public class GameManager : MonoBehaviour
                     AddScore(100);
                 }
 
-                if (Input.GetKeyDown(KeyCode.O))
-                {
-                    CheckDifficulty();
-                }
-
                 if (Input.GetKeyDown(KeyCode.I))
                 {
                     TakeDamage();
@@ -177,39 +172,46 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void SpawnAsteroids()
+    private IEnumerator SpawnAsteroids(float rateOfSpawn)
     {
+        print("Spawned Asteroid");
         Spawner(asteroidObjects, playerLocation.transform);
+        yield return new WaitForSeconds(rateOfSpawn);
     }
 
-    public void CheckDifficulty()
+    private IEnumerator CheckDifficulty()
     {
-        int difficultyFactor = Score / 500;
-
-        print("Current Difficulty Factor: (x) " + difficultyFactor);
-
-        float factor = (Mathf.Pow(1.05f, difficultyFactor) - 1);
-
-        print("Current Factor: (y)" + factor);
-
-        CancelInvoke("SpawnAsteroids");
-        CancelInvoke("SpawnAliens");
-        CancelInvoke("SpawnUFO");
-
-        var asteroidSpawn = asteroidSpawnRate - Mathf.Clamp(factor, 0f, 0.75f);
-        var alienSpawn = alienSpawnRate - Mathf.Clamp(factor, 0f, 5f);
-
-        print($"Current SpawnRates: {alienSpawn} (Alien) {asteroidSpawn} (Asteroid)");
-
-        InvokeRepeating("SpawnAsteroids", 0f, asteroidSpawn);
-
-        if (difficultyFactor > 0)
+        while (true)
         {
-            InvokeRepeating("SpawnAliens", 0f, alienSpawn);
-        }
-        if (difficultyFactor >= 6)
-        {
-            InvokeRepeating("SpawnUFO", 0f, UFOSpawnRate);
+            int difficultyFactor = Score / 500;
+
+            print("Current Difficulty Factor: (x) " + difficultyFactor);
+
+            float factor = (Mathf.Pow(1.05f, difficultyFactor) - 1);
+
+            print("Current Factor: (y)" + factor);
+
+            CancelInvoke("SpawnAsteroids");
+            CancelInvoke("SpawnAliens");
+            CancelInvoke("SpawnUFO");
+
+            var asteroidSpawn = asteroidSpawnRate - Mathf.Clamp(factor, 0f, 0.75f);
+            var alienSpawn = alienSpawnRate - Mathf.Clamp(factor, 0f, 5f);
+
+            print($"Current SpawnRates: {alienSpawn} (Alien) {asteroidSpawn} (Asteroid)");
+
+            StartCoroutine(SpawnAsteroids(asteroidSpawnRate));
+
+            if (difficultyFactor > 0)
+            {
+                InvokeRepeating("SpawnAliens", 0f, alienSpawn);
+            }
+            if (difficultyFactor >= 6)
+            {
+                InvokeRepeating("SpawnUFO", 0f, UFOSpawnRate);
+            }
+
+            yield return new WaitForSeconds(5f);
         }
     }
 

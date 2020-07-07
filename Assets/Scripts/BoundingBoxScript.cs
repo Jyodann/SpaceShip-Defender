@@ -10,7 +10,6 @@ public class BoundingBoxScript : MonoBehaviour
         //vision
         if (!collision.gameObject.CompareTag("Player"))
         {
-            print("Destroyed: " + collision.gameObject.name);
             Destroy(collision.gameObject);
         }
     }
