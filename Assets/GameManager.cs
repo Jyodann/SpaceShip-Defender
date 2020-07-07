@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance = null;
     public static int HighScore = 0;
-
     public int Lives { get; set; }
     public int Score { get; set; }
     public int Coins { get; set; }
@@ -30,7 +29,6 @@ public class GameManager : MonoBehaviour
 
     public GameState currentGameState;
     private SpawningManagement spawnManager;
-    private UpgradeManagement upgradeManager;
 
     private void Awake()
     {
@@ -50,10 +48,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        upgradeManager = FindObjectOfType<UpgradeManagement>();
         spawnManager = FindObjectOfType<SpawningManagement>();
         currentGameState = GameState.InGame;
-        doubleScore = false;
         coinsText.text = Coins.ToString();
         livesText.text = Lives.ToString();
         scoreText.text = Score.ToString().PadLeft(8, '0');
@@ -66,6 +62,8 @@ public class GameManager : MonoBehaviour
             case GameState.InGame:
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
+                    spawnManager.ForceSpawningStop(true);
+
                     currentGameState = GameState.Paused;
                     Time.timeScale = 0;
                     pauseMenu.SetActive(true);
@@ -90,6 +88,7 @@ public class GameManager : MonoBehaviour
             case GameState.Paused:
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
+                    spawnManager.ForceSpawningStop(false);
                     currentGameState = GameState.InGame;
                     pauseMenu.SetActive(false);
                     Time.timeScale = 1;

@@ -15,6 +15,7 @@ public class SpawningManagement : MonoBehaviour
 
     private float currentFactor = -1f;
     private List<Coroutine> coroutineList = new List<Coroutine>();
+    private bool isPaused = false;
 
     private void Start()
     {
@@ -22,7 +23,7 @@ public class SpawningManagement : MonoBehaviour
         StartCoroutine(CheckDifficulty(false));
     }
 
-    private IEnumerator CheckDifficulty(bool forceRefresh)
+    private IEnumerator CheckDifficulty(bool forceUpdate)
     {
         while (true)
         {
@@ -32,7 +33,7 @@ public class SpawningManagement : MonoBehaviour
 
             var factor = (Mathf.Pow(1.05f, difficultyFactor) - 1);
 
-            if (factor != currentFactor || forceRefresh)
+            if (factor != currentFactor || forceUpdate)
             {
                 if (coroutineList.Count >= 0)
                 {
