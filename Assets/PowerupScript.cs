@@ -7,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class PowerupScript : MonoBehaviour
 {
-    public enum PowerUps { HeartPowerup, IncreaseDamage, ScoreBoost, TimeFreeze, SpeedBoost, PierceShot };
+    public enum PowerUps { HeartPowerup, IncreaseDamage, ScoreBoost, TimeFreeze, SpeedBoost };
 
     public PowerUps powerUp;
     private GameObject playerObject;
@@ -37,7 +37,6 @@ public class PowerupScript : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            print("Player collided");
             TriggerPowerUpEffect();
         }
     }
@@ -87,9 +86,6 @@ public class PowerupScript : MonoBehaviour
                 playerObject.GetComponent<ShipController>().ChangeSpeed(125f);
                 Invoke("ResetSpeedBoost", 10f);
                 DisableThenDestroy(10f);
-                break;
-
-            case PowerUps.PierceShot:
                 break;
 
             default:
