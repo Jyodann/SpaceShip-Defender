@@ -11,7 +11,6 @@ public class PowerupScript : MonoBehaviour
 
     public PowerUps powerUp;
     private GameObject playerObject;
-    private SpriteRenderer spriteRenderer;
     private int initialDamageDealt;
 
     // Start is called before the first frame update
@@ -19,7 +18,6 @@ public class PowerupScript : MonoBehaviour
     {
         //finds first instance of player GameObject:
         playerObject = GameObject.FindGameObjectWithTag("Player");
-        spriteRenderer = GetComponent<SpriteRenderer>();
 
         //Decides a random direction the powerup floats to:
         if (UnityEngine.Random.Range(0, 2) == 1)
@@ -54,14 +52,13 @@ public class PowerupScript : MonoBehaviour
                 initialDamageDealt = playerObject.GetComponent<FireBullets>().DamageDealt;
                 playerObject.GetComponent<FireBullets>().DamageDealt += 2;
                 Invoke("ResetPlayerDamage", 10f);
-                DisableThenDestroy(10f);
-
+                StartCoroutine(DisableThenDestroy(10f));
                 break;
 
             case PowerUps.ScoreBoost:
                 GameManager.Instance.ChangeDoubleScore(true);
                 Invoke("ResetDoubleScore", 10f);
-                DisableThenDestroy(10f);
+                StartCoroutine(DisableThenDestroy(10f));
                 break;
 
             case PowerUps.TimeFreeze:
@@ -79,13 +76,13 @@ public class PowerupScript : MonoBehaviour
                     alien.GetComponent<Alien>().SetFreeze(true);
                 }
                 Invoke("ResetTimeFreeze", 5f);
-                DisableThenDestroy(5f);
+                StartCoroutine(DisableThenDestroy(5f));
                 break;
 
             case PowerUps.SpeedBoost:
                 playerObject.GetComponent<ShipController>().ChangeSpeed(125f);
                 Invoke("ResetSpeedBoost", 10f);
-                DisableThenDestroy(10f);
+                StartCoroutine(DisableThenDestroy(10f));
                 break;
 
             default:
@@ -110,7 +107,6 @@ public class PowerupScript : MonoBehaviour
 
     private void ResetTimeFreeze()
     {
-        print("ResetTime");
         GameManager.Instance.ChangeTimeFreeze(false);
         var asteroids = GameObject.FindGameObjectsWithTag("Asteroid");
         var aliens = GameObject.FindGameObjectsWithTag("Alien");
@@ -125,10 +121,11 @@ public class PowerupScript : MonoBehaviour
         }
     }
 
-    private void DisableThenDestroy(float destoryDelay)
+    private IEnumerator DisableThenDestroy(float destoryDelay)
     {
         transform.position = new Vector2(-200, -100);
         GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-        Destroy(gameObject, destoryDelay);
+        yield return new WaitForSecondsRealtime(destoryDelay);
+        Destroy(gameObject);
     }
 }

@@ -10,13 +10,13 @@ public class Player : MonoBehaviour
     public float flickerRate = 0.3f;
     public float invincibilityLength = 2f;
 
-    public void Invincibility()
+    public void TakeDamage(int damageTaken)
     {
         if (!isInvincible)
         {
             isInvincible = true;
             Invoke("DisableInvincibility", invincibilityLength);
-            GameManager.Instance.TakeDamage();
+            GameManager.Instance.TakeDamage(damageTaken);
             InvokeRepeating("Flicker", 0f, flickerRate);
         }
     }

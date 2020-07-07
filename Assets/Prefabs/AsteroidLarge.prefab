@@ -148,6 +148,7 @@ MonoBehaviour:
   enemyHealth: 4
   scoreToAdd: 10
   coinsToAdd: 50
+  damageDealt: 2
 --- !u!114 &4513244087482888644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,3 +230,4 @@ MonoBehaviour:
     type: 3}
   asteroidSize: 0
   rotateSpeed: 10
+  originalVelocity: {x: 0, y: 0}

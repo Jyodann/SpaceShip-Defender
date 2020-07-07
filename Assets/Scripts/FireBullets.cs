@@ -18,8 +18,6 @@ public class FireBullets : MonoBehaviour
     [Range(1, 5)] public int CannonCount = 1;
     public int DamageDealt = 1;
 
-    public bool canFire = true;
-
     // Update is called once per frame
     private void Start()
     {

@@ -147,6 +147,7 @@ MonoBehaviour:
   enemyHealth: 20
   scoreToAdd: 10
   coinsToAdd: 5
+  damageDealt: 2
 --- !u!114 &1233748816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,3 +179,4 @@ MonoBehaviour:
   - {fileID: 6632155803791073234, guid: cd7c79724c5ecf247a9c23e0546c9ad4, type: 3}
   - {fileID: 1570822453624242147, guid: 4f84a7658c8930a45bc99db6969fda17, type: 3}
   - {fileID: 1363644364021819286, guid: 144a4ef6717fac14eadb7f885711297f, type: 3}
+  chance: 5

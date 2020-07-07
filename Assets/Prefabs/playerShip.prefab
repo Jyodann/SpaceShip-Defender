@@ -268,7 +268,6 @@ MonoBehaviour:
   fireRate: 0.3
   CannonCount: 1
   DamageDealt: 1
-  canFire: 1
 --- !u!114 &1479437596
 MonoBehaviour:
   m_ObjectHideFlags: 0

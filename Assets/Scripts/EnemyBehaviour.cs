@@ -8,12 +8,13 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private int enemyHealth = 100;
     [SerializeField] private int scoreToAdd = 10;
     [SerializeField] private int coinsToAdd = 5;
+    [SerializeField] private int damageDealt = 1;
     private FireBullets playerObject;
     private bool isDead = false;
 
     private void Start()
     {
-        playerObject = GameObject.FindObjectOfType<FireBullets>();
+        playerObject = FindObjectOfType<FireBullets>();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -53,7 +54,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.GetComponent<Player>().Invincibility();
+            collision.GetComponent<Player>().TakeDamage(damageDealt);
         }
     }
 

@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
         livesText.text = Lives.ToString();
         scoreText.text = Score.ToString().PadLeft(8, '0');
 
-        StartCoroutine(CheckDifficulty());
+        StartCoroutine(CheckDifficulty(false));
     }
 
     private void Update()
@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.I))
                 {
-                    TakeDamage();
+                    TakeDamage(1);
                 }
                 break;
 
@@ -169,13 +169,10 @@ public class GameManager : MonoBehaviour
                     SceneManager.LoadScene(0);
                 }
                 break;
-
-            default:
-                break;
         }
     }
 
-    private IEnumerator CheckDifficulty()
+    private IEnumerator CheckDifficulty(bool forceRefresh)
     {
         while (true)
         {
@@ -185,7 +182,7 @@ public class GameManager : MonoBehaviour
 
             var factor = (Mathf.Pow(1.05f, difficultyFactor) - 1);
 
-            if (factor != currentFactor)
+            if (factor != currentFactor || forceRefresh)
             {
                 if (coroutineList.Count >= 0)
                 {
@@ -209,7 +206,8 @@ public class GameManager : MonoBehaviour
                 }
                 if (difficultyFactor >= 6)
                 {
-                    coroutineList.Add(StartCoroutine(Spawner(ufoObjects, ufoSpawnLocations[Random.Range(0, ufoSpawnLocations.Length)], ufoSpawn, 1f, 4f)));
+                    coroutineList.Add(StartCoroutine(Spawner(ufoObjects,
+                        ufoSpawnLocations[Random.Range(0, ufoSpawnLocations.Length)], ufoSpawn, 1f, 4f)));
                 }
             }
 
@@ -242,9 +240,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void TakeDamage()
+    public void TakeDamage(int damageValue)
     {
-        Lives--;
+        Lives -= damageValue;
         livesText.text = Lives.ToString();
 
         if (Lives <= 0)
@@ -287,11 +285,11 @@ public class GameManager : MonoBehaviour
     {
         if (isEnabled)
         {
-            CancelInvoke();
+            StopAllCoroutines();
         }
         else
         {
-            CheckDifficulty();
+            StartCoroutine(CheckDifficulty(true));
         }
     }
 
