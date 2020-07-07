@@ -21,7 +21,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            DealDamage(playerObject.DamageDealt);
+            DealDamage(playerObject.damageDealt);
             Destroy(collision.gameObject);
         }
 

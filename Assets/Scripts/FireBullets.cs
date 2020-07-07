@@ -15,8 +15,8 @@ public class FireBullets : MonoBehaviour
     [SerializeField] private float bulletSpeed = 100f;
 
     public float fireRate = 0.5f;
-    [Range(1, 5)] public int CannonCount = 1;
-    public int DamageDealt = 1;
+    [Range(1, 5)] public int cannonCount = 1;
+    public int damageDealt = 1;
 
     // Update is called once per frame
     private void Start()
@@ -30,7 +30,7 @@ public class FireBullets : MonoBehaviour
         {
             if (Input.GetButton("Fire1"))
             {
-                switch (CannonCount)
+                switch (cannonCount)
                 {
                     case 1:
                         FireCannon(mainCannon.transform);

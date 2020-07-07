@@ -30,7 +30,6 @@ public class PowerupScript : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -45,20 +44,19 @@ public class PowerupScript : MonoBehaviour
         {
             case PowerUps.HeartPowerup:
                 GameManager.Instance.AddLives(1);
-                Destroy(gameObject);
+                StartCoroutine(DisableThenDestroy(0f));
                 break;
 
             case PowerUps.IncreaseDamage:
-                initialDamageDealt = playerObject.GetComponent<FireBullets>().DamageDealt;
-                playerObject.GetComponent<FireBullets>().DamageDealt += 2;
-                Invoke("ResetPlayerDamage", 10f);
-                StartCoroutine(DisableThenDestroy(10f));
+                initialDamageDealt = playerObject.GetComponent<FireBullets>().damageDealt;
+                playerObject.GetComponent<FireBullets>().damageDealt += 2;
+                StartCoroutine(ResetPlayerDamage(10f));
                 break;
 
             case PowerUps.ScoreBoost:
                 GameManager.Instance.ChangeDoubleScore(true);
-                Invoke("ResetDoubleScore", 10f);
-                StartCoroutine(DisableThenDestroy(10f));
+                StartCoroutine(ResetDoubleScore(10f));
+
                 break;
 
             case PowerUps.TimeFreeze:
@@ -75,38 +73,43 @@ public class PowerupScript : MonoBehaviour
                 {
                     alien.GetComponent<Alien>().SetFreeze(true);
                 }
-                Invoke("ResetTimeFreeze", 5f);
-                StartCoroutine(DisableThenDestroy(5f));
+                StartCoroutine(ResetTimeFreeze(5f));
+
                 break;
 
             case PowerUps.SpeedBoost:
                 playerObject.GetComponent<ShipController>().ChangeSpeed(125f);
-                Invoke("ResetSpeedBoost", 10f);
-                StartCoroutine(DisableThenDestroy(10f));
-                break;
+                StartCoroutine(ResetSpeedBoost(5f));
 
-            default:
                 break;
         }
     }
 
-    private void ResetSpeedBoost()
+    private IEnumerator ResetSpeedBoost(float resetDelay)
     {
+        StartCoroutine(DisableThenDestroy(resetDelay));
+        yield return new WaitForSecondsRealtime(resetDelay);
         playerObject.GetComponent<ShipController>().ChangeSpeed(75f);
     }
 
-    private void ResetPlayerDamage()
+    private IEnumerator ResetPlayerDamage(float resetDelay)
     {
-        playerObject.GetComponent<FireBullets>().DamageDealt = initialDamageDealt;
+        StartCoroutine(DisableThenDestroy(resetDelay));
+        yield return new WaitForSecondsRealtime(resetDelay);
+        playerObject.GetComponent<FireBullets>().damageDealt = initialDamageDealt;
     }
 
-    private void ResetDoubleScore()
+    private IEnumerator ResetDoubleScore(float resetDelay)
     {
+        StartCoroutine(DisableThenDestroy(resetDelay));
+        yield return new WaitForSecondsRealtime(resetDelay);
         GameManager.Instance.ChangeDoubleScore(false);
     }
 
-    private void ResetTimeFreeze()
+    private IEnumerator ResetTimeFreeze(float resetDelay)
     {
+        StartCoroutine(DisableThenDestroy(resetDelay));
+        yield return new WaitForSecondsRealtime(resetDelay);
         GameManager.Instance.ChangeTimeFreeze(false);
         var asteroids = GameObject.FindGameObjectsWithTag("Asteroid");
         var aliens = GameObject.FindGameObjectsWithTag("Alien");
