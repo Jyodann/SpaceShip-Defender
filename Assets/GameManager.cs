@@ -201,15 +201,15 @@ public class GameManager : MonoBehaviour
                 var ufoSpawn = UFOSpawnRate - Mathf.Clamp(factor, 0f, 30f);
                 print($"Current SpawnRates: {alienSpawn} (Alien) {asteroidSpawn} (Asteroid) {ufoSpawn} (UFO)");
 
-                coroutineList.Add(StartCoroutine(Spawner(asteroidObjects, playerLocation.transform, asteroidSpawn)));
+                coroutineList.Add(StartCoroutine(Spawner(asteroidObjects, playerLocation.transform, asteroidSpawn, 10f, 50f)));
 
                 if (difficultyFactor > 0)
                 {
-                    coroutineList.Add(StartCoroutine(Spawner(alienObjects, playerLocation.transform, alienSpawn)));
+                    coroutineList.Add(StartCoroutine(Spawner(alienObjects, playerLocation.transform, alienSpawn, 10f, 50f)));
                 }
                 if (difficultyFactor >= 6)
                 {
-                    coroutineList.Add(StartCoroutine(Spawner(ufoObjects, ufoSpawnLocations[Random.Range(0, ufoSpawnLocations.Length)], UFOSpawnRate)));
+                    coroutineList.Add(StartCoroutine(Spawner(ufoObjects, ufoSpawnLocations[Random.Range(0, ufoSpawnLocations.Length)], ufoSpawn, 1f, 4f)));
                 }
             }
 
@@ -217,21 +217,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator Spawner(GameObject[] objectsToSpawn, Transform relativeTo, float spawnRate)
+    private IEnumerator Spawner(GameObject[] objectsToSpawn, Transform relativeTo, float spawnRate, float minimumDistanceAway, float maximumDistanceAway)
     {
         while (true)
         {
+            var objectToSpawn = objectsToSpawn[Random.Range(0, objectsToSpawn.Length)];
             if (Random.Range(0, 2) == 1)
             {
                 //only spawn in the negative regions:
-                Instantiate(objectsToSpawn[Random.Range(0, objectsToSpawn.Length)],
-                    relativeTo.position + new Vector3(Random.Range(-50, -5), Random.Range(-50, -5)), Quaternion.identity);
+                Instantiate(objectToSpawn,
+                    relativeTo.position +
+                    new Vector3(Random.Range(-maximumDistanceAway, -minimumDistanceAway), Random.Range(-maximumDistanceAway, -minimumDistanceAway))
+                    , Quaternion.identity);
             }
             else
             {
                 //only spawn in the positive regions:
-                Instantiate(objectsToSpawn[Random.Range(0, objectsToSpawn.Length)],
-                    relativeTo.position + new Vector3(Random.Range(5, 50), Random.Range(5, 50)), Quaternion.identity);
+                Instantiate(objectToSpawn,
+                    relativeTo.position + new Vector3(Random.Range(minimumDistanceAway, maximumDistanceAway),
+                    Random.Range(minimumDistanceAway, maximumDistanceAway)), Quaternion.identity);
             }
 
             yield return new WaitForSecondsRealtime(spawnRate);

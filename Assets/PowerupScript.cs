@@ -127,7 +127,8 @@ public class PowerupScript : MonoBehaviour
 
     private void DisableThenDestroy(float destoryDelay)
     {
-        spriteRenderer.enabled = false;
+        transform.position = new Vector2(-200, -100);
+        GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         Destroy(gameObject, destoryDelay);
     }
 }

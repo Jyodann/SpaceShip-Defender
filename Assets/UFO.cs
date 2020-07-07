@@ -10,12 +10,16 @@ public class UFO : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        InvokeRepeating("SpawnAliens", 0f, alienSpawnRate);
+        StartCoroutine(SpawnAliens());
     }
 
-    private void SpawnAliens()
+    private IEnumerator SpawnAliens()
     {
-        Instantiate(alienObject, transform.position, Quaternion.identity);
+        while (true)
+        {
+            Instantiate(alienObject, transform.position, Quaternion.identity);
+            yield return new WaitForSecondsRealtime(alienSpawnRate);
+        }
     }
 
     public void SetSpawnRate(float spawnRate)
