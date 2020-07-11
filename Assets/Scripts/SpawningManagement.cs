@@ -26,10 +26,11 @@ public class SpawningManagement : MonoBehaviour
     {
         while (true)
         {
-            while (GameManager.Instance.isPaused)
+            while (GameManager.Instance.isPaused || GameManager.Instance.isTimeFrozen)
             {
                 yield return null;
             }
+
             int difficultyFactor = GameManager.Instance.Score / 500;
 
             print("Current Difficulty Factor: (x) " + difficultyFactor);
@@ -73,7 +74,7 @@ public class SpawningManagement : MonoBehaviour
     {
         while (true)
         {
-            while (GameManager.Instance.isPaused)
+            while (GameManager.Instance.isPaused || GameManager.Instance.isTimeFrozen)
             {
                 yield return null;
             }

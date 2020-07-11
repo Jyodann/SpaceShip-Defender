@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public int Coins { get; set; }
     public bool doubleScore { get; set; }
     public bool isPaused { get; set; }
+    public bool isTimeFrozen { get; set; }
 
     public Text livesText;
     public Text coinsText;
@@ -30,7 +31,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Lives = 3;
+        Lives = 100;
         Coins = 0;
         Score = 0;
 
@@ -156,7 +157,7 @@ public class GameManager : MonoBehaviour
 
     public void ChangeTimeFreeze(bool isEnabled)
     {
-        SetPauseState(isEnabled);
+        isTimeFrozen = isEnabled;
     }
 
     public void ChangeDoubleScore(bool isEnabled)

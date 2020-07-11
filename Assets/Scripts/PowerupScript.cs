@@ -64,6 +64,7 @@ public class PowerupScript : MonoBehaviour
                 GameManager.Instance.ChangeTimeFreeze(true);
                 var asteroids = GameObject.FindGameObjectsWithTag("Asteroid");
                 var aliens = GameObject.FindGameObjectsWithTag("Alien");
+                var ufos = GameObject.FindGameObjectsWithTag("UFO");
                 foreach (var asteroid in asteroids)
                 {
                     asteroid.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
@@ -71,7 +72,12 @@ public class PowerupScript : MonoBehaviour
 
                 foreach (var alien in aliens)
                 {
-                    alien.GetComponent<Alien>().SetFreeze(true);
+                    alien.GetComponent<Alien>().isFrozen = true;
+                }
+
+                foreach (var ufo in ufos)
+                {
+                    ufo.GetComponent<UFO>().isAlienSpawn = false;
                 }
                 StartCoroutine(ResetTimeFreeze(5f));
 
@@ -113,6 +119,7 @@ public class PowerupScript : MonoBehaviour
         GameManager.Instance.ChangeTimeFreeze(false);
         var asteroids = GameObject.FindGameObjectsWithTag("Asteroid");
         var aliens = GameObject.FindGameObjectsWithTag("Alien");
+        var ufos = GameObject.FindGameObjectsWithTag("UFO");
         foreach (var asteroid in asteroids)
         {
             asteroid.GetComponent<Rigidbody2D>().velocity = asteroid.GetComponent<AsteroidScript>().originalVelocity;
@@ -120,7 +127,12 @@ public class PowerupScript : MonoBehaviour
 
         foreach (var alien in aliens)
         {
-            alien.GetComponent<Alien>().SetFreeze(false);
+            alien.GetComponent<Alien>().isFrozen = false;
+        }
+
+        foreach (var ufo in ufos)
+        {
+            ufo.GetComponent<UFO>().isAlienSpawn = true;
         }
     }
 

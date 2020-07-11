@@ -10,6 +10,7 @@ TagManager:
   - BoundingBox
   - Powerup
   - Alien
+  - UFO
   layers:
   - Default
   - TransparentFX

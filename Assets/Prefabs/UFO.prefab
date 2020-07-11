@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3032906693647948424}
   m_Layer: 0
   m_Name: UFO
-  m_TagString: Untagged
+  m_TagString: UFO
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,6 +147,7 @@ MonoBehaviour:
   enemyHealth: 100
   scoreToAdd: 1000
   coinsToAdd: 100
+  damageDealt: 1
 --- !u!114 &9208406912204127062
 MonoBehaviour:
   m_ObjectHideFlags: 0

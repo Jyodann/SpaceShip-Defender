@@ -5,6 +5,7 @@ using UnityEngine;
 public class UFO : MonoBehaviour
 {
     public float alienSpawnRate = 4f;
+    public bool isAlienSpawn = true;
     [SerializeField] private GameObject alienObject;
 
     // Start is called before the first frame update
@@ -17,6 +18,10 @@ public class UFO : MonoBehaviour
     {
         while (true)
         {
+            while (!isAlienSpawn)
+            {
+                yield return null;
+            }
             Instantiate(alienObject, transform.position, Quaternion.identity);
             yield return new WaitForSecondsRealtime(alienSpawnRate);
         }

@@ -6,7 +6,7 @@ public class Alien : MonoBehaviour
 {
     private Player playerCharacter;
     public float speed = 10f;
-    private bool isFrozen = false;
+    public bool isFrozen = false;
 
     // Start is called before the first frame update
     private void Start()
@@ -21,10 +21,5 @@ public class Alien : MonoBehaviour
         {
             transform.position = Vector2.MoveTowards(transform.position, playerCharacter.transform.position, speed * Time.deltaTime);
         }
-    }
-
-    public void SetFreeze(bool isFrozen)
-    {
-        this.isFrozen = isFrozen;
     }
 }
