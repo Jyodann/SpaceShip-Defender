@@ -56,8 +56,11 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.GetComponent<Player>().TakeDamage(damageDealt);
-            Destroy(gameObject);
+            if (!collision.GetComponent<Player>().isInvincible)
+            {
+                collision.GetComponent<Player>().TakeDamage(damageDealt);
+                Destroy(gameObject);
+            }
         }
     }
 

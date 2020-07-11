@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private bool isInvincible = false;
+    public bool isInvincible = false;
     private bool isFlickering = false;
     public float flickerRate = 0.3f;
     public float invincibilityLength = 2f;
@@ -14,32 +14,29 @@ public class Player : MonoBehaviour
     {
         if (!isInvincible)
         {
+            StartCoroutine(DisableInvincibility(invincibilityLength));
+            StartCoroutine(Flicker(flickerRate));
             isInvincible = true;
-            Invoke("DisableInvincibility", invincibilityLength);
             GameManager.Instance.TakeDamage(damageTaken);
-            InvokeRepeating("Flicker", 0f, flickerRate);
             GameManager.Instance.PlayExplosionAnimation(transform, false);
         }
     }
 
-    private void DisableInvincibility()
+    private IEnumerator DisableInvincibility(float invincibilityLength)
     {
+        yield return new WaitForSecondsRealtime(invincibilityLength);
         gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
-        CancelInvoke();
         isInvincible = false;
+        StopAllCoroutines();
     }
 
-    private void Flicker()
+    private IEnumerator Flicker(float flickerRate)
     {
-        isFlickering = !isFlickering;
-
-        if (isFlickering)
+        while (true)
         {
-            gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.2f);
-        }
-        else
-        {
-            gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+            yield return new WaitForSecondsRealtime(flickerRate);
+            isFlickering = !isFlickering;
+            gameObject.GetComponent<SpriteRenderer>().color = isFlickering ? new Color(1f, 1f, 1f, 0.2f) : new Color(1f, 1f, 1f, 1f);
         }
     }
 }

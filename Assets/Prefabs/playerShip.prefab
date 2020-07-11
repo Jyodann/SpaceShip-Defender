@@ -266,8 +266,8 @@ MonoBehaviour:
   extremeRightCannon: {fileID: 5433290331136078360}
   bulletSpeed: 100
   fireRate: 0.3
-  CannonCount: 1
-  DamageDealt: 1
+  cannonCount: 1
+  damageDealt: 1
 --- !u!114 &1479437596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,6 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa858d3e18cb3d4469e3d1375454b245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInvincible: 0
   flickerRate: 0.1
   invincibilityLength: 2
 --- !u!1 &6051054199228944081
