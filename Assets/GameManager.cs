@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
 
     public GameState currentGameState;
     private SpawningManagement spawnManager;
+    private OnDeathAnimation deathAnimationManager;
 
     private void Awake()
     {
@@ -45,6 +46,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        deathAnimationManager = FindObjectOfType<OnDeathAnimation>();
         spawnManager = FindObjectOfType<SpawningManagement>();
         currentGameState = GameState.InGame;
         coinsText.text = Coins.ToString();
@@ -173,5 +175,10 @@ public class GameManager : MonoBehaviour
     public void SetPauseState(bool pauseState)
     {
         isPaused = pauseState;
+    }
+
+    public void PlayExplosionAnimation(Transform explosionLocation, bool isBigExplosion)
+    {
+        deathAnimationManager.MakeExplosion(explosionLocation, isBigExplosion);
     }
 }

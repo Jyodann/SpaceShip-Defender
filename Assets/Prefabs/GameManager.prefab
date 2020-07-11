@@ -46,11 +46,20 @@ MonoBehaviour:
   asteroidSpawnRate: 1.5
   alienSpawnRate: 10
   UFOSpawnRate: 60
-  ufoSpawnLocations: []
+  ufoSpawnLocations:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   playerLocation: {fileID: 0}
-  asteroidObjects: []
-  alienObjects: []
-  ufoObjects: []
+  asteroidObjects:
+  - {fileID: 4513244087482888664, guid: 9491c968127e9d0448e4fa79e32f90ae, type: 3}
+  - {fileID: 4513244087482888664, guid: e828f1565d9f4c44f916223da106c40b, type: 3}
+  - {fileID: 4513244087482888664, guid: 7d48093d08c2bcd49a886be4e999f4dc, type: 3}
+  alienObjects:
+  - {fileID: 8471160928321115163, guid: 687f416db9d6cf54dbf9167ca4609f30, type: 3}
+  ufoObjects:
+  - {fileID: 9208406912204127066, guid: 006c4aa5a6b43a84283d8f39648cfff4, type: 3}
 --- !u!1 &1133721369239201911
 GameObject:
   m_ObjectHideFlags: 0
@@ -81,6 +90,7 @@ Transform:
   m_Children:
   - {fileID: 2075528450416942329}
   - {fileID: 1349937147}
+  - {fileID: 298003245497808613}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -150,3 +160,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentUpgradeIndex: 0
   upgradeText: {fileID: 0}
+--- !u!1 &4510770188163688449
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 298003245497808613}
+  - component: {fileID: 5291550183322431410}
+  m_Layer: 0
+  m_Name: DeathAnimationPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &298003245497808613
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4510770188163688449}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1133721369239201910}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5291550183322431410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4510770188163688449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb63fd5e250b680488b840cf4cf3b9d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smallExplosion: {fileID: 5673165476966189535, guid: 6e7d4c8068d037c41895bbf07a04d61a,
+    type: 3}
+  bigExplosion: {fileID: 5673165476966189535, guid: d8de3856699a6d84583e3aa7602b01a0,
+    type: 3}

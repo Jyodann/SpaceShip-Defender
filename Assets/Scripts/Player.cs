@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
             Invoke("DisableInvincibility", invincibilityLength);
             GameManager.Instance.TakeDamage(damageTaken);
             InvokeRepeating("Flicker", 0f, flickerRate);
+            GameManager.Instance.PlayExplosionAnimation(transform, false);
         }
     }
 

@@ -21,6 +21,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
+            GameManager.Instance.PlayExplosionAnimation(collision.transform, false);
             DealDamage(playerObject.damageDealt);
             Destroy(collision.gameObject);
         }
@@ -28,6 +29,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (enemyHealth <= 0 && !isDead)
         {
             isDead = true;
+            GameManager.Instance.PlayExplosionAnimation(collision.transform, true);
             GameManager.Instance.AddCoins(coinsToAdd);
 
             if (GameManager.Instance.doubleScore)
