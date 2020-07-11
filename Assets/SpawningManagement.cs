@@ -27,6 +27,10 @@ public class SpawningManagement : MonoBehaviour
     {
         while (true)
         {
+            while (isPaused)
+            {
+                yield return null;
+            }
             int difficultyFactor = GameManager.Instance.Score / 500;
 
             print("Current Difficulty Factor: (x) " + difficultyFactor);
@@ -70,6 +74,10 @@ public class SpawningManagement : MonoBehaviour
     {
         while (true)
         {
+            while (isPaused)
+            {
+                yield return null;
+            }
             var objectToSpawn = objectsToSpawn[Random.Range(0, objectsToSpawn.Length)];
             if (Random.Range(0, 2) == 1)
             {
@@ -91,15 +99,8 @@ public class SpawningManagement : MonoBehaviour
         }
     }
 
-    public void ForceSpawningStop(bool isStopped)
+    public void SetPauseState(bool pauseState)
     {
-        if (isStopped)
-        {
-            StopAllCoroutines();
-        }
-        else
-        {
-            StartCoroutine(CheckDifficulty(true));
-        }
+        isPaused = pauseState;
     }
 }

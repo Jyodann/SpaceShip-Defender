@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Lives = 1000;
+        Lives = 1;
         Coins = 0;
         Score = 0;
 
@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
             case GameState.InGame:
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
-                    spawnManager.ForceSpawningStop(true);
+                    spawnManager.SetPauseState(true);
 
                     currentGameState = GameState.Paused;
                     Time.timeScale = 0;
@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
             case GameState.Paused:
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
-                    spawnManager.ForceSpawningStop(false);
+                    spawnManager.SetPauseState(false);
                     currentGameState = GameState.InGame;
                     pauseMenu.SetActive(false);
                     Time.timeScale = 1;
@@ -99,7 +99,6 @@ public class GameManager : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.R))
                 {
                     currentGameState = GameState.InGame;
-                    gameOverMenu.SetActive(false);
                     Time.timeScale = 1;
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 }
@@ -107,7 +106,6 @@ public class GameManager : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
                     currentGameState = GameState.InGame;
-                    gameOverMenu.SetActive(false);
                     Time.timeScale = 1;
                     SceneManager.LoadScene(0);
                 }
@@ -133,6 +131,7 @@ public class GameManager : MonoBehaviour
             HighScore = Score;
         }
         currentGameState = GameState.GameOver;
+        spawnManager.SetPauseState(true);
         gameOverMenu.SetActive(true);
         gameOverText.text = $"Game Over\nScore: {Score.ToString().PadLeft(8, '0')}\nHi-Score: {HighScore.ToString().PadLeft(8, '0')}";
         Time.timeScale = 0;
@@ -158,7 +157,7 @@ public class GameManager : MonoBehaviour
 
     public void ChangeTimeFreeze(bool isEnabled)
     {
-        spawnManager.ForceSpawningStop(isEnabled);
+        spawnManager.SetPauseState(isEnabled);
     }
 
     public void ChangeDoubleScore(bool isEnabled)
