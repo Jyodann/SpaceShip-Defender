@@ -1,9 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -14,6 +10,7 @@ public class GameManager : MonoBehaviour
     public int Score { get; set; }
     public int Coins { get; set; }
     public bool doubleScore { get; set; }
+    public bool isPaused { get; set; }
 
     public Text livesText;
     public Text coinsText;
@@ -32,7 +29,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Lives = 1;
+        Lives = 3;
         Coins = 0;
         Score = 0;
 
@@ -62,7 +59,7 @@ public class GameManager : MonoBehaviour
             case GameState.InGame:
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
-                    spawnManager.SetPauseState(true);
+                    SetPauseState(true);
 
                     currentGameState = GameState.Paused;
                     Time.timeScale = 0;
@@ -88,7 +85,7 @@ public class GameManager : MonoBehaviour
             case GameState.Paused:
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
-                    spawnManager.SetPauseState(false);
+                    SetPauseState(false);
                     currentGameState = GameState.InGame;
                     pauseMenu.SetActive(false);
                     Time.timeScale = 1;
@@ -131,7 +128,7 @@ public class GameManager : MonoBehaviour
             HighScore = Score;
         }
         currentGameState = GameState.GameOver;
-        spawnManager.SetPauseState(true);
+        SetPauseState(true);
         gameOverMenu.SetActive(true);
         gameOverText.text = $"Game Over\nScore: {Score.ToString().PadLeft(8, '0')}\nHi-Score: {HighScore.ToString().PadLeft(8, '0')}";
         Time.timeScale = 0;
@@ -157,7 +154,7 @@ public class GameManager : MonoBehaviour
 
     public void ChangeTimeFreeze(bool isEnabled)
     {
-        spawnManager.SetPauseState(isEnabled);
+        SetPauseState(isEnabled);
     }
 
     public void ChangeDoubleScore(bool isEnabled)
@@ -171,5 +168,10 @@ public class GameManager : MonoBehaviour
         {
             scoreBoostText.text = "";
         }
+    }
+
+    public void SetPauseState(bool pauseState)
+    {
+        isPaused = pauseState;
     }
 }

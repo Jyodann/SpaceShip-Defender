@@ -55,6 +55,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.GetComponent<Player>().TakeDamage(damageDealt);
+            Destroy(gameObject);
         }
     }
 

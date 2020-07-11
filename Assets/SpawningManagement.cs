@@ -15,7 +15,6 @@ public class SpawningManagement : MonoBehaviour
 
     private float currentFactor = -1f;
     private List<Coroutine> coroutineList = new List<Coroutine>();
-    private bool isPaused = false;
 
     private void Start()
     {
@@ -27,7 +26,7 @@ public class SpawningManagement : MonoBehaviour
     {
         while (true)
         {
-            while (isPaused)
+            while (GameManager.Instance.isPaused)
             {
                 yield return null;
             }
@@ -74,7 +73,7 @@ public class SpawningManagement : MonoBehaviour
     {
         while (true)
         {
-            while (isPaused)
+            while (GameManager.Instance.isPaused)
             {
                 yield return null;
             }
@@ -97,10 +96,5 @@ public class SpawningManagement : MonoBehaviour
 
             yield return new WaitForSecondsRealtime(spawnRate);
         }
-    }
-
-    public void SetPauseState(bool pauseState)
-    {
-        isPaused = pauseState;
     }
 }

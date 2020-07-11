@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
 public class FireBullets : MonoBehaviour
@@ -28,6 +26,10 @@ public class FireBullets : MonoBehaviour
     {
         while (true)
         {
+            while (GameManager.Instance.isPaused)
+            {
+                yield return null;
+            }
             if (Input.GetButton("Fire1"))
             {
                 switch (cannonCount)
