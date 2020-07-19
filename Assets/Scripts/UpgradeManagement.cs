@@ -22,7 +22,7 @@ public class UpgradeManagement : MonoBehaviour
         new UpgradeClass("+Damage", 1250, 3, 0.1f, 5),
         new UpgradeClass("+1 Cannon", 1500, 4, 0.1f, 5),
         new UpgradeClass("+Fire Rate", 2000, 4, 0.05f, 5),
-        new UpgradeClass("+1 Cannon", 2500, 5, 0.1f, 5)
+        new UpgradeClass("+1 Cannon", 2500, 5, 0.05f, 5)
     };
 
     private void Start()

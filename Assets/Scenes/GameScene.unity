@@ -432,6 +432,12 @@ PrefabInstance:
       propertyPath: upgradeText
       value: 
       objectReference: {fileID: 1078834785}
+    - target: {fileID: 5291550183322431410, guid: bbcdd9a2e7be351449d00a2dff305921,
+        type: 3}
+      propertyPath: ufoExplosion
+      value: 
+      objectReference: {fileID: 5673165476966189535, guid: e04a23be4dadf9944a059aaa83b19764,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
 --- !u!1001 &2101927979424221814

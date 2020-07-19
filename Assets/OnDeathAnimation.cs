@@ -6,16 +6,26 @@ public class OnDeathAnimation : MonoBehaviour
 {
     [SerializeField] private GameObject smallExplosion;
     [SerializeField] private GameObject bigExplosion;
-
-    public void MakeExplosion(Transform explosionLocation, bool isBigExplosion)
+    [SerializeField] private GameObject ufoExplosion;
+    public enum ExplosionTypes
     {
-        if (isBigExplosion)
+        BigExplosion, SmallExplosion, UFOExplosion
+    }
+
+    private ExplosionTypes explosionType;
+    public void MakeExplosion(Transform explosionLocation, ExplosionTypes explosionTypes)
+    {
+        switch (explosionTypes)
         {
-            Destroy(Instantiate(bigExplosion, explosionLocation.position, Quaternion.identity), 2f);
-        }
-        else
-        {
-            Destroy(Instantiate(smallExplosion, explosionLocation.position, Quaternion.identity), 2f);
+            case ExplosionTypes.BigExplosion:
+                Destroy(Instantiate(bigExplosion, explosionLocation.position, Quaternion.identity), 2f);
+                break;
+            case ExplosionTypes.SmallExplosion:
+                Destroy(Instantiate(smallExplosion, explosionLocation.position, Quaternion.identity), 2f);
+                break;
+            case ExplosionTypes.UFOExplosion:
+                Destroy(Instantiate(ufoExplosion, explosionLocation.position, Quaternion.identity), 2f);
+                break;
         }
     }
 }

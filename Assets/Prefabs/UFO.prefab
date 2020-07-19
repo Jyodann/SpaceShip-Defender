@@ -145,9 +145,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyHealth: 100
-  scoreToAdd: 1000
+  scoreToAdd: 300
   coinsToAdd: 100
   damageDealt: 1
+  maximumPossibleHealth: 1000
 --- !u!114 &9208406912204127062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd827308087b1e0459d24c03649ab06a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alienSpawnRate: 4
+  alienSpawnRate: 8
   isAlienSpawn: 1
   alienObject: {fileID: 8471160928321115163, guid: 687f416db9d6cf54dbf9167ca4609f30,
     type: 3}

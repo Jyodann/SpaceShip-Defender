@@ -9,20 +9,23 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private int scoreToAdd = 10;
     [SerializeField] private int coinsToAdd = 5;
     [SerializeField] int damageDealt = 1;
+    [SerializeField] float maximumPossibleHealth;
     private FireBullets playerObject;
     private bool isDead = false;
 
     private void Start()
     {
         this.enemyHealth *= (SpawningManagement.Factor + 1);
+        enemyHealth = Mathf.Clamp(enemyHealth, 0f, maximumPossibleHealth);
         playerObject = FindObjectOfType<FireBullets>();
+        print($"Enemy: {gameObject.name} - Health: {enemyHealth}");
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            GameManager.instance.PlayExplosionAnimation(collision.transform, false);
+            GameManager.instance.PlayExplosionAnimation(collision.transform, OnDeathAnimation.ExplosionTypes.SmallExplosion);
             DealDamage(playerObject.damageDealt);
             Destroy(collision.gameObject);
         }
@@ -30,7 +33,16 @@ public class EnemyBehaviour : MonoBehaviour
         if (enemyHealth <= 0 && !isDead)
         {
             isDead = true;
-            GameManager.instance.PlayExplosionAnimation(collision.transform, true);
+            if (gameObject.CompareTag("UFO"))
+            {
+                print("UFO Animation Played");
+                GameManager.instance.PlayExplosionAnimation(collision.transform, OnDeathAnimation.ExplosionTypes.UFOExplosion);
+            }
+            else
+            {
+                GameManager.instance.PlayExplosionAnimation(collision.transform, OnDeathAnimation.ExplosionTypes.BigExplosion);
+            }
+            
             GameManager.instance.AddCoins(coinsToAdd);
 
             if (GameManager.instance.DoubleScore)

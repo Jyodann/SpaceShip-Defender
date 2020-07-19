@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
                 }
                 if (Input.GetKeyDown(KeyCode.Q))
                 {
-                    AddScore(100);
+                    AddScore(10000);
                 }
 
                 if (Input.GetKeyDown(KeyCode.I))
@@ -182,8 +182,8 @@ public class GameManager : MonoBehaviour
         IsPaused = pauseState;
     }
 
-    public void PlayExplosionAnimation(Transform explosionLocation, bool isBigExplosion)
+    public void PlayExplosionAnimation(Transform explosionLocation, OnDeathAnimation.ExplosionTypes explosionType)
     {
-        deathAnimationManager.MakeExplosion(explosionLocation, isBigExplosion);
+        deathAnimationManager.MakeExplosion(explosionLocation, explosionType);
     }
 }

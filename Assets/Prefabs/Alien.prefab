@@ -144,10 +144,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb86c50dda56bf04bb82edb0b3d2e568, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 20
+  enemyHealth: 10
   scoreToAdd: 10
   coinsToAdd: 5
   damageDealt: 2
+  maximumPossibleHealth: 50
 --- !u!114 &1233748816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,7 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aadbddda5802d2843b9a8ce3aecd76d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
+  speed: 20
   isFrozen: 0
 --- !u!114 &3764756935395378988
 MonoBehaviour:
