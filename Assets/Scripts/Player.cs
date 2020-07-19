@@ -17,8 +17,8 @@ public class Player : MonoBehaviour
             StartCoroutine(DisableInvincibility(invincibilityLength));
             StartCoroutine(Flicker(flickerRate));
             isInvincible = true;
-            GameManager.Instance.TakeDamage(damageTaken);
-            GameManager.Instance.PlayExplosionAnimation(transform, false);
+            GameManager.instance.TakeDamage(damageTaken);
+            GameManager.instance.PlayExplosionAnimation(transform, false);
         }
     }
 

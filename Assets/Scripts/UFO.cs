@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UFO : MonoBehaviour
+public class Ufo : MonoBehaviour
 {
     public float alienSpawnRate = 4f;
     public bool isAlienSpawn = true;

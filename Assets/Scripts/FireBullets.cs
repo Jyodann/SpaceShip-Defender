@@ -26,7 +26,7 @@ public class FireBullets : MonoBehaviour
     {
         while (true)
         {
-            while (GameManager.Instance.isPaused)
+            while (GameManager.instance.IsPaused)
             {
                 yield return null;
             }

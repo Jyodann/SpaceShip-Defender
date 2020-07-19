@@ -148,6 +148,7 @@ MonoBehaviour:
   enemyHealth: 2
   scoreToAdd: 10
   coinsToAdd: 25
+  damageDealt: 1
 --- !u!114 &4513244087482888644
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -43,7 +43,7 @@ public class PowerupScript : MonoBehaviour
         switch (powerUp)
         {
             case PowerUps.HeartPowerup:
-                GameManager.Instance.AddLives(1);
+                GameManager.instance.AddLives(1);
                 StartCoroutine(DisableThenDestroy(0f));
                 break;
 
@@ -54,14 +54,14 @@ public class PowerupScript : MonoBehaviour
                 break;
 
             case PowerUps.ScoreBoost:
-                GameManager.Instance.ChangeDoubleScore(true);
+                GameManager.instance.ChangeDoubleScore(true);
                 StartCoroutine(ResetDoubleScore(10f));
 
                 break;
 
             case PowerUps.TimeFreeze:
 
-                GameManager.Instance.ChangeTimeFreeze(true);
+                GameManager.instance.ChangeTimeFreeze(true);
                 var asteroids = GameObject.FindGameObjectsWithTag("Asteroid");
                 var aliens = GameObject.FindGameObjectsWithTag("Alien");
                 var ufos = GameObject.FindGameObjectsWithTag("UFO");
@@ -77,7 +77,7 @@ public class PowerupScript : MonoBehaviour
 
                 foreach (var ufo in ufos)
                 {
-                    ufo.GetComponent<UFO>().isAlienSpawn = false;
+                    ufo.GetComponent<Ufo>().isAlienSpawn = false;
                 }
                 StartCoroutine(ResetTimeFreeze(5f));
 
@@ -109,14 +109,14 @@ public class PowerupScript : MonoBehaviour
     {
         StartCoroutine(DisableThenDestroy(resetDelay));
         yield return new WaitForSecondsRealtime(resetDelay);
-        GameManager.Instance.ChangeDoubleScore(false);
+        GameManager.instance.ChangeDoubleScore(false);
     }
 
     private IEnumerator ResetTimeFreeze(float resetDelay)
     {
         StartCoroutine(DisableThenDestroy(resetDelay));
         yield return new WaitForSecondsRealtime(resetDelay);
-        GameManager.Instance.ChangeTimeFreeze(false);
+        GameManager.instance.ChangeTimeFreeze(false);
         var asteroids = GameObject.FindGameObjectsWithTag("Asteroid");
         var aliens = GameObject.FindGameObjectsWithTag("Alien");
         var ufos = GameObject.FindGameObjectsWithTag("UFO");
@@ -132,7 +132,7 @@ public class PowerupScript : MonoBehaviour
 
         foreach (var ufo in ufos)
         {
-            ufo.GetComponent<UFO>().isAlienSpawn = true;
+            ufo.GetComponent<Ufo>().isAlienSpawn = true;
         }
     }
 

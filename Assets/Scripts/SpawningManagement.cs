@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SpawningManagement : MonoBehaviour
 {
     [SerializeField] private float asteroidSpawnRate = 1.5f;
     [SerializeField] private float alienSpawnRate = 10f;
-    [SerializeField] private float UFOSpawnRate = 60f;
+    [SerializeField] private float ufoSpawnRate = 60f;
     [SerializeField] private Transform[] ufoSpawnLocations;
     [SerializeField] private Transform playerLocation;
     [SerializeField] private GameObject[] asteroidObjects;
@@ -15,6 +16,8 @@ public class SpawningManagement : MonoBehaviour
 
     private float currentFactor = -1f;
     private List<Coroutine> coroutineList = new List<Coroutine>();
+    public static float Factor { get; set; }
+
 
     private void Start()
     {
@@ -26,18 +29,18 @@ public class SpawningManagement : MonoBehaviour
     {
         while (true)
         {
-            while (GameManager.Instance.isPaused || GameManager.Instance.isTimeFrozen)
+            while (GameManager.instance.IsPaused || GameManager.instance.IsTimeFrozen)
             {
                 yield return null;
             }
 
-            int difficultyFactor = GameManager.Instance.Score / 500;
+            int difficultyFactor = GameManager.instance.Score / 500;
 
             print("Current Difficulty Factor: (x) " + difficultyFactor);
 
-            var factor = (Mathf.Pow(1.05f, difficultyFactor) - 1);
+            Factor = (Mathf.Pow(1.05f, difficultyFactor) - 1);
 
-            if (factor != currentFactor || forceUpdate)
+            if (Factor != currentFactor || forceUpdate)
             {
                 if (coroutineList.Count >= 0)
                 {
@@ -47,10 +50,10 @@ public class SpawningManagement : MonoBehaviour
                     }
                 }
 
-                currentFactor = factor;
-                var asteroidSpawn = asteroidSpawnRate - Mathf.Clamp(factor, 0f, 0.75f);
-                var alienSpawn = alienSpawnRate - Mathf.Clamp(factor, 0f, 5f);
-                var ufoSpawn = UFOSpawnRate - Mathf.Clamp(factor, 0f, 30f);
+                currentFactor = Factor;
+                var asteroidSpawn = asteroidSpawnRate - Mathf.Clamp(Factor, 0f, 0.75f);
+                var alienSpawn = alienSpawnRate - Mathf.Clamp(Factor, 0f, 5f);
+                var ufoSpawn = ufoSpawnRate - Mathf.Clamp(Factor, 0f, 30f);
                 print($"Current SpawnRates: {alienSpawn} (Alien) {asteroidSpawn} (Asteroid) {ufoSpawn} (UFO)");
 
                 coroutineList.Add(StartCoroutine(Spawner(asteroidObjects, playerLocation.transform, asteroidSpawn, 10f, 50f)));
@@ -74,7 +77,7 @@ public class SpawningManagement : MonoBehaviour
     {
         while (true)
         {
-            while (GameManager.Instance.isPaused || GameManager.Instance.isTimeFrozen)
+            while (GameManager.instance.IsPaused || GameManager.instance.IsTimeFrozen)
             {
                 yield return null;
             }

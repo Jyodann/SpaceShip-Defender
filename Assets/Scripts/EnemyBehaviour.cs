@@ -5,15 +5,16 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    [SerializeField] private int enemyHealth = 100;
+    [SerializeField] float enemyHealth = 100;
     [SerializeField] private int scoreToAdd = 10;
     [SerializeField] private int coinsToAdd = 5;
-    [SerializeField] private int damageDealt = 1;
+    [SerializeField] int damageDealt = 1;
     private FireBullets playerObject;
     private bool isDead = false;
 
     private void Start()
     {
+        this.enemyHealth *= (SpawningManagement.Factor + 1);
         playerObject = FindObjectOfType<FireBullets>();
     }
 
@@ -21,7 +22,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            GameManager.Instance.PlayExplosionAnimation(collision.transform, false);
+            GameManager.instance.PlayExplosionAnimation(collision.transform, false);
             DealDamage(playerObject.damageDealt);
             Destroy(collision.gameObject);
         }
@@ -29,16 +30,16 @@ public class EnemyBehaviour : MonoBehaviour
         if (enemyHealth <= 0 && !isDead)
         {
             isDead = true;
-            GameManager.Instance.PlayExplosionAnimation(collision.transform, true);
-            GameManager.Instance.AddCoins(coinsToAdd);
+            GameManager.instance.PlayExplosionAnimation(collision.transform, true);
+            GameManager.instance.AddCoins(coinsToAdd);
 
-            if (GameManager.Instance.doubleScore)
+            if (GameManager.instance.DoubleScore)
             {
-                GameManager.Instance.AddScore(scoreToAdd * 2);
+                GameManager.instance.AddScore(scoreToAdd * 2);
             }
             else
             {
-                GameManager.Instance.AddScore(scoreToAdd);
+                GameManager.instance.AddScore(scoreToAdd);
             }
 
             switch (gameObject.tag)
@@ -68,4 +69,6 @@ public class EnemyBehaviour : MonoBehaviour
     {
         enemyHealth -= damageDealt;
     }
+
+   
 }

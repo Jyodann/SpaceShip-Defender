@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UpgradeOptionScript : MonoBehaviour
@@ -9,7 +10,7 @@ public class UpgradeOptionScript : MonoBehaviour
     /// Text following object script provided by: https://www.youtube.com/watch?v=0bvDmqqMXcA
     /// </summary>
 
-    public Text UpgradeLabel;
+    [FormerlySerializedAs("UpgradeLabel")] public Text upgradeLabel;
     public Transform shipLocation;
 
     // Update is called once per frame
@@ -17,6 +18,6 @@ public class UpgradeOptionScript : MonoBehaviour
     {
         transform.position = new Vector3(shipLocation.position.x, shipLocation.position.y + 10);
         Vector3 namePose = Camera.main.WorldToScreenPoint(transform.position);
-        UpgradeLabel.transform.position = namePose;
+        upgradeLabel.transform.position = namePose;
     }
 }

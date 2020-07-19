@@ -161,6 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
+  isFrozen: 0
 --- !u!114 &3764756935395378988
 MonoBehaviour:
   m_ObjectHideFlags: 0

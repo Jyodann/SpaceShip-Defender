@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9208406912204127060}
   - component: {fileID: 9208406912204127061}
   - component: {fileID: 9208406912204127062}
-  - component: {fileID: 3032906693647948424}
+  - component: {fileID: -1741760758214194883}
   m_Layer: 0
   m_Name: UFO
   m_TagString: UFO
@@ -167,7 +167,7 @@ MonoBehaviour:
   - {fileID: 1570822453624242147, guid: 4f84a7658c8930a45bc99db6969fda17, type: 3}
   - {fileID: 1363644364021819286, guid: 144a4ef6717fac14eadb7f885711297f, type: 3}
   chance: 1
---- !u!114 &3032906693647948424
+--- !u!114 &-1741760758214194883
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -179,6 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd827308087b1e0459d24c03649ab06a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alienSpawnRate: 10
+  alienSpawnRate: 4
+  isAlienSpawn: 1
   alienObject: {fileID: 8471160928321115163, guid: 687f416db9d6cf54dbf9167ca4609f30,
     type: 3}

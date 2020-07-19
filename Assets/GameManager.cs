@@ -4,14 +4,14 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance = null;
-    public static int HighScore = 0;
+    public static GameManager instance = null;
+    public static int highScore = 0;
     public int Lives { get; set; }
     public int Score { get; set; }
     public int Coins { get; set; }
-    public bool doubleScore { get; set; }
-    public bool isPaused { get; set; }
-    public bool isTimeFrozen { get; set; }
+    public bool DoubleScore { get; set; }
+    public bool IsPaused { get; set; }
+    public bool IsTimeFrozen { get; set; }
 
     public Text livesText;
     public Text coinsText;
@@ -35,11 +35,11 @@ public class GameManager : MonoBehaviour
         Coins = 0;
         Score = 0;
 
-        if (Instance == null)
+        if (instance == null)
         {
-            Instance = this;
+            instance = this;
         }
-        else if (Instance != this)
+        else if (instance != this)
         {
             Destroy(gameObject);
         }
@@ -74,6 +74,10 @@ public class GameManager : MonoBehaviour
                     AddCoins(50);
                 }
 
+                if (Input.GetKeyDown(KeyCode.K))
+                {
+                    AddCoins(1000);
+                }
                 if (Input.GetKeyDown(KeyCode.Q))
                 {
                     AddScore(100);
@@ -126,14 +130,14 @@ public class GameManager : MonoBehaviour
 
     private void TriggerLoseCondition()
     {
-        if (Score > HighScore)
+        if (Score > highScore)
         {
-            HighScore = Score;
+            highScore = Score;
         }
         currentGameState = GameState.GameOver;
         SetPauseState(true);
         gameOverMenu.SetActive(true);
-        gameOverText.text = $"Game Over\nScore: {Score.ToString().PadLeft(8, '0')}\nHi-Score: {HighScore.ToString().PadLeft(8, '0')}";
+        gameOverText.text = $"Game Over\nScore: {Score.ToString().PadLeft(8, '0')}\nHi-Score: {highScore.ToString().PadLeft(8, '0')}";
         Time.timeScale = 0;
     }
 
@@ -157,13 +161,13 @@ public class GameManager : MonoBehaviour
 
     public void ChangeTimeFreeze(bool isEnabled)
     {
-        isTimeFrozen = isEnabled;
+        IsTimeFrozen = isEnabled;
     }
 
     public void ChangeDoubleScore(bool isEnabled)
     {
-        doubleScore = isEnabled;
-        if (doubleScore)
+        DoubleScore = isEnabled;
+        if (DoubleScore)
         {
             scoreBoostText.text = "x2";
         }
@@ -175,7 +179,7 @@ public class GameManager : MonoBehaviour
 
     public void SetPauseState(bool pauseState)
     {
-        isPaused = pauseState;
+        IsPaused = pauseState;
     }
 
     public void PlayExplosionAnimation(Transform explosionLocation, bool isBigExplosion)
