@@ -11,7 +11,7 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] int damageDealt = 1;
     [SerializeField] float maximumPossibleHealth;
     private FireBullets playerObject;
-    private bool isDead = false;
+    private bool isDead;
 
     private void Start()
     {
