@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class UpgradeClass
+﻿public class UpgradeClass
 {
     public string UpgradeName { get; set; }
 
