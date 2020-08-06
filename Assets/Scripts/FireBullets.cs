@@ -3,20 +3,30 @@ using UnityEngine;
 
 public class FireBullets : MonoBehaviour
 {
+    /// <summary>
+    /// This class is mainly for handling bullet firing from the playerObject
+    /// </summary>
+    
+    //Takes in a bullet prefab as the bullet to be shot:
     [SerializeField] private GameObject bulletObject;
+    
+    //All these transforms are empty game objects childed to the ship in their respective locations
+    //why serialiseVariable?
     [SerializeField] private Transform mainCannon;
     [SerializeField] private Transform leftCannon;
     [SerializeField] private Transform rightCannon;
     [SerializeField] private Transform extremeLeftCannon;
     [SerializeField] private Transform extremeRightCannon;
-
+    
+    //Bullet speed can be changed from inspector, affects how fast the bullet flies from the ship. 
     [SerializeField] private float bulletSpeed = 100f;
-
+    
+    //FireRate float will affect the number of bullets shot per second.
     public float fireRate = 0.5f;
+    
     [Range(1, 5)] public int cannonCount = 1;
     public int damageDealt = 1;
-
-    // Update is called once per frame
+    
     private void Start()
     {
         StartCoroutine(Fire());

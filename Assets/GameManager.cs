@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Lives = 100;
+        Lives = 10;
         Coins = 0;
         Score = 0;
 
