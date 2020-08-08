@@ -11,7 +11,9 @@ public class FireBullets : MonoBehaviour
     [SerializeField] private GameObject bulletObject;
     
     //All these transforms are empty game objects childed to the ship in their respective locations
-    //why serialiseVariable?
+    //These serialized variables are not public as they do not need to be referenced anywhere else, 
+    //but need to have a reference from the editor.
+    
     [SerializeField] private Transform mainCannon;
     [SerializeField] private Transform leftCannon;
     [SerializeField] private Transform rightCannon;
@@ -24,24 +26,35 @@ public class FireBullets : MonoBehaviour
     //FireRate float will affect the number of bullets shot per second.
     public float fireRate = 0.5f;
     
+    //Affects number of cannons currently firing based on upgrade:
     [Range(1, 5)] public int cannonCount = 1;
+    //Affects amount of damage dealt per bullet based on upgrade:
     public int damageDealt = 1;
     
     private void Start()
     {
         StartCoroutine(Fire());
     }
-
+    
+    /// <summary>
+    /// Fire() coroutine is responsible for regulating the bullet fire rate.
+    /// Coroutine used here as the rate of fire is easier to manage with yeild return waitForSeconds
+    /// compared to using Update()
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator Fire()
     {
         while (true)
         {
+            //If game is paused, disallows any other action to occur:
             while (GameManager.instance.IsPaused)
             {
                 yield return null;
             }
+            //If Fire1 (MouseLeft) is held, then it starts to fire:
             if (Input.GetButton("Fire1"))
             {
+                //Fires from respective cannons depending on how many there are in the current upgrade:
                 switch (cannonCount)
                 {
                     case 1:
@@ -79,13 +92,18 @@ public class FireBullets : MonoBehaviour
                         break;
                 }
             }
+            //returns waitForSecondsRealTime as fireRate is counted in realSeconds, and this method will wait for the seconds to end
+            //before allowing another call:
             yield return new WaitForSecondsRealtime(fireRate);
         }
     }
 
+    //Fire cannon Method accepts a cannon location, and instantiates a bullet prefab in that location
     private void FireCannon(Transform cannonLocation)
     {
-        GameObject mainbulletClone = Instantiate(bulletObject, cannonLocation.position, transform.rotation);
-        mainbulletClone.GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector3.up * bulletSpeed);
+        //TransformDirection translates the current ship's facing direction (local) to a 
+        //world vector, which allows bullets to fly from where the ship is facing:
+
+        Instantiate(bulletObject, cannonLocation.position, transform.rotation).GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector3.up * bulletSpeed);
     }
 }

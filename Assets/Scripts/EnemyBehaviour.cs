@@ -91,7 +91,7 @@ public class EnemyBehaviour : MonoBehaviour
                     break;
                 //UFOS will play a custom explosion, and drop an item:
                 case "UFO":
-                    GameManager.instance.PlayExplosionAnimation(collision.transform, OnDeathAnimation.ExplosionTypes.UFOExplosion);
+                    GameManager.instance.PlayExplosionAnimation(collision.transform, OnDeathAnimation.ExplosionTypes.UfoExplosion);
                     gameObject.GetComponent<ItemDrop>().DropItem();
                     Destroy(gameObject);
                     break;
