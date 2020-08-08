@@ -111,6 +111,7 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 //Deducts health from the player:
                 collision.GetComponent<Player>().TakeDamage(damageDealt);
+                //Destroys the gameObject that the player collides with:
                 Destroy(gameObject);
             }
         }
