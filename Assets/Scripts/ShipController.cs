@@ -29,6 +29,13 @@ public class ShipController : MonoBehaviour
     {
         verticalMovement = Input.GetButton("Vertical");
         horizontalMovement = Input.GetButton("Horizontal");
+
+        Vector3 mousePosition = Input.mousePosition;
+        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+
+        Vector2 directionToFace = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
+        transform.up = directionToFace;
+        //transform.LookAt(mousePosition);
     }
 
     private void FixedUpdate()
@@ -39,16 +46,17 @@ public class ShipController : MonoBehaviour
 
             rb2d.AddRelativeForce(new Vector2(0, v) * speed);
         }
-
+        
         if (horizontalMovement)
         {
             float v = Input.GetAxisRaw("Horizontal");
-            transform.Rotate(new Vector3(0, 0, -v) * rotateSpeed);
+            rb2d.AddRelativeForce(new Vector2(v, 0) * rotateSpeed);
         }
 
+       
         ScreenWrap();
     }
-
+    
     private void ScreenWrap()
     {
         //If space ship is on screen, no wrapping is happening:

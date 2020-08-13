@@ -90,7 +90,7 @@ public class SpawningManagement : MonoBehaviour
                 
                 //Starts spawnning Asteroids, and adds it to the coroutine List:
                 //** Spawner Coroutine mentioned later.
-                coroutineList.Add(StartCoroutine(Spawner(asteroidObjects, playerLocation.transform, asteroidSpawn, 10f, 50f)));
+                coroutineList.Add(StartCoroutine(Spawner(asteroidObjects, playerLocation.transform, asteroidSpawn, 25f, 50f)));
 
                 if (GameManager.instance.Score >= 500)
                 {
@@ -151,11 +151,6 @@ public class SpawningManagement : MonoBehaviour
             //calls method again based on spawnRate
             yield return new WaitForSecondsRealtime(spawnRate);
         }
-    }
-
-    private IEnumerator UFOSpawner()
-    {
-        yield return null;
     }
     
 }
