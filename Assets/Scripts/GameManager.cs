@@ -152,6 +152,16 @@ public class GameManager : MonoBehaviour
                     //Sets timeScale back to normal:
                     Time.timeScale = 1;
                 }
+                //Press R to allow restart during pause:
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    //Sets currentGame state to be inGame
+                    currentGameState = GameState.InGame;
+                    //Resets Time scale
+                    Time.timeScale = 1;
+                    //Reloads Scene:
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
                 break;
 
             case GameState.GameOver:

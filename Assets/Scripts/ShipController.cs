@@ -14,11 +14,13 @@ public class ShipController : MonoBehaviour
     private bool isWrappingX = false;
     private bool isWrappingY = false;
 
+    //Checks all 4 screen bounds:
     private Renderer[] renderers;
 
     private void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        //Gets 4 of the screenbounds:
         renderers = GetComponentsInChildren<Renderer>();
     }
 
@@ -35,7 +37,7 @@ public class ShipController : MonoBehaviour
         {
             float v = Input.GetAxisRaw("Vertical");
 
-            rb2d.AddRelativeForce(new Vector2(0, v).normalized * speed);
+            rb2d.AddRelativeForce(new Vector2(0, v) * speed);
         }
 
         if (horizontalMovement)
@@ -49,6 +51,7 @@ public class ShipController : MonoBehaviour
 
     private void ScreenWrap()
     {
+        //If space ship is on screen, no wrapping is happening:
         if (CheckRenderers())
         {
             isWrappingX = false;
@@ -56,30 +59,36 @@ public class ShipController : MonoBehaviour
             return;
         }
 
+        //If wrapping is occuring on both sides, no more wrapping is required:
         if (isWrappingX && isWrappingY)
         {
             return;
         }
-
+        //Get ship's current position:
         Vector3 newPosition = transform.position;
 
+        //if newPosition x is more than one or less than zero, meaning it is OUT of screen
+        // AND is in a valid position (i.e. Not in the screen border), then wrap by the x-axis by
+        // mirroring the position:
         if (newPosition.x > 1 || newPosition.x < 0)
         {
             newPosition.x = -newPosition.x;
             isWrappingX = true;
         }
 
+        //Same logic as x, but applied for y:
         if (newPosition.y > 1 || newPosition.y < 0)
         {
             newPosition.y = -newPosition.y;
             isWrappingY = true;
         }
-
+        //sets the position of the ship to be the new, wrapped position:
         transform.position = newPosition;
     }
 
     private bool CheckRenderers()
     {
+        //Goes through each renderer to check if spaceShip is currently on screen:
         foreach (var renderer in renderers)
         {
             if (renderer.isVisible)
@@ -87,7 +96,7 @@ public class ShipController : MonoBehaviour
                 return true;
             }
         }
-
+        //Returns false if spaceship is not in screen:
         return false;
     }
 
