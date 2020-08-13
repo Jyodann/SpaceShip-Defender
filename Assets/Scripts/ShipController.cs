@@ -14,13 +14,14 @@ public class ShipController : MonoBehaviour
     private bool isWrappingX = false;
     private bool isWrappingY = false;
 
-    public enum ControlMode { KeyboardOnly, MixedMouseKeyboard }
-    public ControlMode currentControlMode;
+    
+    public GameManager.ControlMode currentControlMode;
     //Checks all 4 screen bounds:
     private Renderer[] renderers;
 
     private void Start()
     {
+        currentControlMode = GameManager.playerControlMode;
         rb2d = GetComponent<Rigidbody2D>();
         //Gets 4 of the screenbounds:
         renderers = GetComponentsInChildren<Renderer>();
@@ -32,7 +33,7 @@ public class ShipController : MonoBehaviour
         verticalMovement = Input.GetButton("Vertical");
         horizontalMovement = Input.GetButton("Horizontal");
 
-        if (currentControlMode == ControlMode.MixedMouseKeyboard)
+        if (currentControlMode == GameManager.ControlMode.MixedMouseKeyboard)
         {
             Vector3 mousePosition = Input.mousePosition;
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
@@ -46,7 +47,7 @@ public class ShipController : MonoBehaviour
     {
         switch (currentControlMode)
         {
-            case ControlMode.KeyboardOnly:
+            case GameManager.ControlMode.KeyboardOnly:
                 if (verticalMovement)
                 {
                     float v = Input.GetAxisRaw("Vertical");
@@ -59,7 +60,7 @@ public class ShipController : MonoBehaviour
                     transform.Rotate(new Vector3(0, 0, -v) * rotateSpeed);
                 }
                 break;
-            case ControlMode.MixedMouseKeyboard:
+            case GameManager.ControlMode.MixedMouseKeyboard:
                 if (verticalMovement)
                 {
                     float v = Input.GetAxisRaw("Vertical");

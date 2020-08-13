@@ -659,6 +659,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3132237495377382338, guid: f2965283e626d884dbf10986ebd8c9ac,
+        type: 3}
+      propertyPath: m_Text
+      value: 'ESC TO RESUME
+
+        R TO RESTART
+
+        E TO EXIT'
+      objectReference: {fileID: 0}
     - target: {fileID: 3648179330267564855, guid: f2965283e626d884dbf10986ebd8c9ac,
         type: 3}
       propertyPath: m_AnchoredPosition.y
