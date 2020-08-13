@@ -55,6 +55,11 @@ public class GameManager : MonoBehaviour
     //Keeps a reference to the deathAnimation player
     private OnDeathAnimation deathAnimationManager;
 
+    //Setting Eumn to allow player to change Control mode
+    public enum ControlMode { KeyboardOnly, MixedMouseKeyboard }
+
+    //Static Control Mode Enum for reading in the ShipController:
+    public static ControlMode playerControlMode = ControlMode.KeyboardOnly;
     private void Awake()
     {
         //These can be changed for testing purposes:
@@ -161,6 +166,16 @@ public class GameManager : MonoBehaviour
                     Time.timeScale = 1;
                     //Reloads Scene:
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
+                //Press E to allow quitting during pause:
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    //Sets gameState to be inGame
+                    currentGameState = GameState.InGame;
+                    //Sets timeScale to be 1
+                    Time.timeScale = 1;
+                    //Loads Mainmenu:
+                    SceneManager.LoadScene(0);
                 }
                 break;
 

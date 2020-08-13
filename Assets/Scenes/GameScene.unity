@@ -659,6 +659,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3132237495377382338, guid: f2965283e626d884dbf10986ebd8c9ac,
+        type: 3}
+      propertyPath: m_Text
+      value: 'ESC TO RESUME
+
+        R TO RESTART
+
+        E TO EXIT'
+      objectReference: {fileID: 0}
     - target: {fileID: 3648179330267564855, guid: f2965283e626d884dbf10986ebd8c9ac,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -782,7 +791,12 @@ PrefabInstance:
     - target: {fileID: 6051054198046076313, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
         type: 3}
       propertyPath: speed
-      value: 100
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6051054198046076313, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
+        type: 3}
+      propertyPath: rotateSpeed
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 6051054198046076315, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
         type: 3}
