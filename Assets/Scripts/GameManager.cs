@@ -140,6 +140,8 @@ public class GameManager : MonoBehaviour
                 {
                     TakeDamage(-1);
                 }
+
+                
                 #endregion
                 
                 break;

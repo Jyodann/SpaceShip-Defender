@@ -773,31 +773,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: playerShip
       objectReference: {fileID: 0}
-    - target: {fileID: 6051054198046076312, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
-        type: 3}
-      propertyPath: m_GravityScale
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6051054198046076312, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
-        type: 3}
-      propertyPath: m_UseAutoMass
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6051054198046076312, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
-        type: 3}
-      propertyPath: m_LinearDrag
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 6051054198046076313, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
-        type: 3}
-      propertyPath: speed
-      value: 75
-      objectReference: {fileID: 0}
-    - target: {fileID: 6051054198046076313, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
-        type: 3}
-      propertyPath: rotateSpeed
-      value: 7.5
-      objectReference: {fileID: 0}
     - target: {fileID: 6051054198046076315, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
         type: 3}
       propertyPath: m_LocalPosition.x
