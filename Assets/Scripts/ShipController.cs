@@ -14,6 +14,8 @@ public class ShipController : MonoBehaviour
     private bool isWrappingX = false;
     private bool isWrappingY = false;
 
+    public enum ControlMode { KeyboardOnly, MixedMouseKeyboard }
+    public ControlMode currentControlMode;
     //Checks all 4 screen bounds:
     private Renderer[] renderers;
 
@@ -30,30 +32,50 @@ public class ShipController : MonoBehaviour
         verticalMovement = Input.GetButton("Vertical");
         horizontalMovement = Input.GetButton("Horizontal");
 
-        Vector3 mousePosition = Input.mousePosition;
-        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        if (currentControlMode == ControlMode.MixedMouseKeyboard)
+        {
+            Vector3 mousePosition = Input.mousePosition;
+            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
-        Vector2 directionToFace = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
-        transform.up = directionToFace;
-        //transform.LookAt(mousePosition);
+            Vector2 directionToFace = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
+            transform.up = directionToFace;
+        }
     }
 
     private void FixedUpdate()
     {
-        if (verticalMovement)
+        switch (currentControlMode)
         {
-            float v = Input.GetAxisRaw("Vertical");
+            case ControlMode.KeyboardOnly:
+                if (verticalMovement)
+                {
+                    float v = Input.GetAxisRaw("Vertical");
+                    rb2d.AddRelativeForce(new Vector2(0, v) * speed);
+                }
 
-            rb2d.AddRelativeForce(new Vector2(0, v) * speed);
-        }
-        
-        if (horizontalMovement)
-        {
-            float v = Input.GetAxisRaw("Horizontal");
-            rb2d.AddRelativeForce(new Vector2(v, 0) * rotateSpeed);
+                if (horizontalMovement)
+                {
+                    float v = Input.GetAxisRaw("Horizontal");
+                    transform.Rotate(new Vector3(0, 0, -v) * rotateSpeed);
+                }
+                break;
+            case ControlMode.MixedMouseKeyboard:
+                if (verticalMovement)
+                {
+                    float v = Input.GetAxisRaw("Vertical");
+                    rb2d.AddRelativeForce(new Vector2(0, v) * speed);
+                }
+
+                if (horizontalMovement)
+                {
+                    float v = Input.GetAxisRaw("Horizontal");
+                    rb2d.AddRelativeForce(new Vector2(v, 0) * speed);
+                }
+                break;
+            default:
+                break;
         }
 
-       
         ScreenWrap();
     }
     
