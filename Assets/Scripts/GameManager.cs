@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
     public enum ControlMode { KeyboardOnly, MixedMouseKeyboard }
 
     //Static Control Mode Enum for reading in the ShipController:
-    public static ControlMode playerControlMode = ControlMode.KeyboardOnly;
+    public static ControlMode playerControlMode = ControlMode.MixedMouseKeyboard;
     private void Awake()
     {
         //These can be changed for testing purposes:

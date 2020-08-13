@@ -14,8 +14,8 @@ public class ShipController : MonoBehaviour
     private bool isWrappingX = false;
     private bool isWrappingY = false;
 
-    
     public GameManager.ControlMode currentControlMode;
+
     //Checks all 4 screen bounds:
     private Renderer[] renderers;
 
@@ -30,37 +30,51 @@ public class ShipController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        //Gets Input from A/D/W/S:
         verticalMovement = Input.GetButton("Vertical");
         horizontalMovement = Input.GetButton("Horizontal");
 
+        //If controlMode is Mixed, detect for mousePointer:
         if (currentControlMode == GameManager.ControlMode.MixedMouseKeyboard)
         {
+            //Code Referenced from Danndx on YouTube:
+            //https://www.youtube.com/watch?v=_XdqA3xbP2A
+
+            //Get CurrentMousePosition
             Vector3 mousePosition = Input.mousePosition;
+            //Gets mouse position, but converted from ScreenPoint, to a WorldPosition:
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
+            //Gets the directionToFace RELATIVE to mouse position, based on player's current location:
             Vector2 directionToFace = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
+            //Sets the ship to face the direction:
             transform.up = directionToFace;
         }
     }
 
     private void FixedUpdate()
     {
+        //Changes movement based on controlMode Selected from MainMenu:
         switch (currentControlMode)
         {
+            //RelativeForces are used as they steer the ship based on WHERE the ship is facing
             case GameManager.ControlMode.KeyboardOnly:
+                //If keyboard only, the "vertical" (W/S) buttons will add relativeForce in the Y-axis:
                 if (verticalMovement)
                 {
                     float v = Input.GetAxisRaw("Vertical");
                     rb2d.AddRelativeForce(new Vector2(0, v) * speed);
                 }
-
+                //If keyboard only, the "horizontal" (A/D) buttons will rotate the ship left/right:
                 if (horizontalMovement)
                 {
                     float v = Input.GetAxisRaw("Horizontal");
                     transform.Rotate(new Vector3(0, 0, -v) * rotateSpeed);
                 }
                 break;
+
             case GameManager.ControlMode.MixedMouseKeyboard:
+                //If mixed, "vertical", "horizontal" will add Relativeforce on the y-axis and x-axis respectively
                 if (verticalMovement)
                 {
                     float v = Input.GetAxisRaw("Vertical");
@@ -73,13 +87,14 @@ public class ShipController : MonoBehaviour
                     rb2d.AddRelativeForce(new Vector2(v, 0) * speed);
                 }
                 break;
+
             default:
                 break;
         }
 
         ScreenWrap();
     }
-    
+
     private void ScreenWrap()
     {
         //If space ship is on screen, no wrapping is happening:
