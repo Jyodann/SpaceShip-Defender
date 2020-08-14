@@ -42,11 +42,11 @@ public class MainMenuController : MonoBehaviour
         switch (GameManager.playerControlMode)
         {
             case GameManager.ControlMode.KeyboardOnly:
-                currentSelectedControlOption.text = "Current Control Mode: Classic";
+                currentSelectedControlOption.text = "Control Style: Classic";
                 break;
 
             case GameManager.ControlMode.MixedMouseKeyboard:
-                currentSelectedControlOption.text = "Current Control Mode: Keyboard + Mouse";
+                currentSelectedControlOption.text = "Control Style: Keyboard + Mouse";
                 break;
 
             default:
