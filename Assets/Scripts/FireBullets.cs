@@ -6,36 +6,42 @@ public class FireBullets : MonoBehaviour
     /// <summary>
     /// This class is mainly for handling bullet firing from the playerObject
     /// </summary>
-    
+
     //Takes in a bullet prefab as the bullet to be shot:
     [SerializeField] private GameObject bulletObject;
-    
+
     //All these transforms are empty game objects childed to the ship in their respective locations
-    //These serialized variables are not public as they do not need to be referenced anywhere else, 
+    //These serialized variables are not public as they do not need to be referenced anywhere else,
     //but need to have a reference from the editor.
-    
+
     [SerializeField] private Transform mainCannon;
     [SerializeField] private Transform leftCannon;
     [SerializeField] private Transform rightCannon;
     [SerializeField] private Transform extremeLeftCannon;
     [SerializeField] private Transform extremeRightCannon;
-    
-    //Bullet speed can be changed from inspector, affects how fast the bullet flies from the ship. 
+
+    //Bullet speed can be changed from inspector, affects how fast the bullet flies from the ship.
     [SerializeField] private float bulletSpeed = 100f;
-    
+
     //FireRate float will affect the number of bullets shot per second.
     public float fireRate = 0.5f;
-    
+
     //Affects number of cannons currently firing based on upgrade:
     [Range(1, 5)] public int cannonCount = 1;
+
     //Affects amount of damage dealt per bullet based on upgrade:
     public int damageDealt = 1;
-    
+
+    [SerializeField] private AudioClip lazerShot;
+
+    private AudioSource audioSource;
+
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         StartCoroutine(Fire());
     }
-    
+
     /// <summary>
     /// Fire() coroutine is responsible for regulating the bullet fire rate.
     /// Coroutine used here as the rate of fire is easier to manage with yeild return waitForSeconds
@@ -54,6 +60,7 @@ public class FireBullets : MonoBehaviour
             //If Fire1 (MouseLeft) is held, then it starts to fire:
             if (Input.GetButton("Fire1"))
             {
+                audioSource.PlayOneShot(lazerShot);
                 //Fires from respective cannons depending on how many there are in the current upgrade:
                 switch (cannonCount)
                 {
@@ -101,7 +108,7 @@ public class FireBullets : MonoBehaviour
     //Fire cannon Method accepts a cannon location, and instantiates a bullet prefab in that location
     private void FireCannon(Transform cannonLocation)
     {
-        //TransformDirection translates the current ship's facing direction (local) to a 
+        //TransformDirection translates the current ship's facing direction (local) to a
         //world vector, which allows bullets to fly from where the ship is facing:
 
         Instantiate(bulletObject, cannonLocation.position, transform.rotation).GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector3.up * bulletSpeed);

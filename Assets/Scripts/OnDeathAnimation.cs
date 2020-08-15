@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class OnDeathAnimation : MonoBehaviour
 {
@@ -8,9 +9,20 @@ public class OnDeathAnimation : MonoBehaviour
 
     //These SerialisedFields are for setting the prefabs with a particleSystem in it that has the corresponding animation:
     [SerializeField] private GameObject smallExplosion;
+
     [SerializeField] private GameObject bigExplosion;
     [SerializeField] private GameObject ufoExplosion;
-    
+
+    [SerializeField] private AudioClip smallExplosionSound;
+    [SerializeField] private AudioClip bigExplosionSounds;
+
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     //Enum to manage the different kinds of explosions, can be added if more explosions are required:
     public enum ExplosionTypes
     {
@@ -25,12 +37,16 @@ public class OnDeathAnimation : MonoBehaviour
         switch (explosionTypes)
         {
             case ExplosionTypes.BigExplosion:
+                audioSource.PlayOneShot(smallExplosionSound);
                 Destroy(Instantiate(bigExplosion, explosionLocation.position, Quaternion.identity), 2f);
                 break;
+
             case ExplosionTypes.SmallExplosion:
                 Destroy(Instantiate(smallExplosion, explosionLocation.position, Quaternion.identity), 2f);
                 break;
+
             case ExplosionTypes.UfoExplosion:
+                audioSource.PlayOneShot(bigExplosionSounds);
                 Destroy(Instantiate(ufoExplosion, explosionLocation.position, Quaternion.identity), 2f);
                 break;
         }

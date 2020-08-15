@@ -266,12 +266,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1601273536 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 29714433224119419, guid: f2965283e626d884dbf10986ebd8c9ac,
-    type: 3}
-  m_PrefabInstance: {fileID: 2568845988927876296}
-  m_PrefabAsset: {fileID: 0}
 --- !u!850595691 &1633704322
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -403,10 +397,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2008850029}
     - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
-      propertyPath: inGameMenu
-      value: 
-      objectReference: {fileID: 1601273536}
-    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
       propertyPath: gameOverMenu
       value: 
       objectReference: {fileID: 1836498647}
@@ -414,6 +404,10 @@ PrefabInstance:
       propertyPath: pauseMenu
       value: 
       objectReference: {fileID: 1112314079}
+    - target: {fileID: 996874560, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 56dcdac18f4f44440ae3063043967bd0, type: 3}
     - target: {fileID: 1349937148, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
       propertyPath: ufoSpawnLocations.Array.data[0]
       value: 
@@ -495,12 +489,6 @@ PrefabInstance:
       propertyPath: upgradeText
       value: 
       objectReference: {fileID: 1078834785}
-    - target: {fileID: 5291550183322431410, guid: bbcdd9a2e7be351449d00a2dff305921,
-        type: 3}
-      propertyPath: ufoExplosion
-      value: 
-      objectReference: {fileID: 5673165476966189535, guid: e04a23be4dadf9944a059aaa83b19764,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
 --- !u!1001 &2101927979424221814
@@ -768,6 +756,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6012131414832987246, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 6051054198046076309, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
         type: 3}
       propertyPath: m_Name
@@ -781,7 +774,7 @@ PrefabInstance:
     - target: {fileID: 6051054198046076315, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -11.6
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 6051054198046076315, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
         type: 3}

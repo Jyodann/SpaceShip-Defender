@@ -12,6 +12,11 @@ public class Alien : MonoBehaviour
 
     private void Start()
     {
+        if (Random.Range(0, 2) == 0)
+        {
+            GetComponent<SpriteRenderer>().color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+        }
+
         //Finds player character object and stores it as a global variable/
         playerCharacter = FindObjectOfType<Player>();
     }
