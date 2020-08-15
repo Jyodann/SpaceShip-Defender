@@ -28,18 +28,20 @@ public class MainMenuController : MonoBehaviour
     public void SetMixedControlMode()
     {
         GameManager.playerControlMode = GameManager.ControlMode.MixedMouseKeyboard;
+        PlayerPrefs.SetInt("controlMode", (int)GameManager.ControlMode.MixedMouseKeyboard);
     }
 
     //Helper method to set ControlMode to Keyboard when option is selected
     public void SetKeyboardOnlyControlMode()
     {
         GameManager.playerControlMode = GameManager.ControlMode.KeyboardOnly;
+        PlayerPrefs.SetInt("controlMode", (int)GameManager.ControlMode.KeyboardOnly);
     }
 
     //Helper method that gets called when options button is selected so that the text will show current control mode
     public void UpdateControlModeText()
     {
-        switch (GameManager.playerControlMode)
+        switch ((GameManager.ControlMode)PlayerPrefs.GetInt("controlMode", 1))
         {
             case GameManager.ControlMode.KeyboardOnly:
                 currentSelectedControlOption.text = "Control Style: Classic";

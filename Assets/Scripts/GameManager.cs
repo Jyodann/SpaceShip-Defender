@@ -7,51 +7,60 @@ public class GameManager : MonoBehaviour
 {
     /// <summary>
     /// Why are there 3 different managers?
-    /// 
+    ///
     /// The main idea of having 3 different managers is so that Code is easier to maintain as it is not as long, and hence not as messy
     /// The different manager names are distinct, which also lets the developer know which files to change for a specific function
-    /// 
+    ///
     /// Though all the other managers can be together in this one file, a decision was made to separate them and instead introduce
     /// helper functions in the main GameManager to access the other managers more easily if required.
     /// This is part of using the Separation of concerns design principle.
     /// </summary>
-    
+
     //Makes new instance of gameManager, not initialised as it uses a Singleton pattern similar to the one found in:
     //https://learn.unity.com/tutorial/level-generation?uv=5.x&projectId=5c514a00edbc2a0020694718#5c7f8528edbc2a002053b6f7 (2D RougueLike tutorial)
     public static GameManager instance;
+
     //Declares a static to store highScore for this instance of the game:
     private static int highScore;
-    
+
     //private health property used within this Script only:
     private int Lives { get; set; }
+
     //Public score property that is modified and read by this Script and SpawningManagement, keeps track of lives:
     public int Score { get; set; }
+
     //Public coins propety that is modified and read by this script and Upgrade Management, keeps track of the current number of coins:
     public int Coins { get; set; }
+
     //Public DoubleScore property which is read by EnemyBehavior, so as to add the appropriate score:
     public bool DoubleScore { get; set; }
+
     //isPaused keeps Pause State, read by FireBullets and SpawningManagement
     public bool IsPaused { get; set; }
+
     //isTimeFrozen is responsible for the TimeFreeze powerup, it stops SpawnManagement from spawnning objects:
     public bool IsTimeFrozen { get; set; }
 
     //All these fields are various UI elements that are set in the inspector:
-    [SerializeField] Text livesText;
-    [SerializeField] Text coinsText;
-    [SerializeField] Text scoreText;
-    [SerializeField] Text scoreBoostText;
-    [SerializeField] Text gameOverText;
-    
+    [SerializeField] private Text livesText;
+
+    [SerializeField] private Text coinsText;
+    [SerializeField] private Text scoreText;
+    [SerializeField] private Text scoreBoostText;
+    [SerializeField] private Text gameOverText;
+
     //GameOver meny and PauseMenu are both Canvas objects childed under the UIObjects gameObject:
     public GameObject gameOverMenu;
+
     public GameObject pauseMenu;
-    
+
     //Enum of GameState to check if Game is over, Paused or currently playing:
     //Future plans to actually add certain BossStates, therefore this is here instead of just using booleans:
     private enum GameState { InGame, Paused, GameOver }
-    
+
     //Keeps track of the current session's gameState:
     private GameState currentGameState;
+
     //Keeps a reference to the deathAnimation player
     private OnDeathAnimation deathAnimationManager;
 
@@ -60,15 +69,19 @@ public class GameManager : MonoBehaviour
 
     //Static Control Mode Enum for reading in the ShipController:
     public static ControlMode playerControlMode = ControlMode.MixedMouseKeyboard;
+
     private void Awake()
     {
+        playerControlMode = (ControlMode)PlayerPrefs.GetInt("controlMode", 1);
+        highScore = PlayerPrefs.GetInt("hiScore", 0);
+
         //These can be changed for testing purposes:
         Lives = 10;
         Coins = 0;
         Score = 0;
-        
+
         //Uses a SingleTon pattern for GameManager, code based off: https://learn.unity.com/tutorial/level-generation?uv=5.x&projectId=5c514a00edbc2a0020694718#5c7f8528edbc2a002053b6f7 (2D RougueLike tutorial)
-        
+
         if (instance == null)
         {
             instance = this;
@@ -85,7 +98,7 @@ public class GameManager : MonoBehaviour
         deathAnimationManager = FindObjectOfType<OnDeathAnimation>();
         //Sets current game state to InGame:
         currentGameState = GameState.InGame;
-        
+
         //Sets current Coins, Lives and Score to the UI counterparts:
         coinsText.text = Coins.ToString();
         livesText.text = Lives.ToString();
@@ -111,6 +124,7 @@ public class GameManager : MonoBehaviour
                 }
 
                 #region CheatCodes
+
                 //These are not meant to be in the game, but are added to facilitate testing :)
                 //P = Add 50 Coins
                 //K = Add 1000 Coins
@@ -141,9 +155,8 @@ public class GameManager : MonoBehaviour
                     TakeDamage(-1);
                 }
 
-                
-                #endregion
-                
+                #endregion CheatCodes
+
                 break;
 
             case GameState.Paused:
@@ -205,12 +218,13 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
     //Helper method to deal damage, takes in one parameter damageValue:
     public void TakeDamage(int damageValue)
     {
         //Deducts current lives by damage taken:
         Lives -= damageValue;
-        
+
         //Sets livesText to be current amount of Lives;
         livesText.text = Lives.ToString();
         //Checks if lives is less than 0 or 0:
@@ -219,6 +233,7 @@ public class GameManager : MonoBehaviour
             TriggerLoseCondition();
         }
     }
+
     //Trigger lose condition is called when the player reaches 0 lives:
     private void TriggerLoseCondition()
     {
@@ -226,6 +241,7 @@ public class GameManager : MonoBehaviour
         if (Score > highScore)
         {
             highScore = Score;
+            PlayerPrefs.SetInt("hiScore", highScore);
         }
         //Set current game state to gameOver:
         currentGameState = GameState.GameOver;
@@ -238,6 +254,7 @@ public class GameManager : MonoBehaviour
         //Sets timeScale to frozen:
         Time.timeScale = 0;
     }
+
     //The next 3 'Add' helper methods do about the same thing for Score, Coins and Lives,
     //adds it to the current Variable based on the amount to add in the Parameter and updates the HUD:
     public void AddScore(int scoreToAdd)
@@ -263,11 +280,13 @@ public class GameManager : MonoBehaviour
         Lives = Mathf.Clamp(Lives, 0, 9999);
         livesText.text = Lives.ToString();
     }
+
     //Change Time Freeze is used by PowerUpScript to manage timeFreeze powerup:
     public void ChangeTimeFreeze(bool isEnabled)
     {
         IsTimeFrozen = isEnabled;
     }
+
     //Double Score is used by PowerupScript to manage DoubelScore powerup:
     public void ChangeDoubleScore(bool isEnabled)
     {
@@ -283,6 +302,7 @@ public class GameManager : MonoBehaviour
             scoreBoostText.text = "";
         }
     }
+
     //Helper Method to play appropriate explosion in Explosion location:
     public void PlayExplosionAnimation(Transform explosionLocation, OnDeathAnimation.ExplosionTypes explosionType)
     {
