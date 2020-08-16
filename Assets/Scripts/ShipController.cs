@@ -147,6 +147,7 @@ public class ShipController : MonoBehaviour
         return false;
     }
 
+    //Helper method to change speed, used by the PowerupScripot:
     public void ChangeSpeed(float speedToChange)
     {
         speed = speedToChange;

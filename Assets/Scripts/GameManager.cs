@@ -140,9 +140,11 @@ public class GameManager : MonoBehaviour
                 //These are not meant to be in the game, but are added to facilitate testing :)
                 //P = Add 50 Coins
                 //K = Add 1000 Coins
+                //R = Add 250 Score
                 //Q = Add 1000 Score
                 //I = Take 1 Damage
                 //O = Add 1 Life:
+                //L = Add 10 Lives:
                 if (Input.GetKeyDown(KeyCode.P))
                 {
                     AddCoins(50);
@@ -151,6 +153,11 @@ public class GameManager : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.K))
                 {
                     AddCoins(1000);
+                }
+
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    AddScore(250);
                 }
                 if (Input.GetKeyDown(KeyCode.Q))
                 {
@@ -165,6 +172,11 @@ public class GameManager : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.O))
                 {
                     TakeDamage(-1);
+                }
+
+                if (Input.GetKeyDown(KeyCode.L))
+                {
+                    TakeDamage(-10);
                 }
 
                 #endregion CheatCodes
