@@ -6,6 +6,7 @@ public class Ufo : MonoBehaviour
     //Changes how fast aliens spawn, will be changed by the spawn Manager to scale difficulty:
     public float alienSpawnRate = 4f;
 
+    //Boolean that is public so that it can be changed by the GameManager during timeFreeze:
     public bool isAlienSpawn = true;
 
     //Uses an ailen prefab for spawnning aliens:
@@ -13,10 +14,8 @@ public class Ufo : MonoBehaviour
 
     private void Start()
     {
-        if (Random.Range(0, 2) == 0)
-        {
-            GetComponent<SpriteRenderer>().color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
-        }
+        //Destroys the UFO object in 40 seconds if player is unable to kill it:
+        Destroy(gameObject, 40f);
         //Starts an ailen spawnner:
         StartCoroutine(SpawnAliens());
     }

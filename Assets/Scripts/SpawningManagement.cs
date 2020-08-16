@@ -17,17 +17,18 @@ public class SpawningManagement : MonoBehaviour
     private List<Coroutine> coroutineList = new List<Coroutine>();
     public static float Factor { get; set; }
 
-    /*    
+    /*
      * OnStart, this Manager gets the player's current location and stores it in memory.
      * It also starts the CoRoutine CheckDifficulty so the spawnning will begin
     */
+
     private void Start()
     {
-        
+        //Finds the player and gets the currentTransform:
         playerLocation = FindObjectOfType<Player>().transform;
         StartCoroutine(CheckDifficulty(false));
     }
-    
+
     /// <summary>
     /// CheckDifficulty is a CoroutineCall that periodically checks the score to scale the difficulty
     /// based on how far the player is in the game. This makes the game less boring as the player will
@@ -38,28 +39,27 @@ public class SpawningManagement : MonoBehaviour
     /// <returns></returns>
     private IEnumerator CheckDifficulty(bool forceUpdate)
     {
-        
         while (true)
         {
             //While condition checks if 1. Game is Paused OR 2. Time Freeze Powerup is active.
-            //It stops this enumerator from running temporarily. 
+            //It stops this enumerator from running temporarily.
             //This code is taken from https://answers.unity.com/questions/904429/pause-and-resume-coroutine-1.html
             while (GameManager.instance.IsPaused || GameManager.instance.IsTimeFrozen)
             {
                 yield return null;
             }
-            
-            //Difficulty Factor is Calculated with a pre-determined formula of Score/500:
-            int difficultyFactor = GameManager.instance.Score / 500;
+
+            //Difficulty Factor is Calculated with a pre-determined formula of Score/250:
+            int difficultyFactor = GameManager.instance.Score / 250;
 
             print("Current Difficulty Factor: (x) " + difficultyFactor);
             //actual factor (used to tune game Health, and spawn rates) is calculated with this formula:
             // factor = (1.05 ^ difficultyFactor - 1)
             // Difficulty Scaling concept inspired by Unity's 2D RogueLike LevelGeneration Tutorial:
             // https://learn.unity.com/tutorial/level-generation?uv=5.x&projectId=5c514a00edbc2a0020694718#5c7f8528edbc2a002053b6f6
-            
+
             Factor = (Mathf.Pow(1.05f, difficultyFactor) - 1);
-            
+
             /*Spawnning Logic:
              This will first check if the factor is currently the same. If it is, it will not stop the current spawnRates/change
              difficulty as it is a relatively expensive operation.
@@ -75,19 +75,19 @@ public class SpawningManagement : MonoBehaviour
                         StopCoroutine(coroutine);
                     }
                 }
-                
+
                 //stores current factor as the new Factor number for future reference.
                 currentFactor = Factor;
-                
+
                 //All spawnRate calculations are done here. The baseSpawnRate is deducted by the factor,
                 //Hence as the game progresses, spawnning gets quicker and quicker.
                 //The values are clamped to balance the game as you do not want a spawnRate that is too quick:
-                var asteroidSpawn = asteroidSpawnRate - Mathf.Clamp(Factor, 0f, 0.75f);
-                var alienSpawn = alienSpawnRate - Mathf.Clamp(Factor, 0f, 5f);
+                var asteroidSpawn = asteroidSpawnRate - Mathf.Clamp(Factor, 0f, 0.65f);
+                var alienSpawn = alienSpawnRate - Mathf.Clamp(Factor, 0f, 4f);
                 var ufoSpawn = ufoSpawnRate - Mathf.Clamp(Factor, 0f, 30f);
-                
+
                 print($"Current SpawnRates: {alienSpawn} (Alien) {asteroidSpawn} (Asteroid) {ufoSpawn} (UFO)");
-                
+
                 //Starts spawnning Asteroids, and adds it to the coroutine List:
                 //** Spawner Coroutine mentioned later.
                 coroutineList.Add(StartCoroutine(Spawner(asteroidObjects, playerLocation.transform, asteroidSpawn, 25f, 50f)));
@@ -95,7 +95,7 @@ public class SpawningManagement : MonoBehaviour
                 if (GameManager.instance.Score >= 500)
                 {
                     //Starts spawnning Aliens after score is more than 500, and adds it to the coroutine List:
-                    coroutineList.Add(StartCoroutine(Spawner(alienObjects, playerLocation.transform, alienSpawn, 10f, 50f)));
+                    coroutineList.Add(StartCoroutine(Spawner(alienObjects, playerLocation.transform, alienSpawn, 40f, 80f)));
                 }
                 if (GameManager.instance.Score >= 1500)
                 {
@@ -131,7 +131,7 @@ public class SpawningManagement : MonoBehaviour
             }
             //Chooses a randomObject from the objectsToSpawn array to spawn:
             var objectToSpawn = objectsToSpawn[Random.Range(0, objectsToSpawn.Length)];
-            
+
             //randomly decide a region to spawn in:
             if (Random.Range(0, 2) == 1)
             {
@@ -152,5 +152,4 @@ public class SpawningManagement : MonoBehaviour
             yield return new WaitForSecondsRealtime(spawnRate);
         }
     }
-    
 }

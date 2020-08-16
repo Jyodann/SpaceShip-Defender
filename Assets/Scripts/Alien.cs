@@ -12,12 +12,18 @@ public class Alien : MonoBehaviour
 
     private void Start()
     {
+        //Randomly decides if an alien should be "mutated":
         if (Random.Range(0, 2) == 0)
         {
+            //This changes the colour of the alien to a random one:
             GetComponent<SpriteRenderer>().color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+            //Changes speed of the alien if it is mutated, the speed is absed on the current DifficultyFactor:
+            speed *= (SpawningManagement.Factor + 1);
+            speed = Mathf.Clamp(speed, 0f, 40f);
+            print("alienSpeed " + speed);
         }
 
-        //Finds player character object and stores it as a global variable/
+        //Finds player character object and stores it as a global variable
         playerCharacter = FindObjectOfType<Player>();
     }
 

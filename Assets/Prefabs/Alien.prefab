@@ -149,7 +149,7 @@ MonoBehaviour:
   scoreToAdd: 10
   coinsToAdd: 5
   damageDealt: 2
-  maximumPossibleHealth: 50
+  maximumPossibleHealth: 250
 --- !u!114 &1233748816
 MonoBehaviour:
   m_ObjectHideFlags: 0

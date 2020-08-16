@@ -5,7 +5,7 @@ public class BoundingBoxScript : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         //This script is here to do Optimisation: It destorys anything out of the player's current
-        //vision
+        //vision, referenced from one of Unity's Tutorials about spaceShooters:
         //https://www.youtube.com/watch?v=GIatyq9KT28
         if (!collision.gameObject.CompareTag("Player"))
         {

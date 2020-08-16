@@ -9,22 +9,26 @@ public class PowerupScript : MonoBehaviour
 {
     //Enum to manage all the different types of powerups:
     private enum PowerUps { HeartPowerup, IncreaseDamage, ScoreBoost, TimeFreeze, SpeedBoost };
-    
+
     //Allows the powerup ability to be selected from the UnityEditor:
-    [SerializeField] PowerUps powerUp;
-    
+    [SerializeField] private PowerUps powerUp;
+
     //References the only playerObject present:
     private GameObject playerObject;
-    
+
     //used to track the ship's damage BEFORE the powerup changes it:
     private int initialDamageDealt;
-    
+
     //RigidBody2D reference:
     private Rigidbody2D rb;
+
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip pickUpPowerUpSound;
 
     // Start is called before the first frame update
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         //Caches object's rigidBody:
         rb = GetComponent<Rigidbody2D>();
         //finds first instance of player GameObject:
@@ -33,7 +37,7 @@ public class PowerupScript : MonoBehaviour
         //Decides a random direction the powerup floats to:
         if (Random.Range(0, 2) == 1)
         {
-           rb.velocity = new Vector2(10, 10);
+            rb.velocity = new Vector2(10, 10);
         }
         else
         {
@@ -52,14 +56,14 @@ public class PowerupScript : MonoBehaviour
 
     private void TriggerPowerUpEffect()
     {
+        audioSource.PlayOneShot(pickUpPowerUpSound, 0.5f);
         switch (powerUp)
         {
-            
             case PowerUps.HeartPowerup:
                 //Heart powerup calls the gameManager to add a life and change the HUD:
                 GameManager.instance.AddLives(1);
                 //Calls Disable and Destroy:
-                StartCoroutine(DisableThenDestroy(0f));
+                StartCoroutine(DisableThenDestroy(2f));
                 break;
 
             case PowerUps.IncreaseDamage:
@@ -86,7 +90,7 @@ public class PowerupScript : MonoBehaviour
                 var asteroids = GameObject.FindGameObjectsWithTag("Asteroid");
                 var aliens = GameObject.FindGameObjectsWithTag("Alien");
                 var ufos = GameObject.FindGameObjectsWithTag("UFO");
-                
+
                 //Handles asteroids by changing their velocity to 0:
                 foreach (var asteroid in asteroids)
                 {
@@ -102,7 +106,7 @@ public class PowerupScript : MonoBehaviour
                 {
                     ufo.GetComponent<Ufo>().isAlienSpawn = false;
                 }
-                
+
                 //Starts Coroutine to reset time freeze after 5 seconds:
                 StartCoroutine(ResetTimeFreeze(5f));
 
@@ -117,6 +121,7 @@ public class PowerupScript : MonoBehaviour
                 break;
         }
     }
+
     //All the following Coroutines are similar in that they take in a ResetDelay, and calls the coRoutine to DisableThenDestory
     //waits for delay, then resets the player state to it's previous state before the powerup:
     private IEnumerator ResetSpeedBoost(float resetDelay)
@@ -139,18 +144,18 @@ public class PowerupScript : MonoBehaviour
         yield return new WaitForSecondsRealtime(resetDelay);
         GameManager.instance.ChangeDoubleScore(false);
     }
-    
+
     private IEnumerator ResetTimeFreeze(float resetDelay)
     {
         StartCoroutine(DisableThenDestroy(resetDelay));
         yield return new WaitForSecondsRealtime(resetDelay);
         GameManager.instance.ChangeTimeFreeze(false);
-        
+
         //Gets all the objects that are currently frozen:
         var asteroids = GameObject.FindGameObjectsWithTag("Asteroid");
         var aliens = GameObject.FindGameObjectsWithTag("Alien");
         var ufos = GameObject.FindGameObjectsWithTag("UFO");
-        
+
         //Resets velocity of asteroid:
         foreach (var asteroid in asteroids)
         {
@@ -167,6 +172,7 @@ public class PowerupScript : MonoBehaviour
             ufo.GetComponent<Ufo>().isAlienSpawn = true;
         }
     }
+
     //Disable then destroy takes in one parameter, which is how long until the powerup is destoryed:
     //Uses Coroutine pattern because it needs to have a RealTime scale instead of a gameTime scale:
     //Needs to delay destruction of object so that it has an opportunity to reset it's effect before it destroys itself
@@ -178,8 +184,7 @@ public class PowerupScript : MonoBehaviour
         rb.velocity = new Vector2(0, 0);
         //Waits for time to end before it destorys the object:
         yield return new WaitForSecondsRealtime(destoryDelay);
-        
+
         Destroy(gameObject);
-        
     }
 }

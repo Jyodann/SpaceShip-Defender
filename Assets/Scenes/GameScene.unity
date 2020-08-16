@@ -404,10 +404,6 @@ PrefabInstance:
       propertyPath: pauseMenu
       value: 
       objectReference: {fileID: 1112314079}
-    - target: {fileID: 996874560, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 56dcdac18f4f44440ae3063043967bd0, type: 3}
     - target: {fileID: 1349937148, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
       propertyPath: ufoSpawnLocations.Array.data[0]
       value: 
@@ -489,6 +485,16 @@ PrefabInstance:
       propertyPath: upgradeText
       value: 
       objectReference: {fileID: 1078834785}
+    - target: {fileID: 5291550183322431410, guid: bbcdd9a2e7be351449d00a2dff305921,
+        type: 3}
+      propertyPath: volumeScale
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5291550183322431410, guid: bbcdd9a2e7be351449d00a2dff305921,
+        type: 3}
+      propertyPath: enemyHitSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 94fea6bbc97742e4e9b811aa2a0c1a3b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
 --- !u!1001 &2101927979424221814

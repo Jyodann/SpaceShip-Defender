@@ -51,6 +51,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -147,8 +148,8 @@ MonoBehaviour:
   enemyHealth: 100
   scoreToAdd: 300
   coinsToAdd: 100
-  damageDealt: 1
-  maximumPossibleHealth: 1000
+  damageDealt: 4
+  maximumPossibleHealth: 3000
 --- !u!114 &9208406912204127062
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -70,9 +70,14 @@ public class GameManager : MonoBehaviour
     //Static Control Mode Enum for reading in the ShipController:
     public static ControlMode playerControlMode = ControlMode.MixedMouseKeyboard;
 
+    //A static bool to track whether audio should be muted:
+    private static bool isAudioMuted = false;
+
     private void Awake()
     {
+        //Get playerControlMode from playerPreferences:
         playerControlMode = (ControlMode)PlayerPrefs.GetInt("controlMode", 1);
+        //Get saved hi-Score from PlayerPrefs:
         highScore = PlayerPrefs.GetInt("hiScore", 0);
 
         //These can be changed for testing purposes:
@@ -107,6 +112,13 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            //Flips the isAudioMuted variable:
+            isAudioMuted = !isAudioMuted;
+            //Mutes/Unmutes the game by pausing the Global Audio listener:
+            AudioListener.pause = isAudioMuted;
+        }
         //Checks currentGameState:
         switch (currentGameState)
         {
@@ -241,6 +253,7 @@ public class GameManager : MonoBehaviour
         if (Score > highScore)
         {
             highScore = Score;
+            //Set PlayerPrefs to current Hi-Score so that it is saved between game sessions:
             PlayerPrefs.SetInt("hiScore", highScore);
         }
         //Set current game state to gameOver:

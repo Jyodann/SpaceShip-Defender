@@ -21,6 +21,7 @@ public class ShipController : MonoBehaviour
 
     private void Start()
     {
+        //Sets controlMode to the one in GameManager:
         currentControlMode = GameManager.playerControlMode;
         rb2d = GetComponent<Rigidbody2D>();
         //Gets 4 of the screenbounds:

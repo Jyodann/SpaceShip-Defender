@@ -20,6 +20,9 @@ public class FireBullets : MonoBehaviour
     [SerializeField] private Transform extremeLeftCannon;
     [SerializeField] private Transform extremeRightCannon;
 
+    //AudioClip that can be changed from inspector if required. This sound plays when a bullet is fired:
+    [SerializeField] private AudioClip lazerShot;
+
     //Bullet speed can be changed from inspector, affects how fast the bullet flies from the ship.
     [SerializeField] private float bulletSpeed = 100f;
 
@@ -32,13 +35,14 @@ public class FireBullets : MonoBehaviour
     //Affects amount of damage dealt per bullet based on upgrade:
     public int damageDealt = 1;
 
-    [SerializeField] private AudioClip lazerShot;
-
+    //Stores an audioSource as a global variable so it can play the LazerShot sound
     private AudioSource audioSource;
 
     private void Start()
     {
+        //Caches a reference to the audioSource component so it can be used afterwards:
         audioSource = GetComponent<AudioSource>();
+        //Starts the fire() Coroutine so that the player can start Firing Bullets:
         StartCoroutine(Fire());
     }
 
@@ -60,7 +64,7 @@ public class FireBullets : MonoBehaviour
             //If Fire1 (MouseLeft) is held, then it starts to fire:
             if (Input.GetButton("Fire1"))
             {
-                audioSource.PlayOneShot(lazerShot);
+                audioSource.PlayOneShot(lazerShot, 0.5f);
                 //Fires from respective cannons depending on how many there are in the current upgrade:
                 switch (cannonCount)
                 {

@@ -27,20 +27,25 @@ public class MainMenuController : MonoBehaviour
     //Helper method to set ControlMode to Mixed when option is selected
     public void SetMixedControlMode()
     {
+        //Changes playerControlMode in GameManager:
         GameManager.playerControlMode = GameManager.ControlMode.MixedMouseKeyboard;
+        //Saves current ControlMode to PlayerPrefs:
         PlayerPrefs.SetInt("controlMode", (int)GameManager.ControlMode.MixedMouseKeyboard);
     }
 
     //Helper method to set ControlMode to Keyboard when option is selected
     public void SetKeyboardOnlyControlMode()
     {
+        //Changes playerControlMode in GameManager:
         GameManager.playerControlMode = GameManager.ControlMode.KeyboardOnly;
+        //Saves current ControlMode to PlayerPrefs:
         PlayerPrefs.SetInt("controlMode", (int)GameManager.ControlMode.KeyboardOnly);
     }
 
     //Helper method that gets called when options button is selected so that the text will show current control mode
     public void UpdateControlModeText()
     {
+        //Gets the current ControlMode from PlayerPrefs, and sets the Text to the current ControlStyle:
         switch ((GameManager.ControlMode)PlayerPrefs.GetInt("controlMode", 1))
         {
             case GameManager.ControlMode.KeyboardOnly:
@@ -48,7 +53,7 @@ public class MainMenuController : MonoBehaviour
                 break;
 
             case GameManager.ControlMode.MixedMouseKeyboard:
-                currentSelectedControlOption.text = "Control Style: Keyboard + Mouse";
+                currentSelectedControlOption.text = "Control Style: Mixed";
                 break;
 
             default:
