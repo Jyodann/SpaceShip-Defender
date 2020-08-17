@@ -52,7 +52,7 @@ public class SpawningManagement : MonoBehaviour
             //Difficulty Factor is Calculated with a pre-determined formula of Score/250:
             int difficultyFactor = GameManager.instance.Score / 250;
 
-            print("Current Difficulty Factor: (x) " + difficultyFactor);
+            print("Current Difficulty Factor: (y) " + difficultyFactor);
             //actual factor (used to tune game Health, and spawn rates) is calculated with this formula:
             // factor = (1.05 ^ difficultyFactor - 1)
             // Difficulty Scaling concept inspired by Unity's 2D RogueLike LevelGeneration Tutorial:

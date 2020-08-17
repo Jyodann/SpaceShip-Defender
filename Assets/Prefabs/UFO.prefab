@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9208406912204127060}
   - component: {fileID: 9208406912204127061}
   - component: {fileID: 9208406912204127062}
-  - component: {fileID: -1741760758214194883}
+  - component: {fileID: 5615284903595095300}
   m_Layer: 0
   m_Name: UFO
   m_TagString: UFO
@@ -169,7 +169,7 @@ MonoBehaviour:
   - {fileID: 1570822453624242147, guid: 4f84a7658c8930a45bc99db6969fda17, type: 3}
   - {fileID: 1363644364021819286, guid: 144a4ef6717fac14eadb7f885711297f, type: 3}
   chance: 1
---- !u!114 &-1741760758214194883
+--- !u!114 &5615284903595095300
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
