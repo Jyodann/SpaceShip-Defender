@@ -34,7 +34,6 @@ public class EnemyBehaviour : MonoBehaviour
 
         //finds the playerObject's firebullet class
         playerObject = FindObjectOfType<FireBullets>();
-        print($"Enemy: {gameObject.name} - Health: {enemyHealth}");
     }
 
     /// <summary>
