@@ -104,7 +104,7 @@ public class PowerupScript : MonoBehaviour
                 //Handles UFO objects by setting alien Spawning to be false:
                 foreach (var ufo in ufos)
                 {
-                    ufo.GetComponent<Ufo>().isAlienSpawn = false;
+                    ufo.GetComponent<UFO>().isAlienSpawn = false;
                 }
 
                 //Starts Coroutine to reset time freeze after 5 seconds:
@@ -169,7 +169,7 @@ public class PowerupScript : MonoBehaviour
         //Allows UFOs to start spawning aliens again:
         foreach (var ufo in ufos)
         {
-            ufo.GetComponent<Ufo>().isAlienSpawn = true;
+            ufo.GetComponent<UFO>().isAlienSpawn = true;
         }
     }
 
