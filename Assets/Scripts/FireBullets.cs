@@ -57,7 +57,7 @@ public class FireBullets : MonoBehaviour
         while (true)
         {
             //If game is paused, disallows any other action to occur:
-            while (GameManager.instance.IsPaused)
+            while (GameManager.instance.isPaused)
             {
                 yield return null;
             }

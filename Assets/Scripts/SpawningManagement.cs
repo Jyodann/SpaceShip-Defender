@@ -7,6 +7,11 @@ public class SpawningManagement : MonoBehaviour
     [SerializeField] private float asteroidSpawnRate = 1.5f;
     [SerializeField] private float alienSpawnRate = 10f;
     [SerializeField] private float ufoSpawnRate = 60f;
+
+    [SerializeField] private float maxDifficultyAsteroidSpawnRate = 0.85f;
+    [SerializeField] private float maxDifficultyAlienSpawnRate = 6f;
+    [SerializeField] private float maxDifficultyUFOSpawnRate = 30f;
+
     [SerializeField] private Transform[] ufoSpawnLocations;
     [SerializeField] private Transform playerLocation;
     [SerializeField] private GameObject[] asteroidObjects;
@@ -15,6 +20,7 @@ public class SpawningManagement : MonoBehaviour
 
     private float currentFactor = -1f;
     private List<Coroutine> coroutineList = new List<Coroutine>();
+
     public static float Factor { get; set; }
 
     /*
@@ -44,7 +50,7 @@ public class SpawningManagement : MonoBehaviour
             //While condition checks if 1. Game is Paused OR 2. Time Freeze Powerup is active.
             //It stops this enumerator from running temporarily.
             //This code is taken from https://answers.unity.com/questions/904429/pause-and-resume-coroutine-1.html
-            while (GameManager.instance.IsPaused || GameManager.instance.IsTimeFrozen)
+            while (GameManager.instance.isPaused || GameManager.instance.IsTimeFrozen)
             {
                 yield return null;
             }
@@ -52,13 +58,14 @@ public class SpawningManagement : MonoBehaviour
             //Difficulty Factor is Calculated with a pre-determined formula of Score/250:
             int difficultyFactor = GameManager.instance.Score / 250;
 
-            print("Current Difficulty Factor: (y) " + difficultyFactor);
+            print("Current Difficulty Factor: (x) " + difficultyFactor);
             //actual factor (used to tune game Health, and spawn rates) is calculated with this formula:
             // factor = (1.05 ^ difficultyFactor - 1)
             // Difficulty Scaling concept inspired by Unity's 2D RogueLike LevelGeneration Tutorial:
             // https://learn.unity.com/tutorial/level-generation?uv=5.x&projectId=5c514a00edbc2a0020694718#5c7f8528edbc2a002053b6f6
 
             Factor = (Mathf.Pow(1.05f, difficultyFactor) - 1);
+            print("Current Factor: (y)" + Factor);
 
             /*Spawnning Logic:
              This will first check if the factor is currently the same. If it is, it will not stop the current spawnRates/change
@@ -82,9 +89,9 @@ public class SpawningManagement : MonoBehaviour
                 //All spawnRate calculations are done here. The baseSpawnRate is deducted by the factor,
                 //Hence as the game progresses, spawnning gets quicker and quicker.
                 //The values are clamped to balance the game as you do not want a spawnRate that is too quick:
-                var asteroidSpawn = asteroidSpawnRate - Mathf.Clamp(Factor, 0f, 0.65f);
-                var alienSpawn = alienSpawnRate - Mathf.Clamp(Factor, 0f, 4f);
-                var ufoSpawn = ufoSpawnRate - Mathf.Clamp(Factor, 0f, 30f);
+                var asteroidSpawn = Mathf.Clamp((asteroidSpawnRate - Factor), maxDifficultyAsteroidSpawnRate, asteroidSpawnRate);
+                var alienSpawn = Mathf.Clamp((alienSpawnRate - Factor), maxDifficultyAlienSpawnRate, alienSpawnRate);
+                var ufoSpawn = Mathf.Clamp(ufoSpawnRate - Factor, maxDifficultyUFOSpawnRate, ufoSpawnRate);
 
                 print($"Current SpawnRates: {alienSpawn} (Alien) {asteroidSpawn} (Asteroid) {ufoSpawn} (UFO)");
 
@@ -125,7 +132,7 @@ public class SpawningManagement : MonoBehaviour
         {
             //Pauses method call when Game is paused or TimeFreeze Powerup is active.
             //This code is taken from https://answers.unity.com/questions/904429/pause-and-resume-coroutine-1.html
-            while (GameManager.instance.IsPaused || GameManager.instance.IsTimeFrozen)
+            while (GameManager.instance.isPaused || GameManager.instance.IsTimeFrozen)
             {
                 yield return null;
             }

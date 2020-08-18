@@ -33,10 +33,10 @@ public class GameManager : MonoBehaviour
     public int Coins { get; set; }
 
     //Public DoubleScore property which is read by EnemyBehavior, so as to add the appropriate score:
-    public bool DoubleScore { get; set; }
+    public bool isDoubleScore { get; set; }
 
     //isPaused keeps Pause State, read by FireBullets and SpawningManagement
-    public bool IsPaused { get; set; }
+    public bool isPaused { get; set; }
 
     //isTimeFrozen is responsible for the TimeFreeze powerup, it stops SpawnManagement from spawnning objects:
     public bool IsTimeFrozen { get; set; }
@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
                     //Changes Pause State variable, and changes enum to paused:
-                    IsPaused = true;
+                    isPaused = true;
                     currentGameState = GameState.Paused;
                     //Sets timeScale to 0 to ensure nothing moves:
                     Time.timeScale = 0;
@@ -188,7 +188,7 @@ public class GameManager : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
                     //Set pause state = false
-                    IsPaused = false;
+                    isPaused = false;
                     //Sets currentGameState to be Ingame
                     currentGameState = GameState.InGame;
                     //Disables Pause menu:
@@ -271,7 +271,7 @@ public class GameManager : MonoBehaviour
         //Set current game state to gameOver:
         currentGameState = GameState.GameOver;
         //Pauses the game:
-        IsPaused = true;
+        isPaused = true;
         //Shows the gameOverMenu:
         gameOverMenu.SetActive(true);
         //sets the GameOverMenu text to show Score, and Hi score.
@@ -315,8 +315,8 @@ public class GameManager : MonoBehaviour
     //Double Score is used by PowerupScript to manage DoubelScore powerup:
     public void ChangeDoubleScore(bool isEnabled)
     {
-        DoubleScore = isEnabled;
-        if (DoubleScore)
+        isDoubleScore = isEnabled;
+        if (isDoubleScore)
         {
             //Shows UI for x2 next to score if Double score is enabled:
             scoreBoostText.text = "x2";

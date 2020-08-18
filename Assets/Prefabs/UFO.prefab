@@ -149,7 +149,7 @@ MonoBehaviour:
   scoreToAdd: 300
   coinsToAdd: 100
   damageDealt: 4
-  maximumPossibleHealth: 3000
+  maximumPossibleHealth: 2500
 --- !u!114 &9208406912204127062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,6 +182,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   alienSpawnRate: 8
+  maxDifficultySpawnRate: 6
+  ufoDespawnRate: 40
   isAlienSpawn: 1
   alienObject: {fileID: 8471160928321115163, guid: 687f416db9d6cf54dbf9167ca4609f30,
     type: 3}

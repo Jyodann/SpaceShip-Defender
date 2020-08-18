@@ -4,7 +4,13 @@ using UnityEngine;
 public class Ufo : MonoBehaviour
 {
     //Changes how fast aliens spawn
-    public float alienSpawnRate = 8f;
+    [SerializeField] private float alienSpawnRate = 8f;
+
+    //Changes the fastest rate aliens should spawn at MaxDifficulty:
+    [SerializeField] private float maxDifficultySpawnRate = 6f;
+
+    //UFO De-spawn timer (Changes when UFO automatically disappears):
+    [SerializeField] private float ufoDespawnRate = 40f;
 
     //Boolean that is public so that it can be changed by the GameManager during timeFreeze:
     public bool isAlienSpawn = true;
@@ -16,10 +22,10 @@ public class Ufo : MonoBehaviour
     {
         //Changes alienSpawnRate based on difficulty
         alienSpawnRate -= (SpawningManagement.Factor / 10);
-        alienSpawnRate = Mathf.Clamp(alienSpawnRate, 6f, 8f);
+        alienSpawnRate = Mathf.Clamp(alienSpawnRate, maxDifficultySpawnRate, alienSpawnRate);
         print("UFO AlienSpawnRate " + alienSpawnRate);
-        //Destroys the UFO object in 40 seconds if player is unable to kill it:
-        Destroy(gameObject, 40f);
+        //Destroys the UFO object if player is unable to kill it in the set amount of time:
+        Destroy(gameObject, ufoDespawnRate);
         //Starts an ailen spawnner:
         StartCoroutine(SpawnAliens());
     }

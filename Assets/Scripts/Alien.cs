@@ -5,7 +5,10 @@ public class Alien : MonoBehaviour
     private Player playerCharacter;
 
     //Sets speed that alien will follow player
-    [SerializeField] private float speed = 10f;
+    [SerializeField] private float speed = 20f;
+
+    //Sets the maximumSpeed that mutated alien will be:
+    [SerializeField] private float maxSpeedMutatedAlien = 40f;
 
     //IsFrozen represents if i) The game is based or ii) The TimeFreeze powerup is active
     public bool isFrozen = false;
@@ -19,7 +22,7 @@ public class Alien : MonoBehaviour
             GetComponent<SpriteRenderer>().color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
             //Changes speed of the alien if it is mutated, the speed is absed on the current DifficultyFactor:
             speed *= (SpawningManagement.Factor + 1);
-            speed = Mathf.Clamp(speed, 0f, 40f);
+            speed = Mathf.Clamp(speed, 0f, maxSpeedMutatedAlien);
             print("alienSpeed " + speed);
         }
 

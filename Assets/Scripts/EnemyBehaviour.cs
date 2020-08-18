@@ -69,7 +69,7 @@ public class EnemyBehaviour : MonoBehaviour
             GameManager.instance.AddCoins(coinsToAdd);
 
             //Checks if "DoubleScore" powerup is activated
-            if (GameManager.instance.DoubleScore)
+            if (GameManager.instance.isDoubleScore)
             {
                 //Adds double the score of enemy the currentScore in Game session
                 GameManager.instance.AddScore(scoreToAdd * 2);
