@@ -58,14 +58,12 @@ public class SpawningManagement : MonoBehaviour
             //Difficulty Factor is Calculated with a pre-determined formula of Score/250:
             int difficultyFactor = GameManager.instance.Score / 250;
 
-            print("Current Difficulty Factor: (x) " + difficultyFactor);
             //actual factor (used to tune game Health, and spawn rates) is calculated with this formula:
             // factor = (1.05 ^ difficultyFactor - 1)
             // Difficulty Scaling concept inspired by Unity's 2D RogueLike LevelGeneration Tutorial:
             // https://learn.unity.com/tutorial/level-generation?uv=5.x&projectId=5c514a00edbc2a0020694718#5c7f8528edbc2a002053b6f6
 
             Factor = (Mathf.Pow(1.05f, difficultyFactor) - 1);
-            print("Current Factor: (y)" + Factor);
 
             /*Spawnning Logic:
              This will first check if the factor is currently the same. If it is, it will not stop the current spawnRates/change
@@ -92,8 +90,6 @@ public class SpawningManagement : MonoBehaviour
                 var asteroidSpawn = Mathf.Clamp((asteroidSpawnRate - Factor), maxDifficultyAsteroidSpawnRate, asteroidSpawnRate);
                 var alienSpawn = Mathf.Clamp((alienSpawnRate - Factor), maxDifficultyAlienSpawnRate, alienSpawnRate);
                 var ufoSpawn = Mathf.Clamp(ufoSpawnRate - Factor, maxDifficultyUFOSpawnRate, ufoSpawnRate);
-
-                print($"Current SpawnRates: {alienSpawn} (Alien) {asteroidSpawn} (Asteroid) {ufoSpawn} (UFO)");
 
                 //Starts spawnning Asteroids, and adds it to the coroutine List:
                 //** Spawner Coroutine mentioned later.

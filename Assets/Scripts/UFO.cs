@@ -23,7 +23,7 @@ public class Ufo : MonoBehaviour
         //Changes alienSpawnRate based on difficulty
         alienSpawnRate -= (SpawningManagement.Factor / 10);
         alienSpawnRate = Mathf.Clamp(alienSpawnRate, maxDifficultySpawnRate, alienSpawnRate);
-        print("UFO AlienSpawnRate " + alienSpawnRate);
+
         //Destroys the UFO object if player is unable to kill it in the set amount of time:
         Destroy(gameObject, ufoDespawnRate);
         //Starts an ailen spawnner:

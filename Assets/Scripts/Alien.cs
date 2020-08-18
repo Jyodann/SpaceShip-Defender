@@ -23,7 +23,6 @@ public class Alien : MonoBehaviour
             //Changes speed of the alien if it is mutated, the speed is absed on the current DifficultyFactor:
             speed *= (SpawningManagement.Factor + 1);
             speed = Mathf.Clamp(speed, 0f, maxSpeedMutatedAlien);
-            print("alienSpeed " + speed);
         }
 
         //Finds player character object and stores it as a global variable
