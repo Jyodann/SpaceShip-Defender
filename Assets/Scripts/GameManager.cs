@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     //private health property used within this Script only:
     private int Lives { get; set; }
 
-    //Public score property that is modified and read by this Script and SpawningManagement, keeps track of lives:
+    //Public score property that is modified and read by this Script and SpawningManagement:
     public int Score { get; set; }
 
     //Public coins propety that is modified and read by this script and Upgrade Management, keeps track of the current number of coins:
