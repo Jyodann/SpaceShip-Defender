@@ -107,9 +107,6 @@ public class GameManager : MonoBehaviour
         coinsText.text = Coins.ToString();
         livesText.text = Lives.ToString();
         scoreText.text = Score.ToString().PadLeft(8, '0');
-        
-       
-            
     }
 
     private void Update()
@@ -229,25 +226,35 @@ public class GameManager : MonoBehaviour
                 //If gameOver, checks to see if the player Preses R, which is to restart, or ESC to go back to main menu:
                 if (Input.GetKeyDown(KeyCode.R))
                 {
-                    //Sets currentGame state to be inGame
-                    currentGameState = GameState.InGame;
-                    //Resets Time scale
-                    Time.timeScale = 1;
-                    //Reloads Scene:
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                    RestartGame();
                 }
 
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
-                    //Sets gameState to be inGame
-                    currentGameState = GameState.InGame;
-                    //Sets timeScale to be 1
-                    Time.timeScale = 1;
-                    //Loads Mainmenu:
-                    SceneManager.LoadScene(0);
+                    GoToMainMenu();
                 }
                 break;
         }
+    }
+
+    public void GoToMainMenu()
+    {
+        //Sets gameState to be inGame
+        currentGameState = GameState.InGame;
+        //Sets timeScale to be 1
+        Time.timeScale = 1;
+        //Loads Mainmenu:
+        SceneManager.LoadScene(0);
+    }
+
+    public void RestartGame()
+    {
+        //Sets currentGame state to be inGame
+        currentGameState = GameState.InGame;
+        //Resets Time scale
+        Time.timeScale = 1;
+        //Reloads Scene:
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     //Helper method to deal damage, takes in one parameter damageValue:
