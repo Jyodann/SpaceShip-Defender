@@ -107,6 +107,9 @@ public class GameManager : MonoBehaviour
         coinsText.text = Coins.ToString();
         livesText.text = Lives.ToString();
         scoreText.text = Score.ToString().PadLeft(8, '0');
+        
+       
+            
     }
 
     private void Update()
