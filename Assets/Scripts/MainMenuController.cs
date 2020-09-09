@@ -19,6 +19,7 @@ public class MainMenuController : MonoBehaviour
         if (Application.isMobilePlatform)
         {
             Application.targetFrameRate = 60;
+            GameManager.playerControlMode = GameManager.ControlMode.MobileInput;
         }
     }
 
@@ -64,6 +65,10 @@ public class MainMenuController : MonoBehaviour
 
             case GameManager.ControlMode.MixedMouseKeyboard:
                 currentSelectedControlOption.text = "Control Style: Mixed";
+                break;
+
+            case GameManager.ControlMode.MobileInput:
+                currentSelectedControlOption.text = "Control Style: Mobile";
                 break;
 
             default:

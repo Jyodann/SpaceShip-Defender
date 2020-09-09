@@ -8,13 +8,15 @@ public class ShipController : MonoBehaviour
     [SerializeField] private float speed = 10f;
 
     [SerializeField] private float rotateSpeed = 10f;
+    public Joystick movementJoystick;
+    public Joystick aimingJoystick;
     public bool verticalMovement = false;
     public bool horizontalMovement = false;
     public Rigidbody2D rb2d;
     private bool isWrappingX = false;
     private bool isWrappingY = false;
 
-    public GameManager.ControlMode currentControlMode;
+    public GameManager.ControlMode currentControlMode = GameManager.ControlMode.MobileInput;
 
     //Checks all 4 screen bounds:
     private Renderer[] renderers;
@@ -22,7 +24,7 @@ public class ShipController : MonoBehaviour
     private void Start()
     {
         //Sets controlMode to the one in GameManager:
-        currentControlMode = GameManager.playerControlMode;
+        //currentControlMode = GameManager.playerControlMode;
         rb2d = GetComponent<Rigidbody2D>();
         //Gets 4 of the screenbounds:
         renderers = GetComponentsInChildren<Renderer>();
@@ -31,6 +33,7 @@ public class ShipController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        currentControlMode = GameManager.ControlMode.MobileInput;
         //Gets Input from A/D/W/S:
         verticalMovement = Input.GetButton("Vertical");
         horizontalMovement = Input.GetButton("Horizontal");
@@ -52,6 +55,8 @@ public class ShipController : MonoBehaviour
             //Sets the ship to face the direction:
             transform.up = directionToFace;
         }
+
+        print("controlMode" + currentControlMode);
     }
 
     private void FixedUpdate()
@@ -88,6 +93,38 @@ public class ShipController : MonoBehaviour
                     float v = Input.GetAxisRaw("Horizontal");
                     rb2d.AddRelativeForce(new Vector2(v, 0) * speed);
                 }
+                break;
+
+            case GameManager.ControlMode.MobileInput:
+
+                print("vertical" + movementJoystick.Vertical);
+                if (movementJoystick.Vertical >= 0.2f)
+                {
+                    rb2d.AddForce(new Vector2(0, 1) * speed);
+                }
+                else if (movementJoystick.Vertical <= -0.2f)
+                {
+                    rb2d.AddForce(new Vector2(0, -1) * speed);
+                }
+
+                if (movementJoystick.Horizontal >= 0.2f)
+                {
+                    rb2d.AddForce(new Vector2(1, 0) * speed);
+                }
+                else if (movementJoystick.Horizontal <= -0.2f)
+                {
+                    rb2d.AddForce(new Vector2(-1, 0) * speed);
+                }
+
+                print("");
+                var rotation = (Mathf.Atan2(aimingJoystick.Horizontal, aimingJoystick.Vertical) * 180 / Mathf.PI);
+                if (rotation != 0)
+                {
+                    transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -rotation));
+                }
+
+                print("Current rotation: " + rotation);
+
                 break;
 
             default:

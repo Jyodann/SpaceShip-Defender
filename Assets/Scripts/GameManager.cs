@@ -64,10 +64,10 @@ public class GameManager : MonoBehaviour
     private OnDeathAnimation deathAnimationManager;
 
     //Setting Eumn to allow player to change Control mode
-    public enum ControlMode { KeyboardOnly, MixedMouseKeyboard }
+    public enum ControlMode { KeyboardOnly, MixedMouseKeyboard, MobileInput }
 
     //Static Control Mode Enum for reading in the ShipController:
-    public static ControlMode playerControlMode = ControlMode.MixedMouseKeyboard;
+    public static ControlMode playerControlMode = ControlMode.MobileInput;
 
     //A static bool to track whether audio should be muted:
     private static bool isAudioMuted = false;
@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         //Get playerControlMode from playerPreferences:
-        playerControlMode = (ControlMode)PlayerPrefs.GetInt("controlMode", 1);
+        playerControlMode = (ControlMode)PlayerPrefs.GetInt("controlMode", 2);
         //Get saved hi-Score from PlayerPrefs:
         highScore = PlayerPrefs.GetInt("hiScore", 0);
 
@@ -111,6 +111,10 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            playerControlMode = ControlMode.MobileInput;
+        }
         if (Input.GetKeyDown(KeyCode.M))
         {
             //Flips the isAudioMuted variable:
@@ -122,6 +126,7 @@ public class GameManager : MonoBehaviour
         switch (currentGameState)
         {
             case GameState.InGame:
+
                 //If gameState is inGame: Pressing Escape will pause the game
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {

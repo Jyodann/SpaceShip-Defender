@@ -51,9 +51,16 @@ public class UpgradeManagement : MonoBehaviour
         if (upgrades[currentUpgradeIndex].UpgradeCost > GameManager.instance.Coins) return;
         //If it is possible, set the Text the have the next upgrade name:
         var nextUpgrade = upgrades[currentUpgradeIndex];
-        upgradeText.text = $"Press E To Upgrade: {nextUpgrade.UpgradeName}";
+        if (GameManager.playerControlMode != GameManager.ControlMode.MobileInput)
+        {
+            upgradeText.text = $"Press E To Upgrade: {nextUpgrade.UpgradeName}";
+        }
+        else
+        {
+            upgradeText.text = $"Tap Anywhere to Upgrade: {nextUpgrade.UpgradeName}";
+        }
+
         //Check to see if player Clicks B to buy the upgrade:
-        if (!Input.GetKeyDown(KeyCode.E)) return;
         ApplyUpgrade(nextUpgrade);
     }
 
