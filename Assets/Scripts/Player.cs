@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -7,21 +6,24 @@ public class Player : MonoBehaviour
     //isInvincible is a variable that can be checked by other classes, mainly the enemy class so that the enemy does not damage the player,
     //this is to balance the game, getting hit will ensure you have a small window of time to fight/escape a bad situation
     public bool isInvincible = false;
-    
+
     //isFlickering is a variable that toggles on and off to simulate the flickering of the sprite
     //this is used as a visual indicator for the player to know that they are invincible
     private bool isFlickering = false;
-    
+
     //flickerRate and Invincibility length are fields that can be changed if neccessary to balance the game:
-    [SerializeField] float flickerRate = 0.3f;
-    [SerializeField] float invincibilityLength = 2f;
-    
+    [SerializeField] private float flickerRate = 0.3f;
+
+    [SerializeField] private float invincibilityLength = 2f;
+
     //Sprite renderer is cached so changes can be made to it's alpha to simulate flickering
     private SpriteRenderer spriteRenderer;
+
     private void Start()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
+
     //Enemies use this method to damage the player, it takes in one parameter of how much damage to apply to the player:
     public void TakeDamage(int damageTaken)
     {
@@ -42,7 +44,7 @@ public class Player : MonoBehaviour
     {
         //Waits for a number of seconds before disabling the Invincibility, and setting the sprite to the default colour:
         yield return new WaitForSecondsRealtime(invincibilityLength);
-        
+
         spriteRenderer.color = Color.white;
         isInvincible = false;
         StopAllCoroutines();

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Ufo : MonoBehaviour
+public class UFO : MonoBehaviour
 {
     //Changes how fast aliens spawn
     [SerializeField] private float alienSpawnRate = 8f;
@@ -23,7 +23,6 @@ public class Ufo : MonoBehaviour
         //Changes alienSpawnRate based on difficulty
         alienSpawnRate -= (SpawningManagement.Factor / 10);
         alienSpawnRate = Mathf.Clamp(alienSpawnRate, maxDifficultySpawnRate, alienSpawnRate);
-
         //Destroys the UFO object if player is unable to kill it in the set amount of time:
         Destroy(gameObject, ufoDespawnRate);
         //Starts an ailen spawnner:

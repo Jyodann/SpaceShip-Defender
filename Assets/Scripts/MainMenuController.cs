@@ -4,13 +4,23 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
+    //SerialisedField to reference the controlOption so that the text can be updated based on current setting
+    [SerializeField] private TextMeshProUGUI currentSelectedControlOption;
+
+    [SerializeField] private TextMeshProUGUI versionInformation;
+
     /// <summary>
     /// Code Referenced from How to Make a Main Menu by Brackeys:
     /// https://www.youtube.com/watch?v=zc8ac_qUXQY
     /// </summary>
-
-    //SerialisedField to reference the controlOption so that the text can be updated based on current setting
-    [SerializeField] private TextMeshProUGUI currentSelectedControlOption;
+    private void Start()
+    {
+        versionInformation.text = $"Version {Application.version} ({Application.platform})";
+        if (Application.isMobilePlatform)
+        {
+            Application.targetFrameRate = 60;
+        }
+    }
 
     //Helper method to load the Game when play button is Clicked
     public void PlayGame()
