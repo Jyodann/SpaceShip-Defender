@@ -4,6 +4,7 @@ public class ItemDrop : MonoBehaviour
 {
     //Powerups Prefabs are all dragged into this list, so a random powerup can be picked to spawn
     [SerializeField] private GameObject[] powerupList;
+
     //A chance int is implemented and changeable from Unity as different enemies have different dropRates
     //the lower the number, the higher the chance
     [SerializeField] private int chance = 5;

@@ -48,7 +48,7 @@ public class ShipController : MonoBehaviour
 
             //Gets the directionToFace RELATIVE to mouse position, based on player's current location:
             Vector2 directionToFace = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
-            
+
             //Sets the ship to face the direction:
             transform.up = directionToFace;
         }
