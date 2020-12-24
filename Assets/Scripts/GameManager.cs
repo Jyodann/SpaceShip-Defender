@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text scoreText;
     [SerializeField] private Text scoreBoostText;
     [SerializeField] private Text gameOverText;
+    [SerializeField] private GameObject joystickUI;
 
     //GameOver meny and PauseMenu are both Canvas objects childed under the UIObjects gameObject:
     public GameObject gameOverMenu;
@@ -107,6 +108,7 @@ public class GameManager : MonoBehaviour
         coinsText.text = Coins.ToString().PadLeft(4,'0');
         livesText.text = Lives.ToString().PadLeft(4,'0');
         scoreText.text = Score.ToString().PadLeft(8, '0');
+        joystickUI.SetActive(true);
     }
 
     private void Update()
@@ -235,6 +237,7 @@ public class GameManager : MonoBehaviour
         pauseMenu.SetActive(false);
         //Sets timeScale back to normal:
         Time.timeScale = 1;
+        joystickUI.SetActive(true);
     }
 
     public void PauseGame()
@@ -246,6 +249,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         //Shows the Pause Meny:
         pauseMenu.SetActive(true);
+        joystickUI.SetActive(false);
     }
 
     public void GoToMainMenu()
@@ -256,6 +260,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         //Loads Mainmenu:
         SceneManager.LoadScene(0);
+        joystickUI.SetActive(true);
     }
 
     public void RestartGame()
@@ -266,6 +271,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         //Reloads Scene:
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        joystickUI.SetActive(false);
     }
 
     //Helper method to deal damage, takes in one parameter damageValue:
@@ -303,6 +309,7 @@ public class GameManager : MonoBehaviour
         gameOverText.text = $"Game Over\nScore: {Score.ToString().PadLeft(8, '0')}\nHi-Score: {highScore.ToString().PadLeft(8, '0')}";
         //Sets timeScale to frozen:
         Time.timeScale = 0;
+        joystickUI.SetActive(false);
     }
 
     //The next 3 'Add' helper methods do about the same thing for Score, Coins and Lives,
