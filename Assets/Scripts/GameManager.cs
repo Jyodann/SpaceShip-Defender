@@ -104,8 +104,8 @@ public class GameManager : MonoBehaviour
         currentGameState = GameState.InGame;
 
         //Sets current Coins, Lives and Score to the UI counterparts:
-        coinsText.text = Coins.ToString();
-        livesText.text = Lives.ToString();
+        coinsText.text = Coins.ToString().PadLeft(4,'0');
+        livesText.text = Lives.ToString().PadLeft(4,'0');
         scoreText.text = Score.ToString().PadLeft(8, '0');
     }
 
@@ -130,13 +130,7 @@ public class GameManager : MonoBehaviour
                 //If gameState is inGame: Pressing Escape will pause the game
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
-                    //Changes Pause State variable, and changes enum to paused:
-                    isPaused = true;
-                    currentGameState = GameState.Paused;
-                    //Sets timeScale to 0 to ensure nothing moves:
-                    Time.timeScale = 0;
-                    //Shows the Pause Meny:
-                    pauseMenu.SetActive(true);
+                    PauseGame();
                 }
 
                 #region CheatCodes
@@ -191,34 +185,17 @@ public class GameManager : MonoBehaviour
                 //If Game is paused, pressing escape will unpause it:
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
-                    //Set pause state = false
-                    isPaused = false;
-                    //Sets currentGameState to be Ingame
-                    currentGameState = GameState.InGame;
-                    //Disables Pause menu:
-                    pauseMenu.SetActive(false);
-                    //Sets timeScale back to normal:
-                    Time.timeScale = 1;
+                    Unpause();
                 }
                 //Press R to allow restart during pause:
                 if (Input.GetKeyDown(KeyCode.R))
                 {
-                    //Sets currentGame state to be inGame
-                    currentGameState = GameState.InGame;
-                    //Resets Time scale
-                    Time.timeScale = 1;
-                    //Reloads Scene:
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                    RestartGame();
                 }
                 //Press E to allow quitting during pause:
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    //Sets gameState to be inGame
-                    currentGameState = GameState.InGame;
-                    //Sets timeScale to be 1
-                    Time.timeScale = 1;
-                    //Loads Mainmenu:
-                    SceneManager.LoadScene(0);
+                    ExitGame();
                 }
                 break;
 
@@ -235,6 +212,40 @@ public class GameManager : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    private void ExitGame()
+    {
+        //Sets gameState to be inGame
+        currentGameState = GameState.InGame;
+        //Sets timeScale to be 1
+        Time.timeScale = 1;
+        //Loads Mainmenu:
+        SceneManager.LoadScene(0);
+    }
+
+
+    public void Unpause()
+    {
+        //Set pause state = false
+        isPaused = false;
+        //Sets currentGameState to be Ingame
+        currentGameState = GameState.InGame;
+        //Disables Pause menu:
+        pauseMenu.SetActive(false);
+        //Sets timeScale back to normal:
+        Time.timeScale = 1;
+    }
+
+    public void PauseGame()
+    {
+        //Changes Pause State variable, and changes enum to paused:
+        isPaused = true;
+        currentGameState = GameState.Paused;
+        //Sets timeScale to 0 to ensure nothing moves:
+        Time.timeScale = 0;
+        //Shows the Pause Meny:
+        pauseMenu.SetActive(true);
     }
 
     public void GoToMainMenu()
@@ -264,7 +275,7 @@ public class GameManager : MonoBehaviour
         Lives -= damageValue;
 
         //Sets livesText to be current amount of Lives;
-        livesText.text = Lives.ToString();
+        livesText.text = Lives.ToString().PadLeft(4,'0');
         //Checks if lives is less than 0 or 0:
         if (Lives <= 0)
         {
@@ -309,7 +320,7 @@ public class GameManager : MonoBehaviour
         Coins += coinsToAdd;
         //Coins are clamped at 9999 to make sure no UI glitches occur:
         Coins = Mathf.Clamp(Coins, 0, 9999);
-        coinsText.text = Coins.ToString();
+        coinsText.text = Coins.ToString().PadLeft(4,'0');
     }
 
     public void AddLives(int livesToAdd)
@@ -317,7 +328,7 @@ public class GameManager : MonoBehaviour
         Lives += livesToAdd;
         //Lives are clamped at 9999 to make sure no UI glitches occur:
         Lives = Mathf.Clamp(Lives, 0, 9999);
-        livesText.text = Lives.ToString();
+        livesText.text = Lives.ToString().PadLeft(4, '0');
     }
 
     //Change Time Freeze is used by PowerUpScript to manage timeFreeze powerup:
