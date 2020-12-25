@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -41,11 +42,11 @@ public class GameManager : MonoBehaviour
     public bool IsTimeFrozen { get; set; }
 
     //All these fields are various UI elements that are set in the inspector:
-    [SerializeField] private Text livesText;
+    [SerializeField] private TextMeshProUGUI livesText;
 
-    [SerializeField] private Text coinsText;
-    [SerializeField] private Text scoreText;
-    [SerializeField] private Text scoreBoostText;
+    [SerializeField] private TextMeshProUGUI coinsText;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI scoreBoostText;
     [SerializeField] private Text gameOverText;
     [SerializeField] private GameObject joystickUI;
 
@@ -106,9 +107,10 @@ public class GameManager : MonoBehaviour
 
         //Sets current Coins, Lives and Score to the UI counterparts:
         coinsText.text = Coins.ToString().PadLeft(4,'0');
-        livesText.text = Lives.ToString().PadLeft(4,'0');
+        livesText.text = Lives.ToString().PadLeft(2,'0');
         scoreText.text = Score.ToString().PadLeft(8, '0');
         joystickUI.SetActive(true);
+        scoreBoostText.text = string.Empty;
     }
 
     private void Update()
@@ -281,7 +283,7 @@ public class GameManager : MonoBehaviour
         Lives -= damageValue;
 
         //Sets livesText to be current amount of Lives;
-        livesText.text = Lives.ToString().PadLeft(4,'0');
+        livesText.text = Lives.ToString().PadLeft(2,'0');
         //Checks if lives is less than 0 or 0:
         if (Lives <= 0)
         {
@@ -335,7 +337,7 @@ public class GameManager : MonoBehaviour
         Lives += livesToAdd;
         //Lives are clamped at 9999 to make sure no UI glitches occur:
         Lives = Mathf.Clamp(Lives, 0, 9999);
-        livesText.text = Lives.ToString().PadLeft(4, '0');
+        livesText.text = Lives.ToString().PadLeft(2, '0');
     }
 
     //Change Time Freeze is used by PowerUpScript to manage timeFreeze powerup:
