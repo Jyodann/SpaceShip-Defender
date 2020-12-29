@@ -69,6 +69,8 @@ public class GameManager : MonoBehaviour
     //Setting Eumn to allow player to change Control mode
     public enum ControlMode { KeyboardOnly, MixedMouseKeyboard, MobileInput }
 
+    public bool flipControls = false;
+
     //Static Control Mode Enum for reading in the ShipController:
     public ControlMode playerControlMode;
 
