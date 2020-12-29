@@ -58,7 +58,7 @@ public class UpgradeManagement : MonoBehaviour
         //If it is possible, set the Text the have the next upgrade name:
         currentUpgrade = upgrades[currentUpgradeIndex];
 
-        if (GameManager.instance.playerControlMode == GameManager.ControlMode.MobileInput)
+        if (SettingsHelper.CurrentControlMode == SettingsHelper.ControlMode.MobileInput)
         {
             upgradeText.text = $"Upgrade Available: {currentUpgrade.UpgradeName}";
             upgradeButton.gameObject.SetActive(true);

@@ -67,15 +67,15 @@ public class GameManager : MonoBehaviour
     private OnDeathAnimation deathAnimationManager;
 
     //Setting Eumn to allow player to change Control mode
-    public enum ControlMode { KeyboardOnly, MixedMouseKeyboard, MobileInput }
+    
 
     public bool flipControls = false;
 
     //Static Control Mode Enum for reading in the ShipController:
-    public ControlMode playerControlMode;
+    public SettingsHelper.ControlMode playerControlMode;
 
     //A static bool to track whether audio should be muted:
-    private static bool isAudioMuted = false;
+
     
     //AudioSource List for all the soundtracks:
     private AudioSource audioSource;
@@ -88,8 +88,8 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         //Get playerControlMode from playerPreferences:
-        playerControlMode = (ControlMode)PlayerPrefs.GetInt("controlMode", 2);
-        playerControlMode = ControlMode.MobileInput;
+        playerControlMode = (SettingsHelper.ControlMode)PlayerPrefs.GetInt("controlMode", 2);
+        playerControlMode = SettingsHelper.ControlMode.MobileInput;
         //Get saved hi-Score from PlayerPrefs:
         highScore = PlayerPrefs.GetInt("hiScore", 0);
 
@@ -132,6 +132,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        //Mutes/Unmutes the game by pausing the Global Audio listener:
+        AudioListener.pause = SettingsHelper.IsMusicOn;
         if (!audioSource.isPlaying)
         {
             audioSource.clip = backgroundMusic[Random.Range(0, backgroundMusic.Count)];
@@ -140,14 +142,12 @@ public class GameManager : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.H))
         {
-            playerControlMode = ControlMode.MobileInput;
+            playerControlMode = SettingsHelper.ControlMode.MobileInput;
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
             //Flips the isAudioMuted variable:
-            isAudioMuted = !isAudioMuted;
-            //Mutes/Unmutes the game by pausing the Global Audio listener:
-            AudioListener.pause = isAudioMuted;
+            SettingsHelper.IsMusicOn = !SettingsHelper.IsMusicOn;
         }
         //Checks currentGameState:
         switch (currentGameState)

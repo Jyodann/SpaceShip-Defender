@@ -15,12 +15,9 @@ public class MainMenuController : MonoBehaviour
     /// </summary>
     private void Start()
     {
+        SettingsHelper.LoadSettings();
         versionInformation.text = $"Version {Application.version} ({Application.platform})";
-        if (Application.isMobilePlatform)
-        {
-            Application.targetFrameRate = 60;
-            GameManager.instance.playerControlMode = GameManager.ControlMode.MobileInput;
-        }
+        
     }
 
     //Helper method to load the Game when play button is Clicked
@@ -33,46 +30,5 @@ public class MainMenuController : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
-    }
-
-    //Helper method to set ControlMode to Mixed when option is selected
-    public void SetMixedControlMode()
-    {
-        //Changes playerControlMode in GameManager:
-        GameManager.instance.playerControlMode = GameManager.ControlMode.MixedMouseKeyboard;
-        //Saves current ControlMode to PlayerPrefs:
-        PlayerPrefs.SetInt("controlMode", (int)GameManager.ControlMode.MixedMouseKeyboard);
-    }
-
-    //Helper method to set ControlMode to Keyboard when option is selected
-    public void SetKeyboardOnlyControlMode()
-    {
-        //Changes playerControlMode in GameManager:
-        GameManager.instance.playerControlMode = GameManager.ControlMode.KeyboardOnly;
-        //Saves current ControlMode to PlayerPrefs:
-        PlayerPrefs.SetInt("controlMode", (int)GameManager.ControlMode.KeyboardOnly);
-    }
-
-    //Helper method that gets called when options button is selected so that the text will show current control mode
-    public void UpdateControlModeText()
-    {
-        //Gets the current ControlMode from PlayerPrefs, and sets the Text to the current ControlStyle:
-        switch ((GameManager.ControlMode)PlayerPrefs.GetInt("controlMode", 1))
-        {
-            case GameManager.ControlMode.KeyboardOnly:
-                currentSelectedControlOption.text = "Control Style: Classic";
-                break;
-
-            case GameManager.ControlMode.MixedMouseKeyboard:
-                currentSelectedControlOption.text = "Control Style: Mixed";
-                break;
-
-            case GameManager.ControlMode.MobileInput:
-                currentSelectedControlOption.text = "Control Style: Mobile";
-                break;
-
-            default:
-                break;
-        }
     }
 }

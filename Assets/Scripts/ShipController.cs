@@ -16,7 +16,7 @@ public class ShipController : MonoBehaviour
     private bool isWrappingX = false;
     private bool isWrappingY = false;
 
-    public GameManager.ControlMode currentControlMode;
+    public SettingsHelper.ControlMode currentControlMode;
 
     //Checks all 4 screen bounds:
     private Renderer[] renderers;
@@ -39,7 +39,7 @@ public class ShipController : MonoBehaviour
         horizontalMovement = Input.GetButton("Horizontal");
 
         //If controlMode is Mixed, detect for mousePointer:
-        if (currentControlMode == GameManager.ControlMode.MixedMouseKeyboard)
+        if (currentControlMode == SettingsHelper.ControlMode.MixedMouseKeyboard)
         {
             //Code Referenced from Danndx on YouTube:
             //https://www.youtube.com/watch?v=_XdqA3xbP2A
@@ -65,7 +65,7 @@ public class ShipController : MonoBehaviour
         switch (currentControlMode)
         {
             //RelativeForces are used as they steer the ship based on WHERE the ship is facing
-            case GameManager.ControlMode.KeyboardOnly:
+            case SettingsHelper.ControlMode.KeyboardOnly:
                 //If keyboard only, the "vertical" (W/S) buttons will add relativeForce in the Y-axis:
                 if (verticalMovement)
                 {
@@ -80,7 +80,7 @@ public class ShipController : MonoBehaviour
                 }
                 break;
 
-            case GameManager.ControlMode.MixedMouseKeyboard:
+            case SettingsHelper.ControlMode.MixedMouseKeyboard:
                 //If mixed, "vertical", "horizontal" will add Relativeforce on the y-axis and x-axis respectively
                 if (verticalMovement)
                 {
@@ -95,8 +95,9 @@ public class ShipController : MonoBehaviour
                 }
                 break;
 
-            case GameManager.ControlMode.MobileInput:
-                if (GameManager.instance.flipControls)
+            case SettingsHelper.ControlMode.MobileInput:
+                
+                if (!SettingsHelper.IsSwappedJoysticks)
                 {
                     if (leftJoystick.Vertical >= 0.2f)
                     {
