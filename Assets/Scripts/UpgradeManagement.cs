@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,8 @@ public class UpgradeManagement : MonoBehaviour
     /// Upgrade Manager is used to change the properties of the ship based on the upgrade Classes Provided:
     /// </summary>
 
+    public Button upgradeButton;
+    
     //Keep current Index of upgrade based on upgradeList:
     public int currentUpgradeIndex;
 
@@ -17,6 +20,7 @@ public class UpgradeManagement : MonoBehaviour
     //Gets a reference to the playerObject:
     private FireBullets playerShip;
 
+    private UpgradeClass currentUpgrade;
     //A list of upgrades that can be appended if required:
     private List<UpgradeClass> upgrades = new List<UpgradeClass>()
     {
@@ -40,7 +44,9 @@ public class UpgradeManagement : MonoBehaviour
         //Finds the only playShip object based on Firebullets script:
         playerShip = FindObjectOfType<FireBullets>();
         //Applies first upgrade to ship:
-        ApplyUpgrade(upgrades[currentUpgradeIndex]);
+        currentUpgrade = upgrades[currentUpgradeIndex];
+        ApplyUpgrade();
+        upgradeButton.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -50,31 +56,24 @@ public class UpgradeManagement : MonoBehaviour
         //Detects if the nextUpgrade is possible based on amount of money left:
         if (upgrades[currentUpgradeIndex].UpgradeCost > GameManager.instance.Coins) return;
         //If it is possible, set the Text the have the next upgrade name:
-        var nextUpgrade = upgrades[currentUpgradeIndex];
-        if (GameManager.instance.playerControlMode != GameManager.ControlMode.MobileInput)
-        {
-            upgradeText.text = $"Press E To Upgrade: {nextUpgrade.UpgradeName}";
-        }
-        else
-        {
-            upgradeText.text = $"Tap Anywhere to Upgrade: {nextUpgrade.UpgradeName}";
-        }
-
-        //Check to see if player Clicks B to buy the upgrade:
-        //ApplyUpgrade(nextUpgrade);
+        currentUpgrade = upgrades[currentUpgradeIndex];
+        
+        upgradeText.text = $"Upgrade Available: {currentUpgrade.UpgradeName}";
+        upgradeButton.gameObject.SetActive(true);
     }
 
     //Apply upgrade takes in the Upgrade class and applies it to the ship:
-    private void ApplyUpgrade(UpgradeClass upgrade)
+    public void ApplyUpgrade()
     {
-        playerShip.damageDealt = upgrade.DamageCount;
-        playerShip.fireRate = upgrade.FireRate;
-        playerShip.cannonCount = upgrade.CannonCount;
+        playerShip.damageDealt = currentUpgrade.DamageCount;
+        playerShip.fireRate = currentUpgrade.FireRate;
+        playerShip.cannonCount = currentUpgrade.CannonCount;
         //Changes upgradeIndex to next one:
         currentUpgradeIndex++;
         //Deducts coins from the game manager:
-        GameManager.instance.AddCoins(-upgrade.UpgradeCost);
+        GameManager.instance.AddCoins(-currentUpgrade.UpgradeCost);
         //Upgrade text changes to empty string as no upgrades are possible:
         upgradeText.text = string.Empty;
+        upgradeButton.gameObject.SetActive(false);
     }
 }

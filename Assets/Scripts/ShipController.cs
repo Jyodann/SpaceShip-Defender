@@ -16,7 +16,7 @@ public class ShipController : MonoBehaviour
     private bool isWrappingX = false;
     private bool isWrappingY = false;
 
-    public GameManager.ControlMode currentControlMode = GameManager.ControlMode.MobileInput;
+    public GameManager.ControlMode currentControlMode;
 
     //Checks all 4 screen bounds:
     private Renderer[] renderers;
@@ -116,15 +116,11 @@ public class ShipController : MonoBehaviour
                     rb2d.AddForce(new Vector2(-1, 0) * speed);
                 }
 
-                print("");
                 var rotation = (Mathf.Atan2(aimingJoystick.Horizontal, aimingJoystick.Vertical) * 180 / Mathf.PI);
                 if (rotation != 0)
                 {
                     transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -rotation));
                 }
-
-                print("Current rotation: " + rotation);
-
                 break;
 
             default:
