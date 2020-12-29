@@ -79,8 +79,11 @@ public class GameManager : MonoBehaviour
     
     //AudioSource List for all the soundtracks:
     private AudioSource audioSource;
-
+    //List that stores all the available background music:
     public List<AudioClip> backgroundMusic;
+
+    private string[] backgroundColourList =
+        {"#0C2A46", "#4F106F", "#000000", "#500000", "#053D24", "#3C0527", "#221F21", "#41170F"};
 
     private void Awake()
     {
@@ -109,6 +112,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        Color backgroundColour;
+        ColorUtility.TryParseHtmlString(backgroundColourList[Random.Range(0, backgroundColourList.Length)], out backgroundColour);
+        Camera.main.backgroundColor = backgroundColour;
+        
         //Finds a DeathAnimationManager by the script component:
         deathAnimationManager = FindObjectOfType<OnDeathAnimation>();
         //Sets current game state to InGame:
