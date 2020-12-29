@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
     public enum ControlMode { KeyboardOnly, MixedMouseKeyboard, MobileInput }
 
     //Static Control Mode Enum for reading in the ShipController:
-    public static ControlMode playerControlMode = ControlMode.MobileInput;
+    public ControlMode playerControlMode = ControlMode.MixedMouseKeyboard;
 
     //A static bool to track whether audio should be muted:
     private static bool isAudioMuted = false;
@@ -83,7 +83,8 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         //Get playerControlMode from playerPreferences:
-        playerControlMode = (ControlMode)PlayerPrefs.GetInt("controlMode", 2);
+        playerControlMode = (ControlMode)PlayerPrefs.GetInt("controlMode", 1);
+        playerControlMode = ControlMode.MixedMouseKeyboard;
         //Get saved hi-Score from PlayerPrefs:
         highScore = PlayerPrefs.GetInt("hiScore", 0);
 

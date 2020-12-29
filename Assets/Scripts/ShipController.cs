@@ -33,7 +33,7 @@ public class ShipController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        currentControlMode = GameManager.ControlMode.MobileInput;
+        currentControlMode = GameManager.instance.playerControlMode;
         //Gets Input from A/D/W/S:
         verticalMovement = Input.GetButton("Vertical");
         horizontalMovement = Input.GetButton("Horizontal");

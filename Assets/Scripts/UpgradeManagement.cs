@@ -51,7 +51,7 @@ public class UpgradeManagement : MonoBehaviour
         if (upgrades[currentUpgradeIndex].UpgradeCost > GameManager.instance.Coins) return;
         //If it is possible, set the Text the have the next upgrade name:
         var nextUpgrade = upgrades[currentUpgradeIndex];
-        if (GameManager.playerControlMode != GameManager.ControlMode.MobileInput)
+        if (GameManager.instance.playerControlMode != GameManager.ControlMode.MobileInput)
         {
             upgradeText.text = $"Press E To Upgrade: {nextUpgrade.UpgradeName}";
         }
@@ -61,7 +61,7 @@ public class UpgradeManagement : MonoBehaviour
         }
 
         //Check to see if player Clicks B to buy the upgrade:
-        ApplyUpgrade(nextUpgrade);
+        //ApplyUpgrade(nextUpgrade);
     }
 
     //Apply upgrade takes in the Upgrade class and applies it to the ship:

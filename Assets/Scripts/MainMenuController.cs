@@ -19,7 +19,7 @@ public class MainMenuController : MonoBehaviour
         if (Application.isMobilePlatform)
         {
             Application.targetFrameRate = 60;
-            GameManager.playerControlMode = GameManager.ControlMode.MobileInput;
+            GameManager.instance.playerControlMode = GameManager.ControlMode.MobileInput;
         }
     }
 
@@ -39,7 +39,7 @@ public class MainMenuController : MonoBehaviour
     public void SetMixedControlMode()
     {
         //Changes playerControlMode in GameManager:
-        GameManager.playerControlMode = GameManager.ControlMode.MixedMouseKeyboard;
+        GameManager.instance.playerControlMode = GameManager.ControlMode.MixedMouseKeyboard;
         //Saves current ControlMode to PlayerPrefs:
         PlayerPrefs.SetInt("controlMode", (int)GameManager.ControlMode.MixedMouseKeyboard);
     }
@@ -48,7 +48,7 @@ public class MainMenuController : MonoBehaviour
     public void SetKeyboardOnlyControlMode()
     {
         //Changes playerControlMode in GameManager:
-        GameManager.playerControlMode = GameManager.ControlMode.KeyboardOnly;
+        GameManager.instance.playerControlMode = GameManager.ControlMode.KeyboardOnly;
         //Saves current ControlMode to PlayerPrefs:
         PlayerPrefs.SetInt("controlMode", (int)GameManager.ControlMode.KeyboardOnly);
     }
