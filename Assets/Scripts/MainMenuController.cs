@@ -1,13 +1,14 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
-    //SerialisedField to reference the controlOption so that the text can be updated based on current setting
-    [SerializeField] private TextMeshProUGUI currentSelectedControlOption;
-
     [SerializeField] private TextMeshProUGUI versionInformation;
+    [SerializeField] private Toggle musicEffectToggle;
+    [SerializeField] private Toggle swapJoysticksToggle;
+    [SerializeField] private Toggle batterySaverToggle;
 
     /// <summary>
     /// Code Referenced from How to Make a Main Menu by Brackeys:
@@ -17,7 +18,14 @@ public class MainMenuController : MonoBehaviour
     {
         SettingsHelper.LoadSettings();
         versionInformation.text = $"Version {Application.version} ({Application.platform})";
-        
+
+        musicEffectToggle.onValueChanged.AddListener(delegate(bool changed) { SettingsHelper.IsMusicOn = changed; Debug.Log(SettingsHelper.IsMusicOn);});
+        swapJoysticksToggle.onValueChanged.AddListener(delegate(bool changed) { SettingsHelper.IsSwappedJoysticks = changed;
+            Debug.Log(SettingsHelper.IsSwappedJoysticks); 
+        });
+        batterySaverToggle.onValueChanged.AddListener(delegate(bool changed) { SettingsHelper.IsBatterySaver = changed;
+            Debug.Log(SettingsHelper.IsBatterySaver);
+        });
     }
 
     //Helper method to load the Game when play button is Clicked
@@ -30,5 +38,13 @@ public class MainMenuController : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+    
+    //Helper method to display the options menu
+    public void ShowOptions()
+    {
+        musicEffectToggle.isOn = SettingsHelper.IsMusicOn;
+        swapJoysticksToggle.isOn = SettingsHelper.IsSwappedJoysticks;
+        batterySaverToggle.isOn = SettingsHelper.IsBatterySaver;
     }
 }

@@ -17,6 +17,8 @@ public static class SettingsHelper
         {
             isBatterySaver = value;
             PlayerPrefs.SetInt("batterySaver", isBatterySaver ? 1 : 0);
+            Application.targetFrameRate = isBatterySaver ? 30 : 60;
+            QualitySettings.vSyncCount = isBatterySaver ? 0 : 1;
         }
     }
 
@@ -53,6 +55,8 @@ public static class SettingsHelper
 
     public static void LoadSettings()
     {
+        QualitySettings.vSyncCount = 1;
+        Debug.Log("IsMusicOn: " + isMusicOn);
         IsMusicOn = PlayerPrefs.GetInt("musicOn", 1) == 1;
         IsSwappedJoysticks = PlayerPrefs.GetInt("swappedSticks", 0) == 1;
         IsBatterySaver = PlayerPrefs.GetInt("batterySaver", 0) == 1;
@@ -61,6 +65,7 @@ public static class SettingsHelper
         if (Application.isMobilePlatform)
         {
             Application.targetFrameRate = isBatterySaver ? 30 : 60;
+            QualitySettings.vSyncCount = isBatterySaver ? 0 : 1;
             CurrentControlMode = ControlMode.MobileInput;
         }
         else
