@@ -46,7 +46,7 @@ public class AsteroidScript : MonoBehaviour
                 break;
         }
         //Changes the sprite to a random sprite provided in the SpriteArray:
-        GetComponent<SpriteRenderer>().sprite = asteroidSprites[Random.Range(0, asteroidSprites.Length)];
+        GetComponentInChildren<SpriteRenderer>().sprite = asteroidSprites[Random.Range(0, asteroidSprites.Length)];
 
         //Sets a random velocity for the asteroid to move
         GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(-30, 30), Random.Range(-30, 30));
