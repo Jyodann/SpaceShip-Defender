@@ -57,9 +57,21 @@ public class UpgradeManagement : MonoBehaviour
         if (upgrades[currentUpgradeIndex].UpgradeCost > GameManager.instance.Coins) return;
         //If it is possible, set the Text the have the next upgrade name:
         currentUpgrade = upgrades[currentUpgradeIndex];
+
+        if (GameManager.instance.playerControlMode == GameManager.ControlMode.MobileInput)
+        {
+            upgradeText.text = $"Upgrade Available: {currentUpgrade.UpgradeName}";
+            upgradeButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            upgradeText.text = $"Press E to Upgrade: {currentUpgrade.UpgradeName}";
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                ApplyUpgrade();
+            }
+        }
         
-        upgradeText.text = $"Upgrade Available: {currentUpgrade.UpgradeName}";
-        upgradeButton.gameObject.SetActive(true);
     }
 
     //Apply upgrade takes in the Upgrade class and applies it to the ship:

@@ -759,7 +759,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 704e1d81a4bceb144bfb16937b70870c, type: 3}
     - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
       propertyPath: playerControlMode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 996874560, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
       propertyPath: m_audioClip
