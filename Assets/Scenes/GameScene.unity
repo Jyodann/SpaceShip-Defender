@@ -425,6 +425,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
+      propertyPath: backgroundMusic.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
       propertyPath: livesText
       value: 
       objectReference: {fileID: 985133703}
@@ -456,6 +460,26 @@ PrefabInstance:
       propertyPath: joystickUI
       value: 
       objectReference: {fileID: 2100396028}
+    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
+      propertyPath: backgroundMusic.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 56dcdac18f4f44440ae3063043967bd0, type: 3}
+    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
+      propertyPath: backgroundMusic.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 3aff2711e7aa46c44820496e64c72674, type: 3}
+    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
+      propertyPath: backgroundMusic.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 704e1d81a4bceb144bfb16937b70870c, type: 3}
+    - target: {fileID: 996874560, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 996874560, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
+      propertyPath: Loop
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1349937148, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
       propertyPath: ufoSpawnLocations.Array.data[0]
       value: 

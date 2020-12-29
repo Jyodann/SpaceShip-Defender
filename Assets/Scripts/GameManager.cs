@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -73,6 +74,11 @@ public class GameManager : MonoBehaviour
 
     //A static bool to track whether audio should be muted:
     private static bool isAudioMuted = false;
+    
+    //AudioSource List for all the soundtracks:
+    private AudioSource audioSource;
+
+    public List<AudioClip> backgroundMusic;
 
     private void Awake()
     {
@@ -111,10 +117,17 @@ public class GameManager : MonoBehaviour
         scoreText.text = Score.ToString().PadLeft(8, '0');
         joystickUI.SetActive(true);
         scoreBoostText.text = string.Empty;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
+        if (!audioSource.isPlaying)
+        {
+            audioSource.clip = backgroundMusic[Random.Range(0, backgroundMusic.Count)];
+            audioSource.Play();
+        }
+        
         if (Input.GetKeyDown(KeyCode.H))
         {
             playerControlMode = ControlMode.MobileInput;
