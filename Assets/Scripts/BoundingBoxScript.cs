@@ -7,9 +7,6 @@ public class BoundingBoxScript : MonoBehaviour
         //This script is here to do Optimisation: It destorys anything out of the player's current
         //vision, referenced from one of Unity's Tutorials about spaceShooters:
         //https://www.youtube.com/watch?v=GIatyq9KT28
-        if (!collision.gameObject.CompareTag("Player"))
-        {
-            Destroy(collision.gameObject);
-        }
+        if (!collision.gameObject.CompareTag("Player")) Destroy(collision.gameObject);
     }
 }

@@ -2,8 +2,16 @@
 
 public class OnDeathAnimation : MonoBehaviour
 {
+    //Enum to manage the different kinds of explosions, can be added if more explosions are required:
+    public enum ExplosionTypes
+    {
+        BigExplosion,
+        SmallExplosion,
+        UfoExplosion
+    }
+
     /// <summary>
-    /// Death Animation manager will be responsible for playing explosions on command.
+    ///     Death Animation manager will be responsible for playing explosions on command.
     /// </summary>
 
     //These SerialisedFields are for setting the prefabs with a particleSystem in it that has the corresponding animation:
@@ -24,12 +32,6 @@ public class OnDeathAnimation : MonoBehaviour
     {
         //Caches the audioSource so it can be used later:
         audioSource = GetComponent<AudioSource>();
-    }
-
-    //Enum to manage the different kinds of explosions, can be added if more explosions are required:
-    public enum ExplosionTypes
-    {
-        BigExplosion, SmallExplosion, UfoExplosion
     }
 
     //MakeExplosion method takes in two parameters: Transform of where the explosion should occur

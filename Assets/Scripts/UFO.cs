@@ -21,7 +21,7 @@ public class UFO : MonoBehaviour
     private void Start()
     {
         //Changes alienSpawnRate based on difficulty
-        alienSpawnRate -= (SpawningManagement.Factor / 10);
+        alienSpawnRate -= SpawningManagement.Factor / 10;
         alienSpawnRate = Mathf.Clamp(alienSpawnRate, maxDifficultySpawnRate, alienSpawnRate);
         //Destroys the UFO object if player is unable to kill it in the set amount of time:
         Destroy(gameObject, ufoDespawnRate);
@@ -35,10 +35,7 @@ public class UFO : MonoBehaviour
         while (true)
         {
             //If game is paused, or timeFreeze powerup is true, this coroutine will not do anything
-            while (!isAlienSpawn)
-            {
-                yield return null;
-            }
+            while (!isAlienSpawn) yield return null;
             //Spawns alien in current UFO locaiton:
             Instantiate(alienObject, transform.position, Quaternion.identity);
             yield return new WaitForSecondsRealtime(alienSpawnRate);

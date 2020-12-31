@@ -1,28 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UpgradeManagement : MonoBehaviour
 {
     /// <summary>
-    /// Upgrade Manager is used to change the properties of the ship based on the upgrade Classes Provided:
+    ///     Upgrade Manager is used to change the properties of the ship based on the upgrade Classes Provided:
     /// </summary>
-
     public Button upgradeButton;
-    
+
     //Keep current Index of upgrade based on upgradeList:
     public int currentUpgradeIndex;
 
     //References a Text, which is childed to the plane, so as to let the player know they can upgrade:
     [SerializeField] private Text upgradeText;
 
+    private UpgradeClass currentUpgrade;
+
     //Gets a reference to the playerObject:
     private FireBullets playerShip;
 
-    private UpgradeClass currentUpgrade;
     //A list of upgrades that can be appended if required:
-    private List<UpgradeClass> upgrades = new List<UpgradeClass>()
+    private readonly List<UpgradeClass> upgrades = new List<UpgradeClass>
     {
         //Upgrade Class Constructor: Name, Cost, CannonCount, FireRate, Damage per shot
         new UpgradeClass("BaseShip", 0, 1, 0.3f, 1),
@@ -66,12 +65,8 @@ public class UpgradeManagement : MonoBehaviour
         else
         {
             upgradeText.text = $"Press E to Upgrade: {currentUpgrade.UpgradeName}";
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                ApplyUpgrade();
-            }
+            if (Input.GetKeyDown(KeyCode.E)) ApplyUpgrade();
         }
-        
     }
 
     //Apply upgrade takes in the Upgrade class and applies it to the ship:

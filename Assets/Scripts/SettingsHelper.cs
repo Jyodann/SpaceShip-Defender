@@ -1,16 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public static class SettingsHelper
 {
-    public enum ControlMode { KeyboardOnly, MixedMouseKeyboard, MobileInput }
+    public enum ControlMode
+    {
+        KeyboardOnly,
+        MixedMouseKeyboard,
+        MobileInput
+    }
 
-    private static bool isBatterySaver = false;
-    private static bool isSwappedJoysticks = false;
+    private static bool isBatterySaver;
+    private static bool isSwappedJoysticks;
     private static bool isMusicOn = true;
     private static ControlMode _controlMode;
     private static bool isFirstTimePlaying = true;
+
     public static bool IsBatterySaver
     {
         get => isBatterySaver;
@@ -70,9 +74,9 @@ public static class SettingsHelper
         IsMusicOn = PlayerPrefs.GetInt("musicOn", 1) == 1;
         IsSwappedJoysticks = PlayerPrefs.GetInt("swappedSticks", 0) == 1;
         IsBatterySaver = PlayerPrefs.GetInt("batterySaver", 0) == 1;
-        CurrentControlMode = (ControlMode)PlayerPrefs.GetInt("controlMode", 1);
+        CurrentControlMode = (ControlMode) PlayerPrefs.GetInt("controlMode", 1);
         IsFirstTimePlaying = PlayerPrefs.GetInt("firstTime", 1) == 1;
-        
+
         if (Application.isMobilePlatform)
         {
             Application.targetFrameRate = isBatterySaver ? 30 : 60;

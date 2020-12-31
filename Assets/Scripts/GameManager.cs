@@ -7,14 +7,15 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     /// <summary>
-    /// Why are there 3 different managers?
-    ///
-    /// The main idea of having 3 different managers is so that Code is easier to maintain as it is not as long, and hence not as messy
-    /// The different manager names are distinct, which also lets the developer know which files to change for a specific function
-    ///
-    /// Though all the other managers can be together in this one file, a decision was made to separate them and instead introduce
-    /// helper functions in the main GameManager to access the other managers more easily if required.
-    /// This is part of using the Separation of concerns design principle.
+    ///     Why are there 3 different managers?
+    ///     The main idea of having 3 different managers is so that Code is easier to maintain as it is not as long, and hence
+    ///     not as messy
+    ///     The different manager names are distinct, which also lets the developer know which files to change for a specific
+    ///     function
+    ///     Though all the other managers can be together in this one file, a decision was made to separate them and instead
+    ///     introduce
+    ///     helper functions in the main GameManager to access the other managers more easily if required.
+    ///     This is part of using the Separation of concerns design principle.
     /// </summary>
 
     //Makes new instance of gameManager, not initialised as it uses a Singleton pattern similar to the one found in:
@@ -23,6 +24,46 @@ public class GameManager : MonoBehaviour
 
     //Declares a static to store highScore for this instance of the game:
     private static int highScore;
+
+    //All these fields are various UI elements that are set in the inspector:
+    [SerializeField] private TextMeshProUGUI livesText;
+
+    [SerializeField] private TextMeshProUGUI coinsText;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI scoreBoostText;
+    [SerializeField] private Text gameOverText;
+    [SerializeField] private GameObject joystickUI;
+
+    //GameOver meny and PauseMenu are both Canvas objects childed under the UIObjects gameObject:
+    public GameObject gameOverMenu;
+
+    public GameObject pauseMenu;
+
+    //Setting Eumn to allow player to change Control mode
+
+
+    public bool flipControls;
+
+    //Static Control Mode Enum for reading in the ShipController:
+    public SettingsHelper.ControlMode playerControlMode;
+
+    //List that stores all the available background music:
+    public List<AudioClip> backgroundMusic;
+
+    //A static bool to track whether audio should be muted:
+
+
+    //AudioSource List for all the soundtracks:
+    private AudioSource audioSource;
+
+    private readonly string[] backgroundColourList =
+        {"#0C2A46", "#4F106F", "#000000", "#500000", "#053D24", "#3C0527", "#221F21", "#41170F"};
+
+    //Keeps track of the current session's gameState:
+    private GameState currentGameState;
+
+    //Keeps a reference to the deathAnimation player
+    private OnDeathAnimation deathAnimationManager;
 
     //private health property used within this Script only:
     private int Lives { get; set; }
@@ -42,53 +83,10 @@ public class GameManager : MonoBehaviour
     //isTimeFrozen is responsible for the TimeFreeze powerup, it stops SpawnManagement from spawnning objects:
     public bool IsTimeFrozen { get; set; }
 
-    //All these fields are various UI elements that are set in the inspector:
-    [SerializeField] private TextMeshProUGUI livesText;
-
-    [SerializeField] private TextMeshProUGUI coinsText;
-    [SerializeField] private TextMeshProUGUI scoreText;
-    [SerializeField] private TextMeshProUGUI scoreBoostText;
-    [SerializeField] private Text gameOverText;
-    [SerializeField] private GameObject joystickUI;
-
-    //GameOver meny and PauseMenu are both Canvas objects childed under the UIObjects gameObject:
-    public GameObject gameOverMenu;
-
-    public GameObject pauseMenu;
-
-    //Enum of GameState to check if Game is over, Paused or currently playing:
-    //Future plans to actually add certain BossStates, therefore this is here instead of just using booleans:
-    private enum GameState { InGame, Paused, GameOver }
-
-    //Keeps track of the current session's gameState:
-    private GameState currentGameState;
-
-    //Keeps a reference to the deathAnimation player
-    private OnDeathAnimation deathAnimationManager;
-
-    //Setting Eumn to allow player to change Control mode
-    
-
-    public bool flipControls = false;
-
-    //Static Control Mode Enum for reading in the ShipController:
-    public SettingsHelper.ControlMode playerControlMode;
-
-    //A static bool to track whether audio should be muted:
-
-    
-    //AudioSource List for all the soundtracks:
-    private AudioSource audioSource;
-    //List that stores all the available background music:
-    public List<AudioClip> backgroundMusic;
-
-    private string[] backgroundColourList =
-        {"#0C2A46", "#4F106F", "#000000", "#500000", "#053D24", "#3C0527", "#221F21", "#41170F"};
-
     private void Awake()
     {
         //Get playerControlMode from playerPreferences:
-        playerControlMode = (SettingsHelper.ControlMode)PlayerPrefs.GetInt("controlMode", 2);
+        playerControlMode = (SettingsHelper.ControlMode) PlayerPrefs.GetInt("controlMode", 2);
         playerControlMode = SettingsHelper.ControlMode.MobileInput;
         //Get saved hi-Score from PlayerPrefs:
         highScore = PlayerPrefs.GetInt("hiScore", 0);
@@ -101,29 +99,25 @@ public class GameManager : MonoBehaviour
         //Uses a SingleTon pattern for GameManager, code based off: https://learn.unity.com/tutorial/level-generation?uv=5.x&projectId=5c514a00edbc2a0020694718#5c7f8528edbc2a002053b6f7 (2D RougueLike tutorial)
 
         if (instance == null)
-        {
             instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
+        else if (instance != this) Destroy(gameObject);
     }
 
     private void Start()
     {
         Color backgroundColour;
-        ColorUtility.TryParseHtmlString(backgroundColourList[Random.Range(0, backgroundColourList.Length)], out backgroundColour);
+        ColorUtility.TryParseHtmlString(backgroundColourList[Random.Range(0, backgroundColourList.Length)],
+            out backgroundColour);
         Camera.main.backgroundColor = backgroundColour;
-        
+
         //Finds a DeathAnimationManager by the script component:
         deathAnimationManager = FindObjectOfType<OnDeathAnimation>();
         //Sets current game state to InGame:
         currentGameState = GameState.InGame;
 
         //Sets current Coins, Lives and Score to the UI counterparts:
-        coinsText.text = Coins.ToString().PadLeft(4,'0');
-        livesText.text = Lives.ToString().PadLeft(2,'0');
+        coinsText.text = Coins.ToString().PadLeft(4, '0');
+        livesText.text = Lives.ToString().PadLeft(2, '0');
         scoreText.text = Score.ToString().PadLeft(8, '0');
         joystickUI.SetActive(true);
         scoreBoostText.text = string.Empty;
@@ -139,26 +133,18 @@ public class GameManager : MonoBehaviour
             audioSource.clip = backgroundMusic[Random.Range(0, backgroundMusic.Count)];
             audioSource.Play();
         }
-        
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            playerControlMode = SettingsHelper.ControlMode.MobileInput;
-        }
+
+        if (Input.GetKeyDown(KeyCode.H)) playerControlMode = SettingsHelper.ControlMode.MobileInput;
         if (Input.GetKeyDown(KeyCode.M))
-        {
             //Flips the isAudioMuted variable:
             SettingsHelper.IsMusicOn = !SettingsHelper.IsMusicOn;
-        }
         //Checks currentGameState:
         switch (currentGameState)
         {
             case GameState.InGame:
 
                 //If gameState is inGame: Pressing Escape will pause the game
-                if (Input.GetKeyDown(KeyCode.Escape))
-                {
-                    PauseGame();
-                }
+                if (Input.GetKeyDown(KeyCode.Escape)) PauseGame();
 
                 #region CheatCodes
 
@@ -170,39 +156,18 @@ public class GameManager : MonoBehaviour
                 //I = Take 1 Damage
                 //O = Add 1 Life:
                 //L = Add 10 Lives:
-                if (Input.GetKeyDown(KeyCode.P))
-                {
-                    AddCoins(50);
-                }
+                if (Input.GetKeyDown(KeyCode.P)) AddCoins(50);
 
-                if (Input.GetKeyDown(KeyCode.K))
-                {
-                    AddCoins(1000);
-                }
+                if (Input.GetKeyDown(KeyCode.K)) AddCoins(1000);
 
-                if (Input.GetKeyDown(KeyCode.R))
-                {
-                    AddScore(250);
-                }
-                if (Input.GetKeyDown(KeyCode.Q))
-                {
-                    AddScore(1000);
-                }
+                if (Input.GetKeyDown(KeyCode.R)) AddScore(250);
+                if (Input.GetKeyDown(KeyCode.Q)) AddScore(1000);
 
-                if (Input.GetKeyDown(KeyCode.I))
-                {
-                    TakeDamage(1);
-                }
+                if (Input.GetKeyDown(KeyCode.I)) TakeDamage(1);
 
-                if (Input.GetKeyDown(KeyCode.O))
-                {
-                    TakeDamage(-1);
-                }
+                if (Input.GetKeyDown(KeyCode.O)) TakeDamage(-1);
 
-                if (Input.GetKeyDown(KeyCode.L))
-                {
-                    TakeDamage(-10);
-                }
+                if (Input.GetKeyDown(KeyCode.L)) TakeDamage(-10);
 
                 #endregion CheatCodes
 
@@ -210,33 +175,18 @@ public class GameManager : MonoBehaviour
 
             case GameState.Paused:
                 //If Game is paused, pressing escape will unpause it:
-                if (Input.GetKeyDown(KeyCode.Escape))
-                {
-                    Unpause();
-                }
+                if (Input.GetKeyDown(KeyCode.Escape)) Unpause();
                 //Press R to allow restart during pause:
-                if (Input.GetKeyDown(KeyCode.R))
-                {
-                    RestartGame();
-                }
+                if (Input.GetKeyDown(KeyCode.R)) RestartGame();
                 //Press E to allow quitting during pause:
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    ExitGame();
-                }
+                if (Input.GetKeyDown(KeyCode.E)) ExitGame();
                 break;
 
             case GameState.GameOver:
                 //If gameOver, checks to see if the player Preses R, which is to restart, or ESC to go back to main menu:
-                if (Input.GetKeyDown(KeyCode.R))
-                {
-                    RestartGame();
-                }
+                if (Input.GetKeyDown(KeyCode.R)) RestartGame();
 
-                if (Input.GetKeyDown(KeyCode.Escape))
-                {
-                    GoToMainMenu();
-                }
+                if (Input.GetKeyDown(KeyCode.Escape)) GoToMainMenu();
                 break;
         }
     }
@@ -306,12 +256,9 @@ public class GameManager : MonoBehaviour
         Lives -= damageValue;
 
         //Sets livesText to be current amount of Lives;
-        livesText.text = Lives.ToString().PadLeft(2,'0');
+        livesText.text = Lives.ToString().PadLeft(2, '0');
         //Checks if lives is less than 0 or 0:
-        if (Lives <= 0)
-        {
-            TriggerLoseCondition();
-        }
+        if (Lives <= 0) TriggerLoseCondition();
     }
 
     //Trigger lose condition is called when the player reaches 0 lives:
@@ -324,6 +271,7 @@ public class GameManager : MonoBehaviour
             //Set PlayerPrefs to current Hi-Score so that it is saved between game sessions:
             PlayerPrefs.SetInt("hiScore", highScore);
         }
+
         //Set current game state to gameOver:
         currentGameState = GameState.GameOver;
         //Pauses the game:
@@ -331,7 +279,8 @@ public class GameManager : MonoBehaviour
         //Shows the gameOverMenu:
         gameOverMenu.SetActive(true);
         //sets the GameOverMenu text to show Score, and Hi score.
-        gameOverText.text = $"Game Over\nScore: {Score.ToString().PadLeft(8, '0')}\nHi-Score: {highScore.ToString().PadLeft(8, '0')}";
+        gameOverText.text =
+            $"Game Over\nScore: {Score.ToString().PadLeft(8, '0')}\nHi-Score: {highScore.ToString().PadLeft(8, '0')}";
         //Sets timeScale to frozen:
         Time.timeScale = 0;
         joystickUI.SetActive(false);
@@ -352,7 +301,7 @@ public class GameManager : MonoBehaviour
         Coins += coinsToAdd;
         //Coins are clamped at 9999 to make sure no UI glitches occur:
         Coins = Mathf.Clamp(Coins, 0, 9999);
-        coinsText.text = Coins.ToString().PadLeft(4,'0');
+        coinsText.text = Coins.ToString().PadLeft(4, '0');
     }
 
     public void AddLives(int livesToAdd)
@@ -374,20 +323,25 @@ public class GameManager : MonoBehaviour
     {
         isDoubleScore = isEnabled;
         if (isDoubleScore)
-        {
             //Shows UI for x2 next to score if Double score is enabled:
             scoreBoostText.text = "x2";
-        }
         else
-        {
             //Disables UI for x2 next to score if Double score is enabled:
             scoreBoostText.text = "";
-        }
     }
 
     //Helper Method to play appropriate explosion in Explosion location:
     public void PlayExplosionAnimation(Transform explosionLocation, OnDeathAnimation.ExplosionTypes explosionType)
     {
         deathAnimationManager.MakeExplosion(explosionLocation, explosionType);
+    }
+
+    //Enum of GameState to check if Game is over, Paused or currently playing:
+    //Future plans to actually add certain BossStates, therefore this is here instead of just using booleans:
+    private enum GameState
+    {
+        InGame,
+        Paused,
+        GameOver
     }
 }

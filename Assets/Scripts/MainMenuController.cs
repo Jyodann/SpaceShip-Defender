@@ -1,6 +1,5 @@
 ﻿using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
@@ -12,27 +11,31 @@ public class MainMenuController : MonoBehaviour
 
 
     /// <summary>
-    /// Code Referenced from How to Make a Main Menu by Brackeys:
-    /// https://www.youtube.com/watch?v=zc8ac_qUXQY
+    ///     Code Referenced from How to Make a Main Menu by Brackeys:
+    ///     https://www.youtube.com/watch?v=zc8ac_qUXQY
     /// </summary>
     private void Start()
     {
         SettingsHelper.LoadSettings();
         versionInformation.text = $"Version {Application.version} ({Application.platform})";
 
-        musicEffectToggle.onValueChanged.AddListener(delegate(bool changed) { SettingsHelper.IsMusicOn = changed;});
-        swapJoysticksToggle.onValueChanged.AddListener(delegate(bool changed) { SettingsHelper.IsSwappedJoysticks = changed;
+        musicEffectToggle.onValueChanged.AddListener(delegate(bool changed) { SettingsHelper.IsMusicOn = changed; });
+        swapJoysticksToggle.onValueChanged.AddListener(delegate(bool changed)
+        {
+            SettingsHelper.IsSwappedJoysticks = changed;
         });
-        batterySaverToggle.onValueChanged.AddListener(delegate(bool changed) { SettingsHelper.IsBatterySaver = changed;
+        batterySaverToggle.onValueChanged.AddListener(delegate(bool changed)
+        {
+            SettingsHelper.IsBatterySaver = changed;
         });
     }
-    
+
     //Helper method to quit the Game when quit button is Clicked
     public void QuitGame()
     {
         Application.Quit();
     }
-    
+
     //Helper method to display the options menu
     public void ShowOptions()
     {

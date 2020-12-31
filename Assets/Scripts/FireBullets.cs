@@ -4,7 +4,7 @@ using UnityEngine;
 public class FireBullets : MonoBehaviour
 {
     /// <summary>
-    /// This class is mainly for handling bullet firing from the playerObject
+    ///     This class is mainly for handling bullet firing from the playerObject
     /// </summary>
 
     //Takes in a bullet prefab as the bullet to be shot:
@@ -47,9 +47,9 @@ public class FireBullets : MonoBehaviour
     }
 
     /// <summary>
-    /// Fire() coroutine is responsible for regulating the bullet fire rate.
-    /// Coroutine used here as the rate of fire is easier to manage with yeild return waitForSeconds
-    /// compared to using Update()
+    ///     Fire() coroutine is responsible for regulating the bullet fire rate.
+    ///     Coroutine used here as the rate of fire is easier to manage with yeild return waitForSeconds
+    ///     compared to using Update()
     /// </summary>
     /// <returns></returns>
     private IEnumerator Fire()
@@ -57,10 +57,7 @@ public class FireBullets : MonoBehaviour
         while (true)
         {
             //If game is paused, disallows any other action to occur:
-            while (GameManager.instance.isPaused)
-            {
-                yield return null;
-            }
+            while (GameManager.instance.isPaused) yield return null;
             //If Fire1 (MouseLeft) is held, then it starts to fire:
             if (Input.GetButton("Fire1"))
             {
@@ -98,11 +95,9 @@ public class FireBullets : MonoBehaviour
                         FireCannon(extremeLeftCannon.transform);
                         FireCannon(extremeRightCannon.transform);
                         break;
-
-                    default:
-                        break;
                 }
             }
+
             //returns waitForSecondsRealTime as fireRate is counted in realSeconds, and this method will wait for the seconds to end
             //before allowing another call:
             yield return new WaitForSecondsRealtime(fireRate);
@@ -115,6 +110,7 @@ public class FireBullets : MonoBehaviour
         //TransformDirection translates the current ship's facing direction (local) to a
         //world vector, which allows bullets to fly from where the ship is facing:
 
-        Instantiate(bulletObject, cannonLocation.position, transform.rotation).GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector3.up * bulletSpeed);
+        Instantiate(bulletObject, cannonLocation.position, transform.rotation).GetComponent<Rigidbody2D>().velocity =
+            transform.TransformDirection(Vector3.up * bulletSpeed);
     }
 }
