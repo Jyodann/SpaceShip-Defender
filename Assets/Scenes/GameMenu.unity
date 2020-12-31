@@ -926,7 +926,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &214391939
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1809,7 +1809,6 @@ RectTransform:
   - {fileID: 166745737}
   - {fileID: 620463494}
   - {fileID: 1334633156}
-  - {fileID: 2130682516}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2890,8 +2889,8 @@ RectTransform:
   m_Father: {fileID: 514815189}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.7125293}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3546,7 +3545,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1334633156
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3560,6 +3559,7 @@ RectTransform:
   m_Children:
   - {fileID: 175546575}
   - {fileID: 1834810140}
+  - {fileID: 2130682516}
   m_Father: {fileID: 446692763}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4191,7 +4191,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2065122807}
+      - m_Target: {fileID: 1334633155}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -4799,8 +4799,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1068369225}
   m_HandleRect: {fileID: 1068369224}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.38666666
+  m_Value: 1.0000004
+  m_Size: 0.28747073
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5221,8 +5221,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -459.99994}
-  m_SizeDelta: {x: 1600, y: 1500}
+  m_AnchoredPosition: {x: 0, y: -718.7989}
+  m_SizeDelta: {x: 1600, y: 2017.5967}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2119075833
 MonoBehaviour:
@@ -5244,13 +5244,20 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Music:\n  1.\"Fix The Gear\" by Oscar Owl \n      https://www.youtube.com/watch?v=ObtLQJVCD5w\n\n 
+  m_text: "Special Thanks goes to these people for their incredible work:\n\nMusic:\r\n 
+    1.\"Fix The Gear\" by Oscar Owl \r\n      https://www.youtube.com/watch?v=ObtLQJVCD5w\r\n\r\n 
     2. Werq Kevin MacLeod (incompetech.com)\r\n      Licensed under Creative Commons:
-    By Attribution 3.0 License\r\n      http://creativecommons.org/licenses/by/3.0/\n\n 
+    By Attribution 3.0 License\r\n      http://creativecommons.org/licenses/by/3.0/\r\n\r\n 
     3. Raving Energy (faster) Kevin MacLeod (incompetech.com)\r\n      Licensed under
-    Creative Commons: By Attribution 3.0 License\r\n      http://creativecommons.org/licenses/by/3.0/\n\nSFX:\n 
-    1. Clean Explosions by unfa from FreeSound.org: \n      https://freesound.org/people/unfa/sounds/352143/
-    \n\nSprites:\n  1. "
+    Creative Commons: By Attribution 3.0 License\r\n      http://creativecommons.org/licenses/by/3.0/\r\n\r\nSFX:\r\n 
+    1. Clean Explosions by unfa from FreeSound.org: \r\n      https://freesound.org/people/unfa/sounds/352143/
+    \r\n\r\nSprites:\r\n  1. Pixel Art 2D Asteroid Pack - Cayden Franklin, OpenGameArt.org\r\n     
+    https://opengameart.org/content/pixel-art-2d-asteroid-pack\r\n\r\n  2. 2D Asteroid
+    Sprite - NightZero, OpenGameArt.org \r\n       https://opengameart.org/content/2d-asteroid-sprite\r\n\r\n 
+    3. Spaceship Free Icon (Player) - Freepik from flatIcon.com \r\n       https://www.flaticon.com/free-icon/spaceship_1702089\r\n\r\n 
+    4. Alien Atlas - Korba\u2122, OpenGameArt.org \r\n      https://opengameart.org/content/alien-2d-sprites\r\n\r\n 
+    5. UFO Atlas \u2013 sketcherskt, OpenGameArt.org\r\n       https://opengameart.org/content/ufo-animated-sprite-sheet\r\n\r\n 
+    6. Heart Pixel Art - DontMind8, OpenGameArt.org\r\n       https://opengameart.org/content/heart-pixel-art\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
@@ -5259,8 +5266,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5277,15 +5284,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -5488,18 +5495,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2130682515}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 664276187}
-  m_Father: {fileID: 446692763}
-  m_RootOrder: 8
+  m_Father: {fileID: 1334633156}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -180, y: -500}
+  m_SizeDelta: {x: 1640, y: 480}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2130682517
 MonoBehaviour:
@@ -5514,7 +5521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
