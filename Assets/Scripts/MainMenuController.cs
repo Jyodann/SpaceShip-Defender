@@ -47,4 +47,9 @@ public class MainMenuController : MonoBehaviour
         swapJoysticksToggle.isOn = SettingsHelper.IsSwappedJoysticks;
         batterySaverToggle.isOn = SettingsHelper.IsBatterySaver;
     }
+
+    public void DonateLink()
+    {
+        Application.OpenURL("https://ko-fi.com/jordynwinnie");
+    }
 }
