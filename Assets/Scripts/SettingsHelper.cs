@@ -10,6 +10,7 @@ public static class SettingsHelper
     private static bool isSwappedJoysticks = false;
     private static bool isMusicOn = true;
     private static ControlMode _controlMode;
+    private static bool isFirstTimePlaying = true;
     public static bool IsBatterySaver
     {
         get => isBatterySaver;
@@ -19,6 +20,16 @@ public static class SettingsHelper
             PlayerPrefs.SetInt("batterySaver", isBatterySaver ? 1 : 0);
             Application.targetFrameRate = isBatterySaver ? 30 : 60;
             QualitySettings.vSyncCount = isBatterySaver ? 0 : 1;
+        }
+    }
+
+    public static bool IsFirstTimePlaying
+    {
+        get => isFirstTimePlaying;
+        set
+        {
+            isFirstTimePlaying = value;
+            PlayerPrefs.SetInt("firstTime", isFirstTimePlaying ? 1 : 0);
         }
     }
 
@@ -57,11 +68,14 @@ public static class SettingsHelper
     {
         QualitySettings.vSyncCount = 1;
         Debug.Log("IsMusicOn: " + isMusicOn);
+        
         IsMusicOn = PlayerPrefs.GetInt("musicOn", 1) == 1;
         IsSwappedJoysticks = PlayerPrefs.GetInt("swappedSticks", 0) == 1;
         IsBatterySaver = PlayerPrefs.GetInt("batterySaver", 0) == 1;
         CurrentControlMode = (ControlMode)PlayerPrefs.GetInt("controlMode", 1);
+        IsFirstTimePlaying = PlayerPrefs.GetInt("firstTime", 1) == 1;
         
+        Debug.Log("IsFirstTime" + isFirstTimePlaying);
         if (Application.isMobilePlatform)
         {
             Application.targetFrameRate = isBatterySaver ? 30 : 60;

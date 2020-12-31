@@ -10,6 +10,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private Toggle swapJoysticksToggle;
     [SerializeField] private Toggle batterySaverToggle;
 
+
     /// <summary>
     /// Code Referenced from How to Make a Main Menu by Brackeys:
     /// https://www.youtube.com/watch?v=zc8ac_qUXQY
@@ -27,13 +28,7 @@ public class MainMenuController : MonoBehaviour
             Debug.Log(SettingsHelper.IsBatterySaver);
         });
     }
-
-    //Helper method to load the Game when play button is Clicked
-    public void PlayGame()
-    {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
-    }
-
+    
     //Helper method to quit the Game when quit button is Clicked
     public void QuitGame()
     {

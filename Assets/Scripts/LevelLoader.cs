@@ -8,9 +8,18 @@ public class LevelLoader : MonoBehaviour
 {
     public GameObject loadingScreen;
     public Slider slider;
+    [SerializeField] private GameObject tutorialUI;
     public void LoadLevel(int sceneIndex)
     {
-        StartCoroutine(LoadAsync(sceneIndex));
+        if (SettingsHelper.IsFirstTimePlaying)
+        {
+            SettingsHelper.IsFirstTimePlaying = false;
+            tutorialUI.SetActive(true);
+        }
+        else
+        {
+            StartCoroutine(LoadAsync(sceneIndex));
+        }
     }
 
     IEnumerator LoadAsync(int sceneIndex)
