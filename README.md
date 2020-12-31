@@ -1,6 +1,7 @@
 # SpaceShipDefender
 
-Support this project!
+# Support this project!
+
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/C0C633B3B)
 
 # Overview
