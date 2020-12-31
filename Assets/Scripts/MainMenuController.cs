@@ -20,12 +20,10 @@ public class MainMenuController : MonoBehaviour
         SettingsHelper.LoadSettings();
         versionInformation.text = $"Version {Application.version} ({Application.platform})";
 
-        musicEffectToggle.onValueChanged.AddListener(delegate(bool changed) { SettingsHelper.IsMusicOn = changed; Debug.Log(SettingsHelper.IsMusicOn);});
+        musicEffectToggle.onValueChanged.AddListener(delegate(bool changed) { SettingsHelper.IsMusicOn = changed;});
         swapJoysticksToggle.onValueChanged.AddListener(delegate(bool changed) { SettingsHelper.IsSwappedJoysticks = changed;
-            Debug.Log(SettingsHelper.IsSwappedJoysticks); 
         });
         batterySaverToggle.onValueChanged.AddListener(delegate(bool changed) { SettingsHelper.IsBatterySaver = changed;
-            Debug.Log(SettingsHelper.IsBatterySaver);
         });
     }
     
