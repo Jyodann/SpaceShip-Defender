@@ -14,7 +14,6 @@ public class ShipController : MonoBehaviour
     public bool horizontalMovement;
     public Rigidbody2D rb2d;
 
-    public SettingsHelper.ControlMode currentControlMode;
     private bool isWrappingX;
     private bool isWrappingY;
 
@@ -33,13 +32,13 @@ public class ShipController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        currentControlMode = GameManager.instance.playerControlMode;
+
         //Gets Input from A/D/W/S:
         verticalMovement = Input.GetButton("Vertical");
         horizontalMovement = Input.GetButton("Horizontal");
 
         //If controlMode is Mixed, detect for mousePointer:
-        if (currentControlMode == SettingsHelper.ControlMode.MixedMouseKeyboard)
+        if (SettingsHelper.CurrentControlMode == SettingsHelper.ControlMode.MixedMouseKeyboard)
         {
             //Code Referenced from Danndx on YouTube:
             //https://www.youtube.com/watch?v=_XdqA3xbP2A
@@ -56,14 +55,12 @@ public class ShipController : MonoBehaviour
             //Sets the ship to face the direction:
             transform.up = directionToFace;
         }
-
-        print("controlMode" + currentControlMode);
     }
 
     private void FixedUpdate()
     {
         //Changes movement based on controlMode Selected from MainMenu:
-        switch (currentControlMode)
+        switch (SettingsHelper.CurrentControlMode)
         {
             //RelativeForces are used as they steer the ship based on WHERE the ship is facing
             case SettingsHelper.ControlMode.KeyboardOnly:

@@ -8,15 +8,17 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private Toggle musicEffectToggle;
     [SerializeField] private Toggle swapJoysticksToggle;
     [SerializeField] private Toggle batterySaverToggle;
-
-
+    [SerializeField] private SettingsHelper.ControlMode setControlModeDeveloper;
+    
     /// <summary>
     ///     Code Referenced from How to Make a Main Menu by Brackeys:
     ///     https://www.youtube.com/watch?v=zc8ac_qUXQY
     /// </summary>
     private void Start()
     {
+        SettingsHelper.CurrentControlMode = setControlModeDeveloper;
         SettingsHelper.LoadSettings();
+        
         versionInformation.text = $"Version {Application.version} ({Application.platform})";
 
         musicEffectToggle.onValueChanged.AddListener(delegate(bool changed) { SettingsHelper.IsMusicOn = changed; });

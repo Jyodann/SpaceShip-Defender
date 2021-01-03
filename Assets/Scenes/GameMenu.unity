@@ -1102,6 +1102,7 @@ MonoBehaviour:
   musicEffectToggle: {fileID: 359986071}
   swapJoysticksToggle: {fileID: 715807601}
   batterySaverToggle: {fileID: 66789241}
+  setControlModeDeveloper: 1
 --- !u!1001 &231773746
 PrefabInstance:
   m_ObjectHideFlags: 0

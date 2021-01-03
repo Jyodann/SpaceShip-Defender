@@ -230,6 +230,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2101927979424221814}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &683908994 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 29714433224119419, guid: f2965283e626d884dbf10986ebd8c9ac,
+    type: 3}
+  m_PrefabInstance: {fileID: 2568845988927876296}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &687007396 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5964006462534007587, guid: f2965283e626d884dbf10986ebd8c9ac,
@@ -504,6 +510,10 @@ PrefabInstance:
       propertyPath: flipControls
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
+      propertyPath: mainGameUI
+      value: 
+      objectReference: {fileID: 683908994}
     - target: {fileID: 996874560, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
       propertyPath: m_audioClip
       value: 

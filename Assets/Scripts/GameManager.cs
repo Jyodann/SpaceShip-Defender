@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreBoostText;
     [SerializeField] private Text gameOverText;
     [SerializeField] private GameObject joystickUI;
+    [SerializeField] private GameObject mainGameUI;
 
     //GameOver meny and PauseMenu are both Canvas objects childed under the UIObjects gameObject:
     public GameObject gameOverMenu;
@@ -43,10 +44,7 @@ public class GameManager : MonoBehaviour
 
 
     public bool flipControls;
-
-    //Static Control Mode Enum for reading in the ShipController:
-    public SettingsHelper.ControlMode playerControlMode;
-
+    
     //List that stores all the available background music:
     public List<AudioClip> backgroundMusic;
 
@@ -85,9 +83,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        //Get playerControlMode from playerPreferences:
-        playerControlMode = (SettingsHelper.ControlMode) PlayerPrefs.GetInt("controlMode", 2);
-        playerControlMode = SettingsHelper.ControlMode.MobileInput;
         //Get saved hi-Score from PlayerPrefs:
         highScore = PlayerPrefs.GetInt("hiScore", 0);
 
@@ -119,13 +114,22 @@ public class GameManager : MonoBehaviour
         coinsText.text = Coins.ToString().PadLeft(4, '0');
         livesText.text = Lives.ToString().PadLeft(2, '0');
         scoreText.text = Score.ToString().PadLeft(8, '0');
-        joystickUI.SetActive(true);
+        
         scoreBoostText.text = string.Empty;
         audioSource = GetComponent<AudioSource>();
+
+        if (SettingsHelper.CurrentControlMode == SettingsHelper.ControlMode.MobileInput)
+        {
+            joystickUI.SetActive(true);
+        }
     }
 
     private void Update()
     {
+        if (SettingsHelper.CurrentControlMode != SettingsHelper.ControlMode.MobileInput)
+        {
+            joystickUI.SetActive(false);
+        }
         //Mutes/Unmutes the game by pausing the Global Audio listener:
         AudioListener.pause = !SettingsHelper.IsMusicOn;
         if (!audioSource.isPlaying)
@@ -133,8 +137,7 @@ public class GameManager : MonoBehaviour
             audioSource.clip = backgroundMusic[Random.Range(0, backgroundMusic.Count)];
             audioSource.Play();
         }
-
-        if (Input.GetKeyDown(KeyCode.H)) playerControlMode = SettingsHelper.ControlMode.MobileInput;
+        
         if (Input.GetKeyDown(KeyCode.M))
             //Flips the isAudioMuted variable:
             SettingsHelper.IsMusicOn = !SettingsHelper.IsMusicOn;
@@ -213,6 +216,7 @@ public class GameManager : MonoBehaviour
         //Sets timeScale back to normal:
         Time.timeScale = 1;
         joystickUI.SetActive(true);
+        mainGameUI.SetActive(true);
     }
 
     public void PauseGame()
@@ -225,6 +229,7 @@ public class GameManager : MonoBehaviour
         //Shows the Pause Meny:
         pauseMenu.SetActive(true);
         joystickUI.SetActive(false);
+        mainGameUI.SetActive(false);
     }
 
     public void GoToMainMenu()
