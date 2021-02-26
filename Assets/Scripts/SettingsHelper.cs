@@ -4,7 +4,6 @@ public static class SettingsHelper
 {
     public enum ControlMode
     {
-        KeyboardOnly,
         MixedMouseKeyboard,
         MobileInput
     }

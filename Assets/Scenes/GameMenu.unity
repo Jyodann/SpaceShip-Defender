@@ -472,7 +472,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 231773746}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 606904022}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
@@ -615,6 +615,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 85315902}
   m_CullTransparentMesh: 0
+--- !u!1 &137016317 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1050156337414614751, guid: b167abb81361bde4792e323357e08270,
+    type: 3}
+  m_PrefabInstance: {fileID: 1050156336715888048}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &146294409
 GameObject:
   m_ObjectHideFlags: 0
@@ -2179,6 +2185,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 530523256}
   m_CullTransparentMesh: 0
+--- !u!1 &606904022 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1050156337414614751, guid: b167abb81361bde4792e323357e08270,
+    type: 3}
+  m_PrefabInstance: {fileID: 231773746}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &611688640
 GameObject:
   m_ObjectHideFlags: 0
@@ -2681,7 +2693,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1050156336715888048}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 137016317}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
@@ -6146,6 +6158,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2065122808}
+  - component: {fileID: 2065122809}
   m_Layer: 5
   m_Name: OptionsMenu
   m_TagString: Untagged
@@ -6177,6 +6190,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2065122809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065122807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 654c10de8fcfca14797d6c13805f4181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  batterySaverOption: {fileID: 606904022}
+  swapSticksToggle: {fileID: 137016317}
 --- !u!1 &2083522628
 GameObject:
   m_ObjectHideFlags: 0

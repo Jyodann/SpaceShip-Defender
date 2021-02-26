@@ -62,23 +62,25 @@ public class ShipController : MonoBehaviour
         //Changes movement based on controlMode Selected from MainMenu:
         switch (SettingsHelper.CurrentControlMode)
         {
-            //RelativeForces are used as they steer the ship based on WHERE the ship is facing
-            case SettingsHelper.ControlMode.KeyboardOnly:
-                //If keyboard only, the "vertical" (W/S) buttons will add relativeForce in the Y-axis:
-                if (verticalMovement)
-                {
-                    var v = Input.GetAxisRaw("Vertical");
-                    rb2d.AddRelativeForce(new Vector2(0, v) * speed);
-                }
+            /** KeyboardOnly Controls (DEPRECATED)
+                //RelativeForces are used as they steer the ship based on WHERE the ship is facing
+                case SettingsHelper.ControlMode.KeyboardOnly:
+                    //If keyboard only, the "vertical" (W/S) buttons will add relativeForce in the Y-axis:
+                    if (verticalMovement)
+                    {
+                        var v = Input.GetAxisRaw("Vertical");
+                        rb2d.AddRelativeForce(new Vector2(0, v) * speed);
+                    }
 
-                //If keyboard only, the "horizontal" (A/D) buttons will rotate the ship left/right:
-                if (horizontalMovement)
-                {
-                    var v = Input.GetAxisRaw("Horizontal");
-                    transform.Rotate(new Vector3(0, 0, -v) * rotateSpeed);
-                }
+                    //If keyboard only, the "horizontal" (A/D) buttons will rotate the ship left/right:
+                    if (horizontalMovement)
+                    {
+                        var v = Input.GetAxisRaw("Horizontal");
+                        transform.Rotate(new Vector3(0, 0, -v) * rotateSpeed);
+                    }
 
-                break;
+                    break;
+            **/
 
             case SettingsHelper.ControlMode.MixedMouseKeyboard:
                 //If mixed, "vertical", "horizontal" will add Relativeforce on the y-axis and x-axis respectively

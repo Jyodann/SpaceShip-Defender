@@ -30,6 +30,14 @@ public class MainMenuController : MonoBehaviour
         {
             SettingsHelper.IsBatterySaver = changed;
         });
+        
+#if UNITY_IOS || UNITY_ANDROID
+        setControlModeDeveloper = SettingsHelper.ControlMode.MobileInput;
+#endif
+        
+#if UNITY_STANDALONE || UNITY_WEBGL
+        setControlModeDeveloper = SettingsHelper.ControlMode.MixedMouseKeyboard;
+#endif
     }
 
     //Helper method to quit the Game when quit button is Clicked
