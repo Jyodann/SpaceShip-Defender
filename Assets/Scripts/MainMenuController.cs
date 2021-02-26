@@ -9,7 +9,10 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private Toggle swapJoysticksToggle;
     [SerializeField] private Toggle batterySaverToggle;
     [SerializeField] private SettingsHelper.ControlMode setControlModeDeveloper;
-    
+    [SerializeField] private GameObject donationScreen;
+    [SerializeField] private GameObject mainScreen;
+
+
     /// <summary>
     ///     Code Referenced from How to Make a Main Menu by Brackeys:
     ///     https://www.youtube.com/watch?v=zc8ac_qUXQY
@@ -54,8 +57,17 @@ public class MainMenuController : MonoBehaviour
         batterySaverToggle.isOn = SettingsHelper.IsBatterySaver;
     }
 
-    public void DonateLink()
+    public void OpenDonationScreen()
     {
-        Application.OpenURL("https://ko-fi.com/jordynwinnie");
+        #if UNITY_STANDALONE || UNITY_WEBGL
+            Application.OpenURL("https://ko-fi.com/jordynwinnie");
+        #endif
+        
+        #if UNITY_IOS || UNITY_ANDROID
+            mainScreen.SetActive(false);
+            donationScreen.SetActive(true);
+        #endif
     }
+
+
 }
