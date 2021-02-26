@@ -11,7 +11,7 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadLevel(int sceneIndex)
     {
-        if (SettingsHelper.IsFirstTimePlaying)
+        if (SettingsHelper.IsFirstTimePlaying && Application.isMobilePlatform)
         {
             SettingsHelper.IsFirstTimePlaying = false;
             tutorialUI.SetActive(true);

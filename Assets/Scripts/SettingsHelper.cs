@@ -73,15 +73,18 @@ public static class SettingsHelper
         IsMusicOn = PlayerPrefs.GetInt("musicOn", 1) == 1;
         IsSwappedJoysticks = PlayerPrefs.GetInt("swappedSticks", 0) == 1;
         IsBatterySaver = PlayerPrefs.GetInt("batterySaver", 0) == 1;
-        CurrentControlMode = (ControlMode) PlayerPrefs.GetInt("controlMode", 2);
         IsFirstTimePlaying = PlayerPrefs.GetInt("firstTime", 1) == 1;
-
-        if (Application.isMobilePlatform)
-        {
-            Application.targetFrameRate = isBatterySaver ? 30 : 60;
-            QualitySettings.vSyncCount = isBatterySaver ? 0 : 1;
-            CurrentControlMode = ControlMode.MobileInput;
-        }
+        
+#if UNITY_IOS || UNITY_ANDROID
+        SettingsHelper.CurrentControlMode = SettingsHelper.ControlMode.MobileInput;
+        Application.targetFrameRate = isBatterySaver ? 30 : 60;
+        QualitySettings.vSyncCount = isBatterySaver ? 0 : 1;
+        CurrentControlMode = ControlMode.MobileInput;
+#endif
+        
+#if UNITY_STANDALONE || UNITY_WEBGL
+        SettingsHelper.CurrentControlMode = SettingsHelper.ControlMode.MixedMouseKeyboard;
+#endif
         
     }
 }

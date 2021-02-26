@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Runtime.InteropServices;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private Toggle musicEffectToggle;
     [SerializeField] private Toggle swapJoysticksToggle;
     [SerializeField] private Toggle batterySaverToggle;
-    [SerializeField] private SettingsHelper.ControlMode setControlModeDeveloper;
+    
     [SerializeField] private GameObject donationScreen;
     [SerializeField] private GameObject mainScreen;
 
@@ -19,7 +20,6 @@ public class MainMenuController : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        SettingsHelper.CurrentControlMode = setControlModeDeveloper;
         SettingsHelper.LoadSettings();
         
         versionInformation.text = $"Version {Application.version} ({Application.platform})";
@@ -34,13 +34,7 @@ public class MainMenuController : MonoBehaviour
             SettingsHelper.IsBatterySaver = changed;
         });
         
-#if UNITY_IOS || UNITY_ANDROID
-        setControlModeDeveloper = SettingsHelper.ControlMode.MobileInput;
-#endif
-        
-#if UNITY_STANDALONE || UNITY_WEBGL
-        setControlModeDeveloper = SettingsHelper.ControlMode.MixedMouseKeyboard;
-#endif
+
     }
 
     //Helper method to quit the Game when quit button is Clicked
@@ -59,8 +53,12 @@ public class MainMenuController : MonoBehaviour
 
     public void OpenDonationScreen()
     {
-        #if UNITY_STANDALONE || UNITY_WEBGL
+        #if UNITY_STANDALONE
             Application.OpenURL("https://ko-fi.com/jordynwinnie");
+        #endif
+        
+        #if UNITY_WEBGL
+            openWindow("https://ko-fi.com/jordynwinnie");
         #endif
         
         #if UNITY_IOS || UNITY_ANDROID
@@ -68,6 +66,8 @@ public class MainMenuController : MonoBehaviour
             donationScreen.SetActive(true);
         #endif
     }
-
+    
+    [DllImport("__Internal")]
+    private static extern void openWindow(string url);
 
 }

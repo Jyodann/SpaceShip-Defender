@@ -132,7 +132,7 @@ public class GameManager : MonoBehaviour
         }
         //Mutes/Unmutes the game by pausing the Global Audio listener:
         AudioListener.pause = !SettingsHelper.IsMusicOn;
-        if (!audioSource.isPlaying)
+        if (!audioSource.isPlaying && SettingsHelper.IsMusicOn)
         {
             audioSource.clip = backgroundMusic[Random.Range(0, backgroundMusic.Count)];
             audioSource.Play();
