@@ -14,20 +14,20 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private int damageDealt = 1;
     [SerializeField] private float maximumPossibleHealth;
 
-    //FireBullets class is a class file attached to the playerObject, used for easier access
-    //to damageDealt
-    private FireBullets playerObject;
-
     //isDead is boolean that temporarily stores a death state so that the deathAnimation does not play more
     //than once
     private bool isDead;
+
+    //FireBullets class is a class file attached to the playerObject, used for easier access
+    //to damageDealt
+    private FireBullets playerObject;
 
     private void Start()
     {
         /* enemyHealth is scaled based on difficulty from SpawnManager, game will get more difficult as
          * the player scores a higher score
          */
-        this.enemyHealth *= (SpawningManagement.Factor + 1);
+        enemyHealth *= SpawningManagement.Factor + 1;
 
         //enemyHealth is then clamped, so it does not scale infinitely
         enemyHealth = Mathf.Clamp(enemyHealth, 0f, maximumPossibleHealth);
@@ -37,11 +37,10 @@ public class EnemyBehaviour : MonoBehaviour
     }
 
     /// <summary>
-    /// OnTriggerStay2D is used to detect bullet collisions over OnTriggerEnter2D
-    /// as bullets may trigger OnTriggerEnter twice if they are not destoryed on time.
+    ///     OnTriggerStay2D is used to detect bullet collisions over OnTriggerEnter2D
+    ///     as bullets may trigger OnTriggerEnter twice if they are not destoryed on time.
     /// </summary>
     /// <param name="collision"></param>
-
     private void OnTriggerStay2D(Collider2D collision)
     {
         //Handles bullet collisions with the enemy:
@@ -49,7 +48,8 @@ public class EnemyBehaviour : MonoBehaviour
         {
             //Triggers the gameManager to play the smallExplosion effect on the landing, but not killing the
             //asteroid
-            GameManager.instance.PlayExplosionAnimation(collision.transform, OnDeathAnimation.ExplosionTypes.SmallExplosion);
+            GameManager.instance.PlayExplosionAnimation(collision.transform,
+                OnDeathAnimation.ExplosionTypes.SmallExplosion);
 
             //Damages the enemyInstance with currentBullet Damage
             DealDamage(playerObject.damageDealt);
@@ -69,28 +69,26 @@ public class EnemyBehaviour : MonoBehaviour
 
             //Checks if "DoubleScore" powerup is activated
             if (GameManager.instance.isDoubleScore)
-            {
                 //Adds double the score of enemy the currentScore in Game session
                 GameManager.instance.AddScore(scoreToAdd * 2);
-            }
             else
-            {
                 //Adds normal the score of enemy the currentScore in Game session
                 GameManager.instance.AddScore(scoreToAdd);
-            }
 
             //Changes behavior based on objectTag:
             switch (gameObject.tag)
             {
                 //Asteroids will play a bigExplosion animation
                 case "Asteroid":
-                    GameManager.instance.PlayExplosionAnimation(collision.transform, OnDeathAnimation.ExplosionTypes.BigExplosion);
+                    GameManager.instance.PlayExplosionAnimation(collision.transform,
+                        OnDeathAnimation.ExplosionTypes.BigExplosion);
                     //trigger's the asteroid's spawnChildAsteroids method to break the asteroid:
                     gameObject.GetComponent<AsteroidScript>().SpawnChildAsteroids();
                     break;
                 //UFOS will play a custom explosion, and drop an item:
                 case "UFO":
-                    GameManager.instance.PlayExplosionAnimation(collision.transform, OnDeathAnimation.ExplosionTypes.UfoExplosion);
+                    GameManager.instance.PlayExplosionAnimation(collision.transform,
+                        OnDeathAnimation.ExplosionTypes.UfoExplosion);
                     gameObject.GetComponent<ItemDrop>().DropItem();
                     Destroy(gameObject);
                     break;
@@ -102,9 +100,9 @@ public class EnemyBehaviour : MonoBehaviour
                     break;
             }
         }
+
         //Detects if player hits the enemy:
         if (collision.gameObject.CompareTag("Player"))
-        {
             //Checks if the player is invincible due to being recently hit:
             if (!collision.GetComponent<Player>().isInvincible)
             {
@@ -113,7 +111,6 @@ public class EnemyBehaviour : MonoBehaviour
                 //Destroys the gameObject that the player collides with:
                 Destroy(gameObject);
             }
-        }
     }
 
     //Helper method to dealDamage to currentEnemy:

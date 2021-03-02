@@ -5,16 +5,16 @@ public class Player : MonoBehaviour
 {
     //isInvincible is a variable that can be checked by other classes, mainly the enemy class so that the enemy does not damage the player,
     //this is to balance the game, getting hit will ensure you have a small window of time to fight/escape a bad situation
-    public bool isInvincible = false;
-
-    //isFlickering is a variable that toggles on and off to simulate the flickering of the sprite
-    //this is used as a visual indicator for the player to know that they are invincible
-    private bool isFlickering = false;
+    public bool isInvincible;
 
     //flickerRate and Invincibility length are fields that can be changed if neccessary to balance the game:
     [SerializeField] private float flickerRate = 0.3f;
 
     [SerializeField] private float invincibilityLength = 2f;
+
+    //isFlickering is a variable that toggles on and off to simulate the flickering of the sprite
+    //this is used as a visual indicator for the player to know that they are invincible
+    private bool isFlickering;
 
     //Sprite renderer is cached so changes can be made to it's alpha to simulate flickering
     private SpriteRenderer spriteRenderer;

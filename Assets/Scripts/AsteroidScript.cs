@@ -1,8 +1,15 @@
 ﻿using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class AsteroidScript : MonoBehaviour
 {
+    //declares an Enum state to allow spawnning of future asteroids
+    public enum AsteroidSize
+    {
+        Large,
+        Medium,
+        Small
+    }
+
     //sets a Sprite array for all possible sprites.
     [SerializeField] private Sprite[] asteroidSprites;
 
@@ -12,9 +19,6 @@ public class AsteroidScript : MonoBehaviour
      * small -> nothing
      */
     [SerializeField] private GameObject asteroidToSpawn;
-
-    //declares an Enum state to allow spawnning of future asteroids
-    public enum AsteroidSize { Large, Medium, Small };
 
     //declares current asteroid size, can be changed in inspector
     public AsteroidSize asteroidSize;
@@ -41,12 +45,10 @@ public class AsteroidScript : MonoBehaviour
             case AsteroidSize.Small:
                 transform.localScale = new Vector3(1, 1, 1);
                 break;
-
-            default:
-                break;
         }
+
         //Changes the sprite to a random sprite provided in the SpriteArray:
-        GetComponent<SpriteRenderer>().sprite = asteroidSprites[Random.Range(0, asteroidSprites.Length)];
+        GetComponentInChildren<SpriteRenderer>().sprite = asteroidSprites[Random.Range(0, asteroidSprites.Length)];
 
         //Sets a random velocity for the asteroid to move
         GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(-30, 30), Random.Range(-30, 30));
@@ -63,11 +65,11 @@ public class AsteroidScript : MonoBehaviour
     }
 
     /// <summary>
-    /// SpawnChildAsteroids will be called when the asteroid is going to be destroyed
-    /// it will spawn the appropriate number of asteroids based on the current asteroid size
-    /// Large asteroids break into 1 - 4 medium asteroids
-    /// Medium asteroids break into 1 - 6 small asteroids
-    /// Small asteroids do not do anything
+    ///     SpawnChildAsteroids will be called when the asteroid is going to be destroyed
+    ///     it will spawn the appropriate number of asteroids based on the current asteroid size
+    ///     Large asteroids break into 1 - 4 medium asteroids
+    ///     Medium asteroids break into 1 - 6 small asteroids
+    ///     Small asteroids do not do anything
     /// </summary>
     public void SpawnChildAsteroids()
     {
@@ -77,19 +79,15 @@ public class AsteroidScript : MonoBehaviour
                 //Determines random number of Medium asteroids to spawn
                 var mediumAsteroidsToSpawn = Random.Range(1, 4);
                 //Instantiates based on random number, on the current asteroid's position
-                for (int i = 0; i < mediumAsteroidsToSpawn; i++)
-                {
+                for (var i = 0; i < mediumAsteroidsToSpawn; i++)
                     Instantiate(asteroidToSpawn, transform.position, Quaternion.identity);
-                }
                 break;
 
             case AsteroidSize.Medium:
                 //Same logic as above.
                 var smallAsteroidsToSpawn = Random.Range(1, 6);
-                for (int i = 0; i < smallAsteroidsToSpawn; i++)
-                {
+                for (var i = 0; i < smallAsteroidsToSpawn; i++)
                     Instantiate(asteroidToSpawn, transform.position, Quaternion.identity);
-                }
                 break;
         }
 

@@ -7,23 +7,20 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class PowerupScript : MonoBehaviour
 {
-    //Enum to manage all the different types of powerups:
-    private enum PowerUps { HeartPowerup, IncreaseDamage, ScoreBoost, TimeFreeze, SpeedBoost };
-
     //Allows the powerup ability to be selected from the UnityEditor:
     [SerializeField] private PowerUps powerUp;
+    [SerializeField] private AudioClip pickUpPowerUpSound;
 
-    //References the only playerObject present:
-    private GameObject playerObject;
+    private AudioSource audioSource;
 
     //used to track the ship's damage BEFORE the powerup changes it:
     private int initialDamageDealt;
 
+    //References the only playerObject present:
+    private GameObject playerObject;
+
     //RigidBody2D reference:
     private Rigidbody2D rb;
-
-    private AudioSource audioSource;
-    [SerializeField] private AudioClip pickUpPowerUpSound;
 
     // Start is called before the first frame update
     private void Start()
@@ -36,22 +33,15 @@ public class PowerupScript : MonoBehaviour
 
         //Decides a random direction the powerup floats to:
         if (Random.Range(0, 2) == 1)
-        {
             rb.velocity = new Vector2(10, 10);
-        }
         else
-        {
             rb.velocity = new Vector2(-10, -10);
-        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         //Detects that a player has collected the powerup:
-        if (collision.CompareTag("Player"))
-        {
-            TriggerPowerUpEffect();
-        }
+        if (collision.CompareTag("Player")) TriggerPowerUpEffect();
     }
 
     private void TriggerPowerUpEffect()
@@ -92,20 +82,11 @@ public class PowerupScript : MonoBehaviour
                 var ufos = GameObject.FindGameObjectsWithTag("UFO");
 
                 //Handles asteroids by changing their velocity to 0:
-                foreach (var asteroid in asteroids)
-                {
-                    asteroid.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-                }
+                foreach (var asteroid in asteroids) asteroid.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
                 //Handles every ailen object by setting "isFrozen" to be true:
-                foreach (var alien in aliens)
-                {
-                    alien.GetComponent<Alien>().isFrozen = true;
-                }
+                foreach (var alien in aliens) alien.GetComponent<Alien>().isFrozen = true;
                 //Handles UFO objects by setting alien Spawning to be false:
-                foreach (var ufo in ufos)
-                {
-                    ufo.GetComponent<UFO>().isAlienSpawn = false;
-                }
+                foreach (var ufo in ufos) ufo.GetComponent<UFO>().isAlienSpawn = false;
 
                 //Starts Coroutine to reset time freeze after 5 seconds:
                 StartCoroutine(ResetTimeFreeze(5f));
@@ -158,19 +139,11 @@ public class PowerupScript : MonoBehaviour
 
         //Resets velocity of asteroid:
         foreach (var asteroid in asteroids)
-        {
             asteroid.GetComponent<Rigidbody2D>().velocity = asteroid.GetComponent<AsteroidScript>().originalVelocity;
-        }
         //Resets alien isFrozen to false so they start moving again:s
-        foreach (var alien in aliens)
-        {
-            alien.GetComponent<Alien>().isFrozen = false;
-        }
+        foreach (var alien in aliens) alien.GetComponent<Alien>().isFrozen = false;
         //Allows UFOs to start spawning aliens again:
-        foreach (var ufo in ufos)
-        {
-            ufo.GetComponent<UFO>().isAlienSpawn = true;
-        }
+        foreach (var ufo in ufos) ufo.GetComponent<UFO>().isAlienSpawn = true;
     }
 
     //Disable then destroy takes in one parameter, which is how long until the powerup is destoryed:
@@ -186,5 +159,15 @@ public class PowerupScript : MonoBehaviour
         yield return new WaitForSecondsRealtime(destoryDelay);
 
         Destroy(gameObject);
+    }
+
+    //Enum to manage all the different types of powerups:
+    private enum PowerUps
+    {
+        HeartPowerup,
+        IncreaseDamage,
+        ScoreBoost,
+        TimeFreeze,
+        SpeedBoost
     }
 }

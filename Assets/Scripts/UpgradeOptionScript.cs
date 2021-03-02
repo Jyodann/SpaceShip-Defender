@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class UpgradeOptionScript : MonoBehaviour
 {
     /// <summary>
-    /// Text following object script provided by: https://www.youtube.com/watch?v=0bvDmqqMXcA
+    ///     Text following object script provided by: https://www.youtube.com/watch?v=0bvDmqqMXcA
     /// </summary>
 
     //The "Upgrade" text can be set in the inspector:
@@ -24,7 +24,7 @@ public class UpgradeOptionScript : MonoBehaviour
         //Changes the position of the label to ship location:
         transform.position = new Vector3(shipLocation.position.x, shipLocation.position.y + 10);
         //Converts position of label from WorldSpace, to screenSpace:
-        Vector3 namePose = Camera.main.WorldToScreenPoint(transform.position);
+        var namePose = Camera.main.WorldToScreenPoint(transform.position);
         //Sets the position of the label to be the ScreenSpace Location:
         upgradeLabel.transform.position = namePose;
     }

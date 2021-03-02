@@ -1,6 +1,12 @@
-# SpaceShip Defender: Master Branch
 
-# Version: 1.0+
+# SpaceShip Defender
+
+# Support this project!
+
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/C0C633B3B)
+=======
+
+# Version: 1.0
 
 # Overview
 Spaceship defender a space-themed shooter for PC where you defend your own ship from asteroids and aliens approaching your ship. As you progress, you can collect powerups and upgrade your ship to improve your chances in survival. 

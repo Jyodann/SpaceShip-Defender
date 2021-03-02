@@ -1,31 +1,40 @@
-﻿using TMPro;
+﻿using System.Runtime.InteropServices;
+using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
-    //SerialisedField to reference the controlOption so that the text can be updated based on current setting
-    [SerializeField] private TextMeshProUGUI currentSelectedControlOption;
-
     [SerializeField] private TextMeshProUGUI versionInformation;
+    [SerializeField] private Toggle musicEffectToggle;
+    [SerializeField] private Toggle swapJoysticksToggle;
+    [SerializeField] private Toggle batterySaverToggle;
+    
+    [SerializeField] private GameObject donationScreen;
+    [SerializeField] private GameObject mainScreen;
+
 
     /// <summary>
-    /// Code Referenced from How to Make a Main Menu by Brackeys:
-    /// https://www.youtube.com/watch?v=zc8ac_qUXQY
+    ///     Code Referenced from How to Make a Main Menu by Brackeys:
+    ///     https://www.youtube.com/watch?v=zc8ac_qUXQY
     /// </summary>
     private void Start()
     {
+        SettingsHelper.LoadSettings();
+        
         versionInformation.text = $"Version {Application.version} ({Application.platform})";
-        if (Application.isMobilePlatform)
-        {
-            Application.targetFrameRate = 60;
-        }
-    }
 
-    //Helper method to load the Game when play button is Clicked
-    public void PlayGame()
-    {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        musicEffectToggle.onValueChanged.AddListener(delegate(bool changed) { SettingsHelper.IsMusicOn = changed; });
+        swapJoysticksToggle.onValueChanged.AddListener(delegate(bool changed)
+        {
+            SettingsHelper.IsSwappedJoysticks = changed;
+        });
+        batterySaverToggle.onValueChanged.AddListener(delegate(bool changed)
+        {
+            SettingsHelper.IsBatterySaver = changed;
+        });
+        
+
     }
 
     //Helper method to quit the Game when quit button is Clicked
@@ -34,40 +43,31 @@ public class MainMenuController : MonoBehaviour
         Application.Quit();
     }
 
-    //Helper method to set ControlMode to Mixed when option is selected
-    public void SetMixedControlMode()
+    //Helper method to display the options menu
+    public void ShowOptions()
     {
-        //Changes playerControlMode in GameManager:
-        GameManager.playerControlMode = GameManager.ControlMode.MixedMouseKeyboard;
-        //Saves current ControlMode to PlayerPrefs:
-        PlayerPrefs.SetInt("controlMode", (int)GameManager.ControlMode.MixedMouseKeyboard);
+        musicEffectToggle.isOn = SettingsHelper.IsMusicOn;
+        swapJoysticksToggle.isOn = SettingsHelper.IsSwappedJoysticks;
+        batterySaverToggle.isOn = SettingsHelper.IsBatterySaver;
     }
 
-    //Helper method to set ControlMode to Keyboard when option is selected
-    public void SetKeyboardOnlyControlMode()
+    public void OpenDonationScreen()
     {
-        //Changes playerControlMode in GameManager:
-        GameManager.playerControlMode = GameManager.ControlMode.KeyboardOnly;
-        //Saves current ControlMode to PlayerPrefs:
-        PlayerPrefs.SetInt("controlMode", (int)GameManager.ControlMode.KeyboardOnly);
+        #if UNITY_STANDALONE
+            Application.OpenURL("https://ko-fi.com/jordynwinnie");
+        #endif
+        
+        #if UNITY_WEBGL
+            openWindow("https://ko-fi.com/jordynwinnie");
+        #endif
+        
+        #if UNITY_IOS || UNITY_ANDROID
+            mainScreen.SetActive(false);
+            donationScreen.SetActive(true);
+        #endif
     }
+    
+    [DllImport("__Internal")]
+    private static extern void openWindow(string url);
 
-    //Helper method that gets called when options button is selected so that the text will show current control mode
-    public void UpdateControlModeText()
-    {
-        //Gets the current ControlMode from PlayerPrefs, and sets the Text to the current ControlStyle:
-        switch ((GameManager.ControlMode)PlayerPrefs.GetInt("controlMode", 1))
-        {
-            case GameManager.ControlMode.KeyboardOnly:
-                currentSelectedControlOption.text = "Control Style: Classic";
-                break;
-
-            case GameManager.ControlMode.MixedMouseKeyboard:
-                currentSelectedControlOption.text = "Control Style: Mixed";
-                break;
-
-            default:
-                break;
-        }
-    }
 }
