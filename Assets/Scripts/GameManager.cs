@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using Discord;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -81,6 +85,10 @@ public class GameManager : MonoBehaviour
     //isTimeFrozen is responsible for the TimeFreeze powerup, it stops SpawnManagement from spawnning objects:
     public bool IsTimeFrozen { get; set; }
 
+    private ActivityManager activityManager;
+
+    private Int64 startTime;
+
     private void Awake()
     {
         //Get saved hi-Score from PlayerPrefs:
@@ -92,10 +100,47 @@ public class GameManager : MonoBehaviour
         Score = 0;
 
         //Uses a SingleTon pattern for GameManager, code based off: https://learn.unity.com/tutorial/level-generation?uv=5.x&projectId=5c514a00edbc2a0020694718#5c7f8528edbc2a002053b6f7 (2D RougueLike tutorial)
-
+        startTime = DateTimeOffset.Now.ToUnixTimeSeconds();
         if (instance == null)
             instance = this;
         else if (instance != this) Destroy(gameObject);
+
+        activityManager = DiscordRPC.Instance.discord.GetActivityManager();
+        activityManager.ClearActivity(result => { });
+        var activity = new Discord.Activity()
+        {
+            Details = "Defending Ship",
+            State = $"Current Score: {Score}",
+            Timestamps =
+            {
+                Start = startTime
+            }
+        };
+        
+        activityManager.UpdateActivity(activity, result => { if (result == Result.Ok) Debug.Log("Discord status set");});
+
+        StartCoroutine(UpdateDiscord());
+    }
+
+    IEnumerator UpdateDiscord()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(10f);
+            activityManager.ClearActivity(result => { });
+            var activity = new Discord.Activity()
+            {
+                Details = "Defending Ship",
+                State = $"Current Score: {Score}",
+                Timestamps =
+                {
+                    Start = startTime
+                }
+            };
+        
+            activityManager.UpdateActivity(activity, result => { if (result == Result.Ok) Debug.Log("Discord status set");});
+            
+        }
     }
 
     private void Start()
@@ -123,6 +168,18 @@ public class GameManager : MonoBehaviour
             joystickUI.SetActive(true);
         }
     }
+
+    private void OnDestroy()
+    {
+        var activity = new Discord.Activity()
+        {
+            Details = "On the main menu",
+            State = "Playing Spaceship Defender"
+        };
+        activityManager.UpdateActivity(activity, result => { if (result == Result.Ok) Debug.Log("Discord status set");});
+    }
+    
+    
 
     private void Update()
     {
