@@ -89,6 +89,8 @@ public class GameManager : MonoBehaviour
 
     private Int64 startTime;
 
+    public Transform EnemyParent;
+
     private void Awake()
     {
         //Get saved hi-Score from PlayerPrefs:
@@ -105,6 +107,7 @@ public class GameManager : MonoBehaviour
             instance = this;
         else if (instance != this) Destroy(gameObject);
 
+        /**
         activityManager = DiscordRPC.Instance.discord.GetActivityManager();
         activityManager.ClearActivity(result => { });
         var activity = new Discord.Activity()
@@ -120,6 +123,7 @@ public class GameManager : MonoBehaviour
         activityManager.UpdateActivity(activity, result => { if (result == Result.Ok) Debug.Log("Discord status set");});
 
         StartCoroutine(UpdateDiscord());
+        **/
     }
 
     IEnumerator UpdateDiscord()
@@ -171,12 +175,14 @@ public class GameManager : MonoBehaviour
 
     private void OnDestroy()
     {
+        /*
         var activity = new Discord.Activity()
         {
             Details = "On the main menu",
             State = "Playing Spaceship Defender"
         };
         activityManager.UpdateActivity(activity, result => { if (result == Result.Ok) Debug.Log("Discord status set");});
+        */
     }
     
     

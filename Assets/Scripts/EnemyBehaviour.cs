@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private int damageDealt = 1;
     [SerializeField] private float maximumPossibleHealth;
 
+    protected Collider2D currentCollision;
+    private ItemDrop itemDrop;
     //isDead is boolean that temporarily stores a death state so that the deathAnimation does not play more
     //than once
     private bool isDead;
@@ -22,7 +25,12 @@ public class EnemyBehaviour : MonoBehaviour
     //to damageDealt
     private FireBullets playerObject;
 
-    private void Start()
+    private void Awake()
+    {
+        itemDrop = GetComponent<ItemDrop>();
+    }
+
+    public virtual void Start()
     {
         /* enemyHealth is scaled based on difficulty from SpawnManager, game will get more difficult as
          * the player scores a higher score
@@ -43,6 +51,7 @@ public class EnemyBehaviour : MonoBehaviour
     /// <param name="collision"></param>
     private void OnTriggerStay2D(Collider2D collision)
     {
+        currentCollision = collision;
         //Handles bullet collisions with the enemy:
         if (collision.gameObject.CompareTag("Bullet"))
         {
@@ -51,6 +60,7 @@ public class EnemyBehaviour : MonoBehaviour
             GameManager.instance.PlayExplosionAnimation(collision.transform,
                 OnDeathAnimation.ExplosionTypes.SmallExplosion);
 
+            print(playerObject.damageDealt);
             //Damages the enemyInstance with currentBullet Damage
             DealDamage(playerObject.damageDealt);
 
@@ -74,31 +84,8 @@ public class EnemyBehaviour : MonoBehaviour
             else
                 //Adds normal the score of enemy the currentScore in Game session
                 GameManager.instance.AddScore(scoreToAdd);
-
-            //Changes behavior based on objectTag:
-            switch (gameObject.tag)
-            {
-                //Asteroids will play a bigExplosion animation
-                case "Asteroid":
-                    GameManager.instance.PlayExplosionAnimation(collision.transform,
-                        OnDeathAnimation.ExplosionTypes.BigExplosion);
-                    //trigger's the asteroid's spawnChildAsteroids method to break the asteroid:
-                    gameObject.GetComponent<AsteroidScript>().SpawnChildAsteroids();
-                    break;
-                //UFOS will play a custom explosion, and drop an item:
-                case "UFO":
-                    GameManager.instance.PlayExplosionAnimation(collision.transform,
-                        OnDeathAnimation.ExplosionTypes.UfoExplosion);
-                    gameObject.GetComponent<ItemDrop>().DropItem();
-                    Destroy(gameObject);
-                    break;
-
-                default:
-
-                    gameObject.GetComponent<ItemDrop>().DropItem();
-                    Destroy(gameObject);
-                    break;
-            }
+            
+            EnemyDeath();
         }
 
         //Detects if player hits the enemy:
@@ -117,5 +104,11 @@ public class EnemyBehaviour : MonoBehaviour
     private void DealDamage(int damageDealt)
     {
         enemyHealth -= damageDealt;
+    }
+
+    public virtual void EnemyDeath()
+    {
+        gameObject.GetComponent<ItemDrop>().DropItem();
+        Destroy(gameObject);
     }
 }

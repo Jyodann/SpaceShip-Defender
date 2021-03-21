@@ -5,20 +5,14 @@ using UnityEngine;
 // are required for this class to work:
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class PowerupScript : MonoBehaviour
+public class Powerup : MonoBehaviour
 {
     //Allows the powerup ability to be selected from the UnityEditor:
     [SerializeField] private PowerUps powerUp;
     [SerializeField] private AudioClip pickUpPowerUpSound;
 
     private AudioSource audioSource;
-
-    //used to track the ship's damage BEFORE the powerup changes it:
-    private int initialDamageDealt;
-
-    //References the only playerObject present:
-    private GameObject playerObject;
-
+    
     //RigidBody2D reference:
     private Rigidbody2D rb;
 
@@ -28,9 +22,6 @@ public class PowerupScript : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         //Caches object's rigidBody:
         rb = GetComponent<Rigidbody2D>();
-        //finds first instance of player GameObject:
-        playerObject = GameObject.FindGameObjectWithTag("Player");
-
         //Decides a random direction the powerup floats to:
         if (Random.Range(0, 2) == 1)
             rb.velocity = new Vector2(10, 10);
@@ -44,34 +35,11 @@ public class PowerupScript : MonoBehaviour
         if (collision.CompareTag("Player")) TriggerPowerUpEffect();
     }
 
-    private void TriggerPowerUpEffect()
+    public virtual void TriggerPowerUpEffect()
     {
         audioSource.PlayOneShot(pickUpPowerUpSound, 0.5f);
         switch (powerUp)
         {
-            case PowerUps.HeartPowerup:
-                //Heart powerup calls the gameManager to add a life and change the HUD:
-                GameManager.instance.AddLives(1);
-                //Calls Disable and Destroy:
-                StartCoroutine(DisableThenDestroy(2f));
-                break;
-
-            case PowerUps.IncreaseDamage:
-                //Temporarily stores the initialDamage from the FireBullets component:
-                initialDamageDealt = playerObject.GetComponent<FireBullets>().damageDealt;
-                //Changes the damage dealt by bullets to be 2 more than current value:
-                playerObject.GetComponent<FireBullets>().damageDealt += 2;
-                //Starts Coroutine to reset damage after 10 seconds
-                StartCoroutine(ResetPlayerDamage(10f));
-                break;
-
-            case PowerUps.ScoreBoost:
-                //Tells game manager to add DoubleScore:
-                GameManager.instance.ChangeDoubleScore(true);
-                //Starts Coroutine to reset double score after 10 seconds:
-                StartCoroutine(ResetDoubleScore(10f));
-
-                break;
 
             case PowerUps.TimeFreeze:
                 //Tells game manager that time is Frozen:
@@ -95,7 +63,7 @@ public class PowerupScript : MonoBehaviour
 
             case PowerUps.SpeedBoost:
                 //Changes the current speed of the player:
-                playerObject.GetComponent<ShipController>().ChangeSpeed(125f);
+                Player.Instance.shipController.ChangeSpeed(125f);
                 // Starts Coroutine to resetSpeed boost after 5 seconds:
                 StartCoroutine(ResetSpeedBoost(5f));
 
@@ -109,21 +77,7 @@ public class PowerupScript : MonoBehaviour
     {
         StartCoroutine(DisableThenDestroy(resetDelay));
         yield return new WaitForSecondsRealtime(resetDelay);
-        playerObject.GetComponent<ShipController>().ChangeSpeed(75f);
-    }
-
-    private IEnumerator ResetPlayerDamage(float resetDelay)
-    {
-        StartCoroutine(DisableThenDestroy(resetDelay));
-        yield return new WaitForSecondsRealtime(resetDelay);
-        playerObject.GetComponent<FireBullets>().damageDealt = initialDamageDealt;
-    }
-
-    private IEnumerator ResetDoubleScore(float resetDelay)
-    {
-        StartCoroutine(DisableThenDestroy(resetDelay));
-        yield return new WaitForSecondsRealtime(resetDelay);
-        GameManager.instance.ChangeDoubleScore(false);
+        Player.Instance.shipController.ChangeSpeed(75f);
     }
 
     private IEnumerator ResetTimeFreeze(float resetDelay)
@@ -149,7 +103,7 @@ public class PowerupScript : MonoBehaviour
     //Disable then destroy takes in one parameter, which is how long until the powerup is destoryed:
     //Uses Coroutine pattern because it needs to have a RealTime scale instead of a gameTime scale:
     //Needs to delay destruction of object so that it has an opportunity to reset it's effect before it destroys itself
-    private IEnumerator DisableThenDestroy(float destoryDelay)
+    protected IEnumerator DisableThenDestroy(float destoryDelay)
     {
         //Sets the powerup position to be somewhere impossible for the player to reach:
         transform.position = new Vector2(-200, -100);

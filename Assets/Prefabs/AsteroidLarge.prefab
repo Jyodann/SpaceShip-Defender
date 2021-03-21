@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4513244087482888646}
   - component: {fileID: 4513244087482888667}
-  - component: {fileID: 4513244087482888665}
   - component: {fileID: 4513244087482888644}
   - component: {fileID: 6832787068740402218}
+  - component: {fileID: -6625931119552322146}
   m_Layer: 0
   m_Name: AsteroidLarge
   m_TagString: Asteroid
@@ -56,23 +56,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &4513244087482888665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4513244087482888664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb86c50dda56bf04bb82edb0b3d2e568, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyHealth: 4
-  scoreToAdd: 10
-  coinsToAdd: 50
-  damageDealt: 2
-  maximumPossibleHealth: 25
 --- !u!114 &4513244087482888644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,6 +68,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c97f5cb7a99254a419ef16816ec84528, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyHealth: 100
+  scoreToAdd: 10
+  coinsToAdd: 5
+  damageDealt: 1
+  maximumPossibleHealth: 1
   asteroidSprites:
   - {fileID: 21300000, guid: 3cf384672452c504ea3ca508bda558e8, type: 3}
   - {fileID: -5422798857116654392, guid: 88f9797a6c3dd8945aaaab801b7bef7d, type: 3}
@@ -109,6 +97,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 2
+--- !u!114 &-6625931119552322146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4513244087482888664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a649014c63fdba4c8bd253c4671813a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerupList: []
+  chance: 5
 --- !u!1 &6636400095477913163
 GameObject:
   m_ObjectHideFlags: 0

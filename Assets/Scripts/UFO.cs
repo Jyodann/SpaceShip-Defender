@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class UFO : MonoBehaviour
+public class UFO : EnemyBehaviour
 {
     //Changes how fast aliens spawn
     [SerializeField] private float alienSpawnRate = 8f;
@@ -18,8 +18,9 @@ public class UFO : MonoBehaviour
     //Uses an ailen prefab for spawnning aliens:
     [SerializeField] private GameObject alienObject;
 
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         //Changes alienSpawnRate based on difficulty
         alienSpawnRate -= SpawningManagement.Factor / 10;
         alienSpawnRate = Mathf.Clamp(alienSpawnRate, maxDifficultySpawnRate, alienSpawnRate);
@@ -40,5 +41,12 @@ public class UFO : MonoBehaviour
             Instantiate(alienObject, transform.position, Quaternion.identity);
             yield return new WaitForSecondsRealtime(alienSpawnRate);
         }
+    }
+
+    public override void EnemyDeath()
+    {
+        GameManager.instance.PlayExplosionAnimation(currentCollision.transform,
+            OnDeathAnimation.ExplosionTypes.UfoExplosion);
+        base.EnemyDeath();
     }
 }

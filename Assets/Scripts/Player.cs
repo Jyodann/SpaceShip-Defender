@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance;
     //isInvincible is a variable that can be checked by other classes, mainly the enemy class so that the enemy does not damage the player,
     //this is to balance the game, getting hit will ensure you have a small window of time to fight/escape a bad situation
     public bool isInvincible;
@@ -18,10 +20,27 @@ public class Player : MonoBehaviour
 
     //Sprite renderer is cached so changes can be made to it's alpha to simulate flickering
     private SpriteRenderer spriteRenderer;
+    public FireBullets fireBullets;
+    public ShipController shipController;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
+        fireBullets = GetComponent<FireBullets>();
+        shipController = GetComponent<ShipController>();
     }
 
     //Enemies use this method to damage the player, it takes in one parameter of how much damage to apply to the player:

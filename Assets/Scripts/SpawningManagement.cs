@@ -17,8 +17,9 @@ public class SpawningManagement : MonoBehaviour
     [SerializeField] private GameObject[] asteroidObjects;
     [SerializeField] private GameObject[] alienObjects;
     [SerializeField] private GameObject[] ufoObjects;
+    
     private readonly List<Coroutine> coroutineList = new List<Coroutine>();
-
+    
     private float currentFactor = -1f;
 
     public static float Factor { get; set; }
@@ -142,12 +143,12 @@ public class SpawningManagement : MonoBehaviour
                     relativeTo.position +
                     new Vector3(Random.Range(-maximumDistanceAway, -minimumDistanceAway),
                         Random.Range(-maximumDistanceAway, -minimumDistanceAway))
-                    , Quaternion.identity);
+                    , Quaternion.identity, GameManager.instance.EnemyParent);
             else
                 //only spawn in the positive regions:
                 Instantiate(objectToSpawn,
                     relativeTo.position + new Vector3(Random.Range(minimumDistanceAway, maximumDistanceAway),
-                        Random.Range(minimumDistanceAway, maximumDistanceAway)), Quaternion.identity);
+                        Random.Range(minimumDistanceAway, maximumDistanceAway)), Quaternion.identity, GameManager.instance.EnemyParent);
             //calls method again based on spawnRate
             yield return new WaitForSecondsRealtime(spawnRate);
         }

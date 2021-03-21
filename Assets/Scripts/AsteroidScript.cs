@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class AsteroidScript : MonoBehaviour
+public class AsteroidScript : EnemyBehaviour
 {
     //declares an Enum state to allow spawnning of future asteroids
     public enum AsteroidSize
@@ -29,8 +29,9 @@ public class AsteroidScript : MonoBehaviour
     //stores original velocity in Vector2 so it can be reused after a timeFreeze powerup
     public Vector2 originalVelocity;
 
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         //Changes the scaling of the asteroid based on the enum provided:
         switch (asteroidSize)
         {
@@ -80,17 +81,27 @@ public class AsteroidScript : MonoBehaviour
                 var mediumAsteroidsToSpawn = Random.Range(1, 4);
                 //Instantiates based on random number, on the current asteroid's position
                 for (var i = 0; i < mediumAsteroidsToSpawn; i++)
-                    Instantiate(asteroidToSpawn, transform.position, Quaternion.identity);
+                    Instantiate(asteroidToSpawn, transform.position, Quaternion.identity, GameManager.instance.EnemyParent);
                 break;
 
             case AsteroidSize.Medium:
                 //Same logic as above.
                 var smallAsteroidsToSpawn = Random.Range(1, 6);
                 for (var i = 0; i < smallAsteroidsToSpawn; i++)
-                    Instantiate(asteroidToSpawn, transform.position, Quaternion.identity);
+                    Instantiate(asteroidToSpawn, transform.position, Quaternion.identity, GameManager.instance.EnemyParent);
                 break;
         }
 
         Destroy(gameObject);
+    }
+
+    public override void EnemyDeath()
+    {
+        GameManager.instance.PlayExplosionAnimation(currentCollision.transform,
+            OnDeathAnimation.ExplosionTypes.BigExplosion);
+        //trigger's the asteroid's spawnChildAsteroids method to break the asteroid:
+        gameObject.GetComponent<AsteroidScript>().SpawnChildAsteroids();
+        
+        base.EnemyDeath();
     }
 }
