@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class HeartPowerup : Powerup
+namespace Powerup_Scripts
 {
-
-    public override void TriggerPowerUpEffect()
+    public class HeartPowerup : Powerup
     {
-        base.TriggerPowerUpEffect();
+        protected override void TriggerPowerUpEffect()
+        {
+            base.TriggerPowerUpEffect();
         
-        GameManager.instance.AddLives(1);
+            GameManager.instance.AddLives(1);
         
-        StartCoroutine(DisableThenDestroy(2f));
+            StartCoroutine(DisableThenDestroy(2f));
+        }
     }
 }

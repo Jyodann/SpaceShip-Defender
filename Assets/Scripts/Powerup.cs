@@ -7,10 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class Powerup : MonoBehaviour
 {
-    //Allows the powerup ability to be selected from the UnityEditor:
-    [SerializeField] private PowerUps powerUp;
     [SerializeField] private AudioClip pickUpPowerUpSound;
-
     private AudioSource audioSource;
     
     //RigidBody2D reference:
@@ -35,71 +32,11 @@ public class Powerup : MonoBehaviour
         if (collision.CompareTag("Player")) TriggerPowerUpEffect();
     }
 
-    public virtual void TriggerPowerUpEffect()
+    protected virtual void TriggerPowerUpEffect()
     {
         audioSource.PlayOneShot(pickUpPowerUpSound, 0.5f);
-        switch (powerUp)
-        {
-
-            case PowerUps.TimeFreeze:
-                //Tells game manager that time is Frozen:
-                GameManager.instance.ChangeTimeFreeze(true);
-                //Gets all the game objects on screen:
-                var asteroids = GameObject.FindGameObjectsWithTag("Asteroid");
-                var aliens = GameObject.FindGameObjectsWithTag("Alien");
-                var ufos = GameObject.FindGameObjectsWithTag("UFO");
-
-                //Handles asteroids by changing their velocity to 0:
-                foreach (var asteroid in asteroids) asteroid.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-                //Handles every ailen object by setting "isFrozen" to be true:
-                foreach (var alien in aliens) alien.GetComponent<Alien>().isFrozen = true;
-                //Handles UFO objects by setting alien Spawning to be false:
-                foreach (var ufo in ufos) ufo.GetComponent<UFO>().isAlienSpawn = false;
-
-                //Starts Coroutine to reset time freeze after 5 seconds:
-                StartCoroutine(ResetTimeFreeze(5f));
-
-                break;
-
-            case PowerUps.SpeedBoost:
-                //Changes the current speed of the player:
-                Player.Instance.shipController.ChangeSpeed(125f);
-                // Starts Coroutine to resetSpeed boost after 5 seconds:
-                StartCoroutine(ResetSpeedBoost(5f));
-
-                break;
-        }
     }
-
-    //All the following Coroutines are similar in that they take in a ResetDelay, and calls the coRoutine to DisableThenDestory
-    //waits for delay, then resets the player state to it's previous state before the powerup:
-    private IEnumerator ResetSpeedBoost(float resetDelay)
-    {
-        StartCoroutine(DisableThenDestroy(resetDelay));
-        yield return new WaitForSecondsRealtime(resetDelay);
-        Player.Instance.shipController.ChangeSpeed(75f);
-    }
-
-    private IEnumerator ResetTimeFreeze(float resetDelay)
-    {
-        StartCoroutine(DisableThenDestroy(resetDelay));
-        yield return new WaitForSecondsRealtime(resetDelay);
-        GameManager.instance.ChangeTimeFreeze(false);
-
-        //Gets all the objects that are currently frozen:
-        var asteroids = GameObject.FindGameObjectsWithTag("Asteroid");
-        var aliens = GameObject.FindGameObjectsWithTag("Alien");
-        var ufos = GameObject.FindGameObjectsWithTag("UFO");
-
-        //Resets velocity of asteroid:
-        foreach (var asteroid in asteroids)
-            asteroid.GetComponent<Rigidbody2D>().velocity = asteroid.GetComponent<AsteroidScript>().originalVelocity;
-        //Resets alien isFrozen to false so they start moving again:s
-        foreach (var alien in aliens) alien.GetComponent<Alien>().isFrozen = false;
-        //Allows UFOs to start spawning aliens again:
-        foreach (var ufo in ufos) ufo.GetComponent<UFO>().isAlienSpawn = true;
-    }
-
+    
     //Disable then destroy takes in one parameter, which is how long until the powerup is destoryed:
     //Uses Coroutine pattern because it needs to have a RealTime scale instead of a gameTime scale:
     //Needs to delay destruction of object so that it has an opportunity to reset it's effect before it destroys itself
@@ -114,14 +51,5 @@ public class Powerup : MonoBehaviour
 
         Destroy(gameObject);
     }
-
-    //Enum to manage all the different types of powerups:
-    private enum PowerUps
-    {
-        HeartPowerup,
-        IncreaseDamage,
-        ScoreBoost,
-        TimeFreeze,
-        SpeedBoost
-    }
+    
 }

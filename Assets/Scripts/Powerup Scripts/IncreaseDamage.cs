@@ -6,8 +6,8 @@ public class IncreaseDamage : Powerup
 {
     //used to track the ship's damage BEFORE the powerup changes it:
     private int initialDamageDealt;
-    
-    public override void TriggerPowerUpEffect()
+
+    protected override void TriggerPowerUpEffect()
     {
         base.TriggerPowerUpEffect();
         
