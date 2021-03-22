@@ -159,20 +159,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2101927979424221814}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &517060274 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6051054198046076309, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
-    type: 3}
-  m_PrefabInstance: {fileID: 6051054199228241698}
-  m_PrefabAsset: {fileID: 0}
---- !u!81 &517060275
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 517060274}
-  m_Enabled: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1035,17 +1021,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6012131414832987246, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 7852340288038931271, guid: bd7759ebefda3be4db8198bb45361120,
-        type: 2}
-    - target: {fileID: 6012131414832987246, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
-        type: 3}
-      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6051054198046076309, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
         type: 3}
       propertyPath: m_Name
@@ -1065,21 +1040,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6051054198046076315, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6051054198046076315, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6051054198046076315, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6051054198046076315, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
         type: 3}

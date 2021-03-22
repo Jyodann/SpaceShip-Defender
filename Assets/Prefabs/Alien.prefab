@@ -12,9 +12,7 @@ GameObject:
   - component: {fileID: 8789247857589088819}
   - component: {fileID: 3128996569939369180}
   - component: {fileID: 2668569908983350998}
-  - component: {fileID: 1276610247406747519}
   - component: {fileID: 1233748816}
-  - component: {fileID: 3764756935395378988}
   m_Layer: 0
   m_Name: Alien
   m_TagString: Alien
@@ -133,23 +131,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1276610247406747519
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8471160928321115163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb86c50dda56bf04bb82edb0b3d2e568, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyHealth: 10
-  scoreToAdd: 10
-  coinsToAdd: 5
-  damageDealt: 2
-  maximumPossibleHealth: 250
 --- !u!114 &1233748816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,24 +143,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aadbddda5802d2843b9a8ce3aecd76d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyHealth: 100
+  scoreToAdd: 10
+  coinsToAdd: 5
+  damageDealt: 1
+  maximumPossibleHealth: 10
   speed: 20
+  maxSpeedMutatedAlien: 40
   isFrozen: 0
---- !u!114 &3764756935395378988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8471160928321115163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a649014c63fdba4c8bd253c4671813a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  powerupList:
-  - {fileID: 1792604823929072671, guid: 606a0936ef8765140bed9bc0c6b05d64, type: 3}
-  - {fileID: 8294732256506413669, guid: 54aad314255bc674db67ad05012504ca, type: 3}
-  - {fileID: 6632155803791073234, guid: cd7c79724c5ecf247a9c23e0546c9ad4, type: 3}
-  - {fileID: 1570822453624242147, guid: 4f84a7658c8930a45bc99db6969fda17, type: 3}
-  - {fileID: 1363644364021819286, guid: 144a4ef6717fac14eadb7f885711297f, type: 3}
-  chance: 5

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class UFO : EnemyBehaviour
+public class UFO : EnemyBase
 {
     //Changes how fast aliens spawn
     [SerializeField] private float alienSpawnRate = 8f;
@@ -43,10 +43,19 @@ public class UFO : EnemyBehaviour
         }
     }
 
-    public override void EnemyDeath()
+    protected override void EnemyDeath()
     {
         GameManager.instance.PlayExplosionAnimation(currentCollision.transform,
             OnDeathAnimation.ExplosionTypes.UfoExplosion);
         base.EnemyDeath();
+    }
+
+    public override void OnFreeze()
+    {
+        
+    }
+
+    public override void Unfreeze()
+    {
     }
 }

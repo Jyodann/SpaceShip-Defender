@@ -17,6 +17,9 @@ public class SpawningManagement : MonoBehaviour
     [SerializeField] private GameObject[] asteroidObjects;
     [SerializeField] private GameObject[] alienObjects;
     [SerializeField] private GameObject[] ufoObjects;
+
+    [SerializeField] private float ScoreToSpawnAliens;
+    [SerializeField] private float ScoreToSpawnUFO;
     
     private readonly List<Coroutine> coroutineList = new List<Coroutine>();
     
@@ -94,11 +97,11 @@ public class SpawningManagement : MonoBehaviour
                 coroutineList.Add(StartCoroutine(Spawner(asteroidObjects, playerLocation.transform, asteroidSpawn, 25f,
                     50f)));
 
-                if (GameManager.instance.Score >= 500)
+                if (GameManager.instance.Score >= ScoreToSpawnAliens)
                     //Starts spawnning Aliens after score is more than 500, and adds it to the coroutine List:
                     coroutineList.Add(StartCoroutine(Spawner(alienObjects, playerLocation.transform, alienSpawn, 40f,
                         80f)));
-                if (GameManager.instance.Score >= 1500)
+                if (GameManager.instance.Score >= ScoreToSpawnUFO)
                     //Starts spawnning UFOs after score is more than 1500, and adds it to the coroutine List:
                     coroutineList.Add(StartCoroutine(Spawner(ufoObjects,
                         ufoSpawnLocations[Random.Range(0, ufoSpawnLocations.Length)], ufoSpawn, 1f, 4f)));
@@ -143,12 +146,12 @@ public class SpawningManagement : MonoBehaviour
                     relativeTo.position +
                     new Vector3(Random.Range(-maximumDistanceAway, -minimumDistanceAway),
                         Random.Range(-maximumDistanceAway, -minimumDistanceAway))
-                    , Quaternion.identity, GameManager.instance.EnemyParent);
+                    , Quaternion.identity);
             else
                 //only spawn in the positive regions:
                 Instantiate(objectToSpawn,
                     relativeTo.position + new Vector3(Random.Range(minimumDistanceAway, maximumDistanceAway),
-                        Random.Range(minimumDistanceAway, maximumDistanceAway)), Quaternion.identity, GameManager.instance.EnemyParent);
+                        Random.Range(minimumDistanceAway, maximumDistanceAway)), Quaternion.identity);
             //calls method again based on spawnRate
             yield return new WaitForSecondsRealtime(spawnRate);
         }

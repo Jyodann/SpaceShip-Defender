@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class EnemyBehaviour : MonoBehaviour
+public abstract class EnemyBase : MonoBehaviour, IFreezable
 {
     /*Enemy properties that can be set from inspector, like Health,
      *Score and coins to add when enemy dies
@@ -16,18 +15,18 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private float maximumPossibleHealth;
 
     protected Collider2D currentCollision;
-    private ItemDrop itemDrop;
+    private IFreezable freezableImplementation;
+
     //isDead is boolean that temporarily stores a death state so that the deathAnimation does not play more
     //than once
-    private bool isDead;
+    //private bool isDead;
 
     //FireBullets class is a class file attached to the playerObject, used for easier access
     //to damageDealt
-    private FireBullets playerObject;
 
     private void Awake()
     {
-        itemDrop = GetComponent<ItemDrop>();
+        transform.parent = GameManager.instance.EnemyParent;
     }
 
     public virtual void Start()
@@ -41,7 +40,6 @@ public class EnemyBehaviour : MonoBehaviour
         enemyHealth = Mathf.Clamp(enemyHealth, 0f, maximumPossibleHealth);
 
         //finds the playerObject's firebullet class
-        playerObject = FindObjectOfType<FireBullets>();
     }
 
     /// <summary>
@@ -59,22 +57,20 @@ public class EnemyBehaviour : MonoBehaviour
             //asteroid
             GameManager.instance.PlayExplosionAnimation(collision.transform,
                 OnDeathAnimation.ExplosionTypes.SmallExplosion);
-
-            print(playerObject.damageDealt);
             //Damages the enemyInstance with currentBullet Damage
-            DealDamage(playerObject.damageDealt);
-
+           
+            DealDamage(Player.Instance.fireBullets.damageDealt);
+            print(Player.Instance.fireBullets.damageDealt);
             //Destorys bullet
             Destroy(collision.gameObject);
         }
 
         //Checks if enemy is dead:
-        if (enemyHealth <= 0 && !isDead)
+        if (enemyHealth <= 0)
         {
             //sets the isDead boolean to true, so the animation code does not run twice
-            isDead = true;
-
-            //Adds coins earned from cenemy to currentCoins in game session
+            
+            //Adds coins earned from enemy to currentCoins in game session
             GameManager.instance.AddCoins(coinsToAdd);
 
             //Checks if "DoubleScore" powerup is activated
@@ -106,9 +102,12 @@ public class EnemyBehaviour : MonoBehaviour
         enemyHealth -= damageDealt;
     }
 
-    public virtual void EnemyDeath()
+    protected virtual void EnemyDeath()
     {
-        gameObject.GetComponent<ItemDrop>().DropItem();
+        //gameObject.GetComponent<ItemDrop>().DropItem();
         Destroy(gameObject);
     }
+
+    public abstract void OnFreeze();
+    public abstract void Unfreeze();
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class AsteroidScript : EnemyBehaviour
+public class AsteroidScript : EnemyBase
 {
     //declares an Enum state to allow spawnning of future asteroids
     public enum AsteroidSize
@@ -95,7 +95,7 @@ public class AsteroidScript : EnemyBehaviour
         Destroy(gameObject);
     }
 
-    public override void EnemyDeath()
+    protected override void EnemyDeath()
     {
         GameManager.instance.PlayExplosionAnimation(currentCollision.transform,
             OnDeathAnimation.ExplosionTypes.BigExplosion);
@@ -103,5 +103,15 @@ public class AsteroidScript : EnemyBehaviour
         gameObject.GetComponent<AsteroidScript>().SpawnChildAsteroids();
         
         base.EnemyDeath();
+    }
+
+    public override void OnFreeze()
+    {
+        
+    }
+
+    public override void Unfreeze()
+    {
+      
     }
 }

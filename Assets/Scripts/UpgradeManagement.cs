@@ -24,7 +24,7 @@ public class UpgradeManagement : MonoBehaviour
     private readonly List<UpgradeClass> upgrades = new List<UpgradeClass>
     {
         //Upgrade Class Constructor: Name, Cost, CannonCount, FireRate, Damage per shot
-        new UpgradeClass("BaseShip", 0, 1, 0.3f, 1),
+        new UpgradeClass("BaseShip", 0, 1, 0.3f, 10),
         new UpgradeClass("+1 Cannon", 200, 2, 0.3f, 1),
         new UpgradeClass("+Fire Rate", 350, 2, 0.2f, 1),
         new UpgradeClass("+Damage", 500, 2, 0.2f, 3),
@@ -72,7 +72,9 @@ public class UpgradeManagement : MonoBehaviour
     //Apply upgrade takes in the Upgrade class and applies it to the ship:
     public void ApplyUpgrade()
     {
+        
         playerShip.damageDealt = currentUpgrade.DamageCount;
+        print(playerShip.damageDealt);
         playerShip.fireRate = currentUpgrade.FireRate;
         playerShip.cannonCount = currentUpgrade.CannonCount;
         //Changes upgradeIndex to next one:

@@ -33,7 +33,7 @@ public class FireBullets : MonoBehaviour
     [Range(1, 5)] public int cannonCount = 1;
 
     //Affects amount of damage dealt per bullet based on upgrade:
-    public int damageDealt = 1;
+    public int damageDealt = 10;
 
     //Stores an audioSource as a global variable so it can play the LazerShot sound
     private AudioSource audioSource;

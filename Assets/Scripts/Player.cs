@@ -41,6 +41,8 @@ public class Player : MonoBehaviour
 
         fireBullets = GetComponent<FireBullets>();
         shipController = GetComponent<ShipController>();
+        
+        print(fireBullets.damageDealt);
     }
 
     //Enemies use this method to damage the player, it takes in one parameter of how much damage to apply to the player:

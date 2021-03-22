@@ -12,8 +12,6 @@ GameObject:
   - component: {fileID: 9208406912204127064}
   - component: {fileID: 9208406912204127065}
   - component: {fileID: 9208406912204127060}
-  - component: {fileID: 9208406912204127061}
-  - component: {fileID: 9208406912204127062}
   - component: {fileID: 2366030465150950947}
   m_Layer: 0
   m_Name: UFO
@@ -133,42 +131,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.8, y: 0.92}
   m_EdgeRadius: 0
---- !u!114 &9208406912204127061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9208406912204127066}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb86c50dda56bf04bb82edb0b3d2e568, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyHealth: 100
-  scoreToAdd: 300
-  coinsToAdd: 100
-  damageDealt: 4
-  maximumPossibleHealth: 2500
---- !u!114 &9208406912204127062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9208406912204127066}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a649014c63fdba4c8bd253c4671813a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  powerupList:
-  - {fileID: 1792604823929072671, guid: 606a0936ef8765140bed9bc0c6b05d64, type: 3}
-  - {fileID: 8294732256506413669, guid: 54aad314255bc674db67ad05012504ca, type: 3}
-  - {fileID: 6632155803791073234, guid: cd7c79724c5ecf247a9c23e0546c9ad4, type: 3}
-  - {fileID: 1570822453624242147, guid: 4f84a7658c8930a45bc99db6969fda17, type: 3}
-  - {fileID: 1363644364021819286, guid: 144a4ef6717fac14eadb7f885711297f, type: 3}
-  chance: 1
 --- !u!114 &2366030465150950947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,6 +143,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd827308087b1e0459d24c03649ab06a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyHealth: 100
+  scoreToAdd: 10
+  coinsToAdd: 5
+  damageDealt: 1
+  maximumPossibleHealth: 0
   alienSpawnRate: 8
   maxDifficultySpawnRate: 6
   ufoDespawnRate: 40

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Alien : MonoBehaviour
+public class Alien : EnemyBase
 {
     //Sets speed that alien will follow player
     [SerializeField] private float speed = 20f;
@@ -12,8 +12,9 @@ public class Alien : MonoBehaviour
     public bool isFrozen;
     private Player playerCharacter;
 
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         //Randomly decides if an alien should be "mutated":
         if (Random.Range(0, 2) == 0)
         {
@@ -27,6 +28,16 @@ public class Alien : MonoBehaviour
 
         //Finds player character object and stores it as a global variable
         playerCharacter = FindObjectOfType<Player>();
+    }
+
+    public override void OnFreeze()
+    {
+        
+    }
+
+    public override void Unfreeze()
+    {
+        
     }
 
     private void Update()
