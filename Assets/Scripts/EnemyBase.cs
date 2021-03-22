@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class EnemyBase : MonoBehaviour, IFreezable
+public abstract class EnemyBase : MonoBehaviour, IFreezable, IDamageable
 {
     /*Enemy properties that can be set from inspector, like Health,
      *Score and coins to add when enemy dies
@@ -15,7 +15,6 @@ public abstract class EnemyBase : MonoBehaviour, IFreezable
     [SerializeField] private float maximumPossibleHealth;
 
     protected Collider2D currentCollision;
-    private IFreezable freezableImplementation;
 
     //isDead is boolean that temporarily stores a death state so that the deathAnimation does not play more
     //than once
@@ -38,8 +37,6 @@ public abstract class EnemyBase : MonoBehaviour, IFreezable
 
         //enemyHealth is then clamped, so it does not scale infinitely
         enemyHealth = Mathf.Clamp(enemyHealth, 0f, maximumPossibleHealth);
-
-        //finds the playerObject's firebullet class
     }
 
     /// <summary>
@@ -110,4 +107,9 @@ public abstract class EnemyBase : MonoBehaviour, IFreezable
 
     public abstract void OnFreeze();
     public abstract void Unfreeze();
+
+    public void TakeDamage()
+    {
+        
+    }
 }
