@@ -1,4 +1,6 @@
-﻿public interface IDamageable
+﻿using UnityEngine;
+
+public interface IDamageable
 {
-    void TakeDamage();
+    void TakeDamage(Collider2D collision);
 }

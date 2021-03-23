@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aadbddda5802d2843b9a8ce3aecd76d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 100
+  enemyHealth: 10
   scoreToAdd: 10
   coinsToAdd: 5
   damageDealt: 1

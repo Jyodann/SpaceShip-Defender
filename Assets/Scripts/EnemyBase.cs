@@ -46,40 +46,10 @@ public abstract class EnemyBase : MonoBehaviour, IFreezable, IDamageable
     /// <param name="collision"></param>
     private void OnTriggerStay2D(Collider2D collision)
     {
-        currentCollision = collision;
-        //Handles bullet collisions with the enemy:
-        if (collision.gameObject.CompareTag("Bullet"))
-        {
-            //Triggers the gameManager to play the smallExplosion effect on the landing, but not killing the
-            //asteroid
-            GameManager.instance.PlayExplosionAnimation(collision.transform,
-                OnDeathAnimation.ExplosionTypes.SmallExplosion);
-            //Damages the enemyInstance with currentBullet Damage
-           
-            DealDamage(Player.Instance.fireBullets.damageDealt);
-            print(Player.Instance.fireBullets.damageDealt);
-            //Destorys bullet
-            Destroy(collision.gameObject);
-        }
-
+        
+        
         //Checks if enemy is dead:
-        if (enemyHealth <= 0)
-        {
-            //sets the isDead boolean to true, so the animation code does not run twice
-            
-            //Adds coins earned from enemy to currentCoins in game session
-            GameManager.instance.AddCoins(coinsToAdd);
-
-            //Checks if "DoubleScore" powerup is activated
-            if (GameManager.instance.isDoubleScore)
-                //Adds double the score of enemy the currentScore in Game session
-                GameManager.instance.AddScore(scoreToAdd * 2);
-            else
-                //Adds normal the score of enemy the currentScore in Game session
-                GameManager.instance.AddScore(scoreToAdd);
-            
-            EnemyDeath();
-        }
+        
 
         //Detects if player hits the enemy:
         if (collision.gameObject.CompareTag("Player"))
@@ -108,8 +78,36 @@ public abstract class EnemyBase : MonoBehaviour, IFreezable, IDamageable
     public abstract void OnFreeze();
     public abstract void Unfreeze();
 
-    public void TakeDamage()
+
+    public void TakeDamage(Collider2D collision)
     {
+        currentCollision = collision;
+        GameManager.instance.PlayExplosionAnimation(collision.transform,
+            OnDeathAnimation.ExplosionTypes.SmallExplosion);
+        //Triggers the gameManager to play the smallExplosion effect on the landing, but not killing the
+        //asteroid
+            
+        //Damages the enemyInstance with currentBullet Damage
+           
+        DealDamage(Player.Instance.fireBullets.damageDealt);
         
+        print(Player.Instance.fireBullets.damageDealt);
+
+        if (!(enemyHealth <= 0)) return;
+        
+        //sets the isDead boolean to true, so the animation code does not run twice
+            
+        //Adds coins earned from enemy to currentCoins in game session
+        GameManager.instance.AddCoins(coinsToAdd);
+
+        //Checks if "DoubleScore" powerup is activated
+        if (GameManager.instance.isDoubleScore)
+            //Adds double the score of enemy the currentScore in Game session
+            GameManager.instance.AddScore(scoreToAdd * 2);
+        else
+            //Adds normal the score of enemy the currentScore in Game session
+            GameManager.instance.AddScore(scoreToAdd);
+            
+        EnemyDeath();
     }
 }
