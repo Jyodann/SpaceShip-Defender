@@ -148,6 +148,7 @@ MonoBehaviour:
   coinsToAdd: 5
   damageDealt: 1
   maximumPossibleHealth: 0
+  enemyPercentageChanceDrop: 100
   alienSpawnRate: 8
   maxDifficultySpawnRate: 6
   ufoDespawnRate: 40

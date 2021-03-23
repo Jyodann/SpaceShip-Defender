@@ -10,9 +10,6 @@ public class ItemDrop : MonoBehaviour
     //Powerups Prefabs are all dragged into this list, so a random powerup can be picked to spawn
     [SerializeField] private Powerup[] powerupList;
 
-    //A chance int is implemented and changeable from Unity as different enemies have different dropRates
-    //the lower the number, the higher the chance
-    [SerializeField] private int chanceForNothing = 5;
     private List<int> powerupWeights;
     private int total;
     private void Awake()
@@ -21,17 +18,18 @@ public class ItemDrop : MonoBehaviour
         else Destroy(gameObject);
 
         powerupWeights = powerupList.OrderByDescending(x => x.ItemDropWeight).Select(x => x.ItemDropWeight).ToList();
-        powerupWeights.Insert(0, chanceForNothing);
         total = powerupWeights.Sum(x => x);
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.L)) DropItem();
+        //if(Input.GetKeyDown(KeyCode.L)) DropItem();
     }
 
-    private void DropItem()
+    public void DropItem(Transform positionToSpawn, int enemyPercentChance)
     {
+        var percentChance = Random.Range(0, 101);
+        if (percentChance >= enemyPercentChance) return;
         var randomNumber = Random.Range(0, total);
         print("Random Number: " + randomNumber);
 
@@ -41,7 +39,7 @@ public class ItemDrop : MonoBehaviour
             {
                 print("Award Weight: " + powerupWeights[i]);
                 if (i == 0) return;
-                Instantiate(powerupList[i - 1], transform.position, Quaternion.identity);
+                Instantiate(powerupList[i - 1], positionToSpawn.position, Quaternion.identity);
                 return;
             }
             else

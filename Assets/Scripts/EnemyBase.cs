@@ -13,6 +13,7 @@ public abstract class EnemyBase : MonoBehaviour, IFreezable, IDamageable
     [SerializeField] private int coinsToAdd = 5;
     [SerializeField] private int damageDealt = 1;
     [SerializeField] private float maximumPossibleHealth;
+    [SerializeField] private int enemyPercentageChanceDrop = 50;
 
     protected Collider2D currentCollision;
 
@@ -59,7 +60,7 @@ public abstract class EnemyBase : MonoBehaviour, IFreezable, IDamageable
 
     protected virtual void EnemyDeath()
     {
-        //gameObject.GetComponent<ItemDrop>().DropItem();
+        ItemDrop.Instance.DropItem(transform, enemyPercentageChanceDrop);
         Destroy(gameObject);
     }
 

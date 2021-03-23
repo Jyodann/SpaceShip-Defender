@@ -154,6 +154,7 @@ MonoBehaviour:
   coinsToAdd: 5
   damageDealt: 1
   maximumPossibleHealth: 1
+  enemyPercentageChanceDrop: 10
   asteroidSprites:
   - {fileID: 21300000, guid: 3cf384672452c504ea3ca508bda558e8, type: 3}
   - {fileID: 1456745711685349574, guid: 88f9797a6c3dd8945aaaab801b7bef7d, type: 3}
