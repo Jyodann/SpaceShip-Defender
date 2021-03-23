@@ -12,11 +12,11 @@ GameObject:
   - component: {fileID: 1792604823929072669}
   - component: {fileID: 1792604823929072670}
   - component: {fileID: 4183887228508947664}
-  - component: {fileID: 1425043327267671206}
   - component: {fileID: 277570480552490500}
   - component: {fileID: -5418572063034541169}
+  - component: {fileID: 2520563534150762818}
   m_Layer: 0
-  m_Name: HeartPowerUp
+  m_Name: HeartPowerup
   m_TagString: Powerup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,20 +127,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1425043327267671206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1792604823929072671}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 397105d423790ff4abce3518ac7e920d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  powerUp: 0
-  pickUpPowerUpSound: {fileID: 8300000, guid: a426ecd3af7d9394dbda013239eab3b5, type: 3}
 --- !u!61 &277570480552490500
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -263,3 +249,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2520563534150762818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1792604823929072671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0160a1d03d2f78d44a97c6aef3bc0d13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemDropWeight: 500
+  pickUpPowerUpSound: {fileID: 8300000, guid: a426ecd3af7d9394dbda013239eab3b5, type: 3}

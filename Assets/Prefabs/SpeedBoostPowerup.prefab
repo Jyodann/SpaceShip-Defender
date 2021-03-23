@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 1570822453624242144}
   - component: {fileID: 1570822453624242145}
   - component: {fileID: 1570822453624242146}
-  - component: {fileID: 513425614379362853}
   - component: {fileID: 513425614379362872}
   - component: {fileID: 6435493055472482830}
   - component: {fileID: 8613468583189643378}
+  - component: {fileID: 5596697856508882359}
   m_Layer: 0
   m_Name: SpeedBoostPowerup
   m_TagString: Powerup
@@ -106,20 +106,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &513425614379362853
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1570822453624242147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 397105d423790ff4abce3518ac7e920d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  powerUp: 4
-  pickUpPowerUpSound: {fileID: 8300000, guid: a426ecd3af7d9394dbda013239eab3b5, type: 3}
 --- !u!50 &513425614379362872
 Rigidbody2D:
   serializedVersion: 4
@@ -263,3 +249,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5596697856508882359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1570822453624242147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8665873a10a4309439bdf604048bb3b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemDropWeight: 50
+  pickUpPowerUpSound: {fileID: 0}

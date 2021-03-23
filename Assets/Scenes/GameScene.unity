@@ -357,9 +357,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1416941776}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c5e60e6cb0312d45a0d987bfecb8831, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a649014c63fdba4c8bd253c4671813a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerupList:
+  - {fileID: 2520563534150762818, guid: 606a0936ef8765140bed9bc0c6b05d64, type: 3}
+  - {fileID: -8859011653938128984, guid: cd7c79724c5ecf247a9c23e0546c9ad4, type: 3}
+  - {fileID: 5596697856508882359, guid: 4f84a7658c8930a45bc99db6969fda17, type: 3}
+  - {fileID: -2236096808582431458, guid: 144a4ef6717fac14eadb7f885711297f, type: 3}
+  - {fileID: 3307035540929636100, guid: 54aad314255bc674db67ad05012504ca, type: 3}
+  chanceForNothing: 1000
 --- !u!114 &1444140495 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3712389360617078051, guid: f2965283e626d884dbf10986ebd8c9ac,

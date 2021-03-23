@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 6632155803791073233}
   - component: {fileID: 6632155803791073232}
   - component: {fileID: 6632155803791073235}
-  - component: {fileID: 5685378648657545748}
   - component: {fileID: 5685378648657545737}
   - component: {fileID: 1191763901291158079}
   - component: {fileID: 7289041846412434410}
+  - component: {fileID: -8859011653938128984}
   m_Layer: 0
   m_Name: ScoreBoostIcon
   m_TagString: Powerup
@@ -106,20 +106,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5685378648657545748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6632155803791073234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 397105d423790ff4abce3518ac7e920d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  powerUp: 2
-  pickUpPowerUpSound: {fileID: 8300000, guid: a426ecd3af7d9394dbda013239eab3b5, type: 3}
 --- !u!50 &5685378648657545737
 Rigidbody2D:
   serializedVersion: 4
@@ -263,3 +249,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-8859011653938128984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6632155803791073234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abc3d5d7d17b26444b5e10436b3ad71d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemDropWeight: 200
+  pickUpPowerUpSound: {fileID: 0}

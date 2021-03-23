@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 1363644364021819285}
   - component: {fileID: 1363644364021819284}
   - component: {fileID: 1363644364021819287}
-  - component: {fileID: 1336554064}
   - component: {fileID: 1336554061}
   - component: {fileID: 6804793035347403387}
   - component: {fileID: -7990660080339634434}
+  - component: {fileID: -2236096808582431458}
   m_Layer: 0
   m_Name: TimeFreezePowerup
   m_TagString: Powerup
@@ -106,20 +106,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1336554064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1363644364021819286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 397105d423790ff4abce3518ac7e920d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  powerUp: 3
-  pickUpPowerUpSound: {fileID: 8300000, guid: a426ecd3af7d9394dbda013239eab3b5, type: 3}
 --- !u!50 &1336554061
 Rigidbody2D:
   serializedVersion: 4
@@ -263,3 +249,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-2236096808582431458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1363644364021819286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85614f55ecfbab1499c2dc5558899a2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemDropWeight: 10
+  pickUpPowerUpSound: {fileID: 0}

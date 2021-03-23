@@ -7,6 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class Powerup : MonoBehaviour
 {
+    public int ItemDropWeight = 100;
     [SerializeField] private AudioClip pickUpPowerUpSound;
     private AudioSource audioSource;
     
