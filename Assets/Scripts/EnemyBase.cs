@@ -44,27 +44,15 @@ public abstract class EnemyBase : MonoBehaviour, IFreezable, IDamageable
     ///     as bullets may trigger OnTriggerEnter twice if they are not destoryed on time.
     /// </summary>
     /// <param name="collision"></param>
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-        
-        //Checks if enemy is dead:
-        
-
-        //Detects if player hits the enemy:
-        if (collision.gameObject.CompareTag("Player"))
-            //Checks if the player is invincible due to being recently hit:
-            if (!collision.GetComponent<Player>().isInvincible)
-            {
-                //Deducts health from the player:
-                collision.GetComponent<Player>().TakeDamage(damageDealt);
-                //Destroys the gameObject that the player collides with:
-                Destroy(gameObject);
-            }
+        if (!collision.gameObject.CompareTag("Player")) return;
+        collision.gameObject.GetComponent<IDamageable>().TakeDamage(collision, damageDealt);
+        Destroy(gameObject);
     }
 
     //Helper method to dealDamage to currentEnemy:
-    private void DealDamage(int damageDealt)
+    private void DealDamage(float damageDealt)
     {
         enemyHealth -= damageDealt;
     }
@@ -79,7 +67,7 @@ public abstract class EnemyBase : MonoBehaviour, IFreezable, IDamageable
     public abstract void Unfreeze();
 
 
-    public void TakeDamage(Collider2D collision)
+    public void TakeDamage(Collider2D collision, int dmg)
     {
         currentCollision = collision;
         GameManager.instance.PlayExplosionAnimation(collision.transform,
@@ -89,7 +77,7 @@ public abstract class EnemyBase : MonoBehaviour, IFreezable, IDamageable
             
         //Damages the enemyInstance with currentBullet Damage
            
-        DealDamage(Player.Instance.fireBullets.damageDealt);
+        DealDamage(dmg);
         
         print(Player.Instance.fireBullets.damageDealt);
 

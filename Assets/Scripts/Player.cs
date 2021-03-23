@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
     public static Player Instance;
     //isInvincible is a variable that can be checked by other classes, mainly the enemy class so that the enemy does not damage the player,
@@ -45,22 +45,6 @@ public class Player : MonoBehaviour
         print(fireBullets.damageDealt);
     }
 
-    //Enemies use this method to damage the player, it takes in one parameter of how much damage to apply to the player:
-    public void TakeDamage(int damageTaken)
-    {
-        //This if statement will terminate if the player is invincible so that the player does not take damage:
-        if (isInvincible) return;
-        //StartsCourtine to disable Invincibility after a set amount of time:
-        StartCoroutine(DisableInvincibility(invincibilityLength));
-        //Starts Flicker Coroutine to start the visual of flickering to the player
-        StartCoroutine(Flicker(flickerRate));
-        isInvincible = true;
-        //Calls takeDamage in the GameManager for it to update the HealthBar HUD
-        GameManager.instance.TakeDamage(damageTaken);
-        //Plays animation to show damage taken
-        GameManager.instance.PlayExplosionAnimation(transform, OnDeathAnimation.ExplosionTypes.SmallExplosion);
-    }
-
     private IEnumerator DisableInvincibility(float invincibilityLength)
     {
         //Waits for a number of seconds before disabling the Invincibility, and setting the sprite to the default colour:
@@ -83,5 +67,20 @@ public class Player : MonoBehaviour
             //uses a Ternary operator to set the colour of the sprite to a tranlucent white if isFlickering is true, and reset the colour if false:
             spriteRenderer.color = isFlickering ? new Color(1f, 1f, 1f, 0.2f) : Color.white;
         }
+    }
+
+    public void TakeDamage(Collider2D collision, int damageDealt)
+    {
+        //This if statement will terminate if the player is invincible so that the player does not take damage:
+        if (isInvincible) return;
+        //StartsCourtine to disable Invincibility after a set amount of time:
+        StartCoroutine(DisableInvincibility(invincibilityLength));
+        //Starts Flicker Coroutine to start the visual of flickering to the player
+        StartCoroutine(Flicker(flickerRate));
+        isInvincible = true;
+        //Calls takeDamage in the GameManager for it to update the HealthBar HUD
+        GameManager.instance.TakeDamage(damageDealt);
+        //Plays animation to show damage taken
+        GameManager.instance.PlayExplosionAnimation(transform, OnDeathAnimation.ExplosionTypes.SmallExplosion);
     }
 }
