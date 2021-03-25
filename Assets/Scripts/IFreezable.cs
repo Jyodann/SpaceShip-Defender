@@ -1,6 +1,4 @@
 ﻿public interface IFreezable
 {
-    void OnFreeze();
-
-    void Unfreeze();
+    void IsFrozen(bool frozenState);
 }

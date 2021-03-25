@@ -523,6 +523,24 @@ LightingSettings:
   m_PVRFilteringAtrousPositionSigmaDirect: 0.5
   m_PVRFilteringAtrousPositionSigmaIndirect: 2
   m_PVRFilteringAtrousPositionSigmaAO: 1
+--- !u!1 &1674046619 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1416941776, guid: bbcdd9a2e7be351449d00a2dff305921,
+    type: 3}
+  m_PrefabInstance: {fileID: 1133721369659782979}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1674046620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674046619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db2a4338b6a75dd49ae8091d5aa81079, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1712561597 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6303757229377369279, guid: f2965283e626d884dbf10986ebd8c9ac,

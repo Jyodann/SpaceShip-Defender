@@ -17,6 +17,7 @@ public abstract class EnemyBase : MonoBehaviour, IFreezable, IDamageable
 
     protected Collider2D currentCollision;
 
+    protected bool isFrozen;
     //isDead is boolean that temporarily stores a death state so that the deathAnimation does not play more
     //than once
     //private bool isDead;
@@ -64,9 +65,11 @@ public abstract class EnemyBase : MonoBehaviour, IFreezable, IDamageable
         ItemDrop.Instance.DropItem(transform, enemyPercentageChanceDrop);
         Destroy(gameObject);
     }
-
-    public abstract void OnFreeze();
-    public abstract void Unfreeze();
+    
+    public void IsFrozen(bool frozenState)
+    {
+        isFrozen = frozenState;
+    }
     
     public void TakeDamage(Collider2D collision, int dmg)
     {
