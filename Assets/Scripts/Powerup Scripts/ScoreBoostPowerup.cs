@@ -9,7 +9,7 @@ namespace Powerup_Scripts
         {
             base.TriggerPowerUpEffect();
             //Tells game manager to add DoubleScore:
-            GameManager.instance.ChangeDoubleScore(true);
+            GameManager.Instance.ChangeDoubleScore(true);
             //Starts Coroutine to reset double score after 10 seconds:
             StartCoroutine(ResetDoubleScore(10f));
         }
@@ -18,7 +18,7 @@ namespace Powerup_Scripts
         {
             StartCoroutine(DisableThenDestroy(resetDelay));
             yield return new WaitForSecondsRealtime(resetDelay);
-            GameManager.instance.ChangeDoubleScore(false);
+            GameManager.Instance.ChangeDoubleScore(false);
         }
     }
 }

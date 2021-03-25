@@ -6,7 +6,7 @@ namespace Powerup_Scripts
         {
             base.TriggerPowerUpEffect();
         
-            GameManager.instance.AddLives(1);
+            GameManager.Instance.AddLives(1);
         
             StartCoroutine(DisableThenDestroy(2f));
         }

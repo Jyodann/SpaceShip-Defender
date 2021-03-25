@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
     /// <summary>
     ///     Why are there 3 different managers?
@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
 
     //Makes new instance of gameManager, not initialised as it uses a Singleton pattern similar to the one found in:
     //https://learn.unity.com/tutorial/level-generation?uv=5.x&projectId=5c514a00edbc2a0020694718#5c7f8528edbc2a002053b6f7 (2D RougueLike tutorial)
-    public static GameManager instance;
+   
 
     //Declares a static to store highScore for this instance of the game:
     private static int highScore;
@@ -43,7 +43,8 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverMenu;
 
     public GameObject pauseMenu;
-
+    
+    public bool IsTimeFrozen = false;
     //Setting Eumn to allow player to change Control mode
 
 
@@ -83,7 +84,7 @@ public class GameManager : MonoBehaviour
     public bool isPaused { get; set; }
 
     //isTimeFrozen is responsible for the TimeFreeze powerup, it stops SpawnManagement from spawnning objects:
-    public bool IsTimeFrozen { get; set; }
+    //public bool IsTimeFrozen { get; set; }
 
     private ActivityManager activityManager;
 
@@ -100,12 +101,9 @@ public class GameManager : MonoBehaviour
         Lives = 10;
         Coins = 0;
         Score = 0;
-
-        //Uses a SingleTon pattern for GameManager, code based off: https://learn.unity.com/tutorial/level-generation?uv=5.x&projectId=5c514a00edbc2a0020694718#5c7f8528edbc2a002053b6f7 (2D RougueLike tutorial)
+        
         startTime = DateTimeOffset.Now.ToUnixTimeSeconds();
-        if (instance == null)
-            instance = this;
-        else if (instance != this) Destroy(gameObject);
+
 
         /**
         activityManager = DiscordRPC.Instance.discord.GetActivityManager();
@@ -373,13 +371,7 @@ public class GameManager : MonoBehaviour
         Lives = Mathf.Clamp(Lives, 0, 9999);
         livesText.text = Lives.ToString().PadLeft(2, '0');
     }
-
-    //Change Time Freeze is used by PowerUpScript to manage timeFreeze powerup:
-    public void ChangeTimeFreeze(bool isEnabled)
-    {
-        IsTimeFrozen = isEnabled;
-    }
-
+    
     //Double Score is used by PowerupScript to manage DoubelScore powerup:
     public void ChangeDoubleScore(bool isEnabled)
     {

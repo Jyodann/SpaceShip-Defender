@@ -10,8 +10,9 @@ namespace Powerup_Scripts
         {
             base.TriggerPowerUpEffect();
             
+            
             //Tells game manager that time is Frozen:
-            GameManager.instance.ChangeTimeFreeze(true);
+            GameManager.Instance.IsTimeFrozen = true;
             //Gets all the game objects on screen:
             var asteroids = GameObject.FindGameObjectsWithTag("Asteroid");
             var aliens = GameObject.FindGameObjectsWithTag("Alien");
@@ -32,7 +33,7 @@ namespace Powerup_Scripts
         {
             StartCoroutine(DisableThenDestroy(resetDelay));
             yield return new WaitForSecondsRealtime(resetDelay);
-            GameManager.instance.ChangeTimeFreeze(false);
+            GameManager.Instance.IsTimeFrozen = false;
 
             //Gets all the objects that are currently frozen:
             var asteroids = GameObject.FindGameObjectsWithTag("Asteroid");

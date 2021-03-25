@@ -79,8 +79,8 @@ public class Player : MonoBehaviour, IDamageable
         StartCoroutine(Flicker(flickerRate));
         isInvincible = true;
         //Calls takeDamage in the GameManager for it to update the HealthBar HUD
-        GameManager.instance.TakeDamage(damageDealt);
+        GameManager.Instance.TakeDamage(damageDealt);
         //Plays animation to show damage taken
-        GameManager.instance.PlayExplosionAnimation(transform, OnDeathAnimation.ExplosionTypes.SmallExplosion);
+        GameManager.Instance.PlayExplosionAnimation(transform, OnDeathAnimation.ExplosionTypes.SmallExplosion);
     }
 }

@@ -26,7 +26,7 @@ public abstract class EnemyBase : MonoBehaviour, IFreezable, IDamageable
 
     private void Awake()
     {
-        transform.parent = GameManager.instance.EnemyParent;
+        transform.parent = GameManager.Instance.EnemyParent;
     }
 
     public virtual void Start()
@@ -71,7 +71,7 @@ public abstract class EnemyBase : MonoBehaviour, IFreezable, IDamageable
     public void TakeDamage(Collider2D collision, int dmg)
     {
         currentCollision = collision;
-        GameManager.instance.PlayExplosionAnimation(collision.transform,
+        GameManager.Instance.PlayExplosionAnimation(collision.transform,
             OnDeathAnimation.ExplosionTypes.SmallExplosion);
         //Triggers the gameManager to play the smallExplosion effect on the landing, but not killing the
         //asteroid
@@ -87,15 +87,15 @@ public abstract class EnemyBase : MonoBehaviour, IFreezable, IDamageable
         //sets the isDead boolean to true, so the animation code does not run twice
             
         //Adds coins earned from enemy to currentCoins in game session
-        GameManager.instance.AddCoins(coinsToAdd);
+        GameManager.Instance.AddCoins(coinsToAdd);
 
         //Checks if "DoubleScore" powerup is activated
-        if (GameManager.instance.isDoubleScore)
+        if (GameManager.Instance.isDoubleScore)
             //Adds double the score of enemy the currentScore in Game session
-            GameManager.instance.AddScore(scoreToAdd * 2);
+            GameManager.Instance.AddScore(scoreToAdd * 2);
         else
             //Adds normal the score of enemy the currentScore in Game session
-            GameManager.instance.AddScore(scoreToAdd);
+            GameManager.Instance.AddScore(scoreToAdd);
             
         EnemyDeath();
     }

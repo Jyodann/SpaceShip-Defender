@@ -81,14 +81,14 @@ public class AsteroidScript : EnemyBase
                 var mediumAsteroidsToSpawn = Random.Range(1, 4);
                 //Instantiates based on random number, on the current asteroid's position
                 for (var i = 0; i < mediumAsteroidsToSpawn; i++)
-                    Instantiate(asteroidToSpawn, transform.position, Quaternion.identity, GameManager.instance.EnemyParent);
+                    Instantiate(asteroidToSpawn, transform.position, Quaternion.identity, GameManager.Instance.EnemyParent);
                 break;
 
             case AsteroidSize.Medium:
                 //Same logic as above.
                 var smallAsteroidsToSpawn = Random.Range(1, 6);
                 for (var i = 0; i < smallAsteroidsToSpawn; i++)
-                    Instantiate(asteroidToSpawn, transform.position, Quaternion.identity, GameManager.instance.EnemyParent);
+                    Instantiate(asteroidToSpawn, transform.position, Quaternion.identity, GameManager.Instance.EnemyParent);
                 break;
         }
 
@@ -97,7 +97,7 @@ public class AsteroidScript : EnemyBase
 
     protected override void EnemyDeath()
     {
-        GameManager.instance.PlayExplosionAnimation(currentCollision.transform,
+        GameManager.Instance.PlayExplosionAnimation(currentCollision.transform,
             OnDeathAnimation.ExplosionTypes.BigExplosion);
         //trigger's the asteroid's spawnChildAsteroids method to break the asteroid:
         gameObject.GetComponent<AsteroidScript>().SpawnChildAsteroids();

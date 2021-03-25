@@ -55,7 +55,7 @@ public class FireBullets : MonoBehaviour
         while (true)
         {
             //If game is paused, disallows any other action to occur:
-            while (GameManager.instance.isPaused) yield return null;
+            while (GameManager.Instance.isPaused) yield return null;
             //If Fire1 (MouseLeft) is held, then it starts to fire:
             if (Input.GetButton("Fire1"))
             {

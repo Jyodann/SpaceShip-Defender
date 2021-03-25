@@ -53,7 +53,7 @@ public class UpgradeManagement : MonoBehaviour
         //Detects if they have reached the final upgrade:
         if (currentUpgradeIndex == upgrades.Count) return;
         //Detects if the nextUpgrade is possible based on amount of money left:
-        if (upgrades[currentUpgradeIndex].UpgradeCost > GameManager.instance.Coins) return;
+        if (upgrades[currentUpgradeIndex].UpgradeCost > GameManager.Instance.Coins) return;
         //If it is possible, set the Text the have the next upgrade name:
         currentUpgrade = upgrades[currentUpgradeIndex];
 
@@ -80,7 +80,7 @@ public class UpgradeManagement : MonoBehaviour
         //Changes upgradeIndex to next one:
         currentUpgradeIndex++;
         //Deducts coins from the game manager:
-        GameManager.instance.AddCoins(-currentUpgrade.UpgradeCost);
+        GameManager.Instance.AddCoins(-currentUpgrade.UpgradeCost);
         //Upgrade text changes to empty string as no upgrades are possible:
         upgradeText.text = string.Empty;
         upgradeButton.gameObject.SetActive(false);

@@ -19,10 +19,7 @@ public class Powerup : MonoBehaviour
         //Caches object's rigidBody:
         rb = GetComponent<Rigidbody2D>();
         //Decides a random direction the powerup floats to:
-        if (Random.Range(0, 2) == 1)
-            rb.velocity = new Vector2(10, 10);
-        else
-            rb.velocity = new Vector2(-10, -10);
+        rb.velocity = new Vector2(Random.Range(-20f, 20f), Random.Range(-20f, 20f));
     }
 
     private void OnTriggerStay2D(Collider2D collision)

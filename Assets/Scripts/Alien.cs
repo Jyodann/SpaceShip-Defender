@@ -42,8 +42,6 @@ public class Alien : EnemyBase
 
     protected override void EnemyDeath()
     {
-        GameManager.instance.PlayExplosionAnimation(currentCollision.transform,
-            OnDeathAnimation.ExplosionTypes.BigExplosion);
         base.EnemyDeath();
     }
 

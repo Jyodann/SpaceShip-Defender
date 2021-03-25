@@ -45,7 +45,7 @@ public class UFO : EnemyBase
 
     protected override void EnemyDeath()
     {
-        GameManager.instance.PlayExplosionAnimation(currentCollision.transform,
+        GameManager.Instance.PlayExplosionAnimation(currentCollision.transform,
             OnDeathAnimation.ExplosionTypes.UfoExplosion);
         base.EnemyDeath();
     }

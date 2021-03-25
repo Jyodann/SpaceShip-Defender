@@ -31,11 +31,9 @@ public class SpawningManagement : MonoBehaviour
      * OnStart, this Manager gets the player's current location and stores it in memory.
      * It also starts the CoRoutine CheckDifficulty so the spawnning will begin
     */
-
+    
     private void Start()
     {
-        //Finds the player and gets the currentTransform:
-        
         StartCoroutine(CheckDifficulty(false));
     }
 
@@ -57,10 +55,10 @@ public class SpawningManagement : MonoBehaviour
             //While condition checks if 1. Game is Paused OR 2. Time Freeze Powerup is active.
             //It stops this enumerator from running temporarily.
             //This code is taken from https://answers.unity.com/questions/904429/pause-and-resume-coroutine-1.html
-            while (GameManager.instance.isPaused || GameManager.instance.IsTimeFrozen) yield return null;
+            while (GameManager.Instance.isPaused || GameManager.Instance.IsTimeFrozen) yield return null;
 
             //Difficulty Factor is Calculated with a pre-determined formula of Score/250:
-            var difficultyFactor = GameManager.instance.Score / 250;
+            var difficultyFactor = GameManager.Instance.Score / 250;
 
             //actual factor (used to tune game Health, and spawn rates) is calculated with this formula:
             // factor = (1.05 ^ difficultyFactor - 1)
@@ -99,11 +97,11 @@ public class SpawningManagement : MonoBehaviour
                 coroutineList.Add(StartCoroutine(Spawner(asteroidObjects, Player.Instance.transform, asteroidSpawn, 25f,
                     50f)));
 
-                if (GameManager.instance.Score >= ScoreToSpawnAliens)
+                if (GameManager.Instance.Score >= ScoreToSpawnAliens)
                     //Starts spawnning Aliens after score is more than 500, and adds it to the coroutine List:
                     coroutineList.Add(StartCoroutine(Spawner(alienObjects, Player.Instance.transform, alienSpawn, 40f,
                         80f)));
-                if (GameManager.instance.Score >= ScoreToSpawnUFO)
+                if (GameManager.Instance.Score >= ScoreToSpawnUFO)
                     //Starts spawnning UFOs after score is more than 1500, and adds it to the coroutine List:
                     coroutineList.Add(StartCoroutine(Spawner(ufoObjects,
                         ufoSpawnLocations[Random.Range(0, ufoSpawnLocations.Length)], ufoSpawn, 1f, 4f)));
@@ -137,7 +135,7 @@ public class SpawningManagement : MonoBehaviour
         {
             //Pauses method call when Game is paused or TimeFreeze Powerup is active.
             //This code is taken from https://answers.unity.com/questions/904429/pause-and-resume-coroutine-1.html
-            while (GameManager.instance.isPaused || GameManager.instance.IsTimeFrozen) yield return null;
+            while (GameManager.Instance.isPaused || GameManager.Instance.IsTimeFrozen) yield return null;
             //Chooses a randomObject from the objectsToSpawn array to spawn:
             var objectToSpawn = objectsToSpawn[Random.Range(0, objectsToSpawn.Length)];
 
