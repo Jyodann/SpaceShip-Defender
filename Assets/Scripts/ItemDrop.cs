@@ -4,9 +4,9 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class ItemDrop : MonoBehaviour
+public class ItemDrop : Singleton<ItemDrop>
 {
-    public static ItemDrop Instance;
+    
     //Powerups Prefabs are all dragged into this list, so a random powerup can be picked to spawn
     [SerializeField] private Powerup[] powerupList;
 
@@ -14,9 +14,6 @@ public class ItemDrop : MonoBehaviour
     private int total;
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
-
         powerupWeights = powerupList.OrderByDescending(x => x.ItemDropWeight).Select(x => x.ItemDropWeight).ToList();
         total = powerupWeights.Sum(x => x);
     }

@@ -4,24 +4,11 @@ using System.Collections.Generic;
 using Discord;
 using UnityEngine;
 
-public class DiscordRPC : MonoBehaviour
+public class DiscordRPC : Singleton<DiscordRPC>
 {
-    public static DiscordRPC Instance;
     public Discord.Discord discord;
     private ActivityManager activityManager;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(Instance);
-        }
-    }
-
+    
     void Start()
     {
         discord = new Discord.Discord(750020541259448391, (ulong)Discord.CreateFlags.Default);
