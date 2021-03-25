@@ -6,55 +6,18 @@ namespace Powerup_Scripts
     {
         protected override void TriggerPowerUpEffect()
         {
-            base.TriggerPowerUpEffect();
-
-
             //Tells game manager that time is Frozen:
             GameManager.Instance.IsTimeFrozen = true;
 
             foreach (Transform enemy in GameManager.Instance.EnemyParent)
                 enemy.GetComponent<IFreezable>()?.IsFrozen(true);
+            base.TriggerPowerUpEffect();
         }
 
-        private void OldFreezeMethod()
+        public override void ResetPowerupEffect()
         {
-            //Gets all the game objects on screen:
-            var asteroids = GameObject.FindGameObjectsWithTag("Asteroid");
-            var aliens = GameObject.FindGameObjectsWithTag("Alien");
-            var ufos = GameObject.FindGameObjectsWithTag("UFO");
-
-            //Handles asteroids by changing their velocity to 0:
-            foreach (var asteroid in asteroids) asteroid.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-            //Handles every ailen object by setting "isFrozen" to be true:
-            //foreach (var alien in aliens) alien.GetComponent<Alien>().isFrozen = true;
-            //Handles UFO objects by setting alien Spawning to be false:
-            //foreach (var ufo in ufos) ufo.GetComponent<UFO>().isAlienSpawn = false;
-
-            //Starts Coroutine to reset time freeze after 5 seconds:
-
-            //StartCoroutine(ResetTimeFreeze(5f));
+            foreach (Transform enemy in GameManager.Instance.EnemyParent)
+                enemy.GetComponent<IFreezable>()?.IsFrozen(false);
         }
-
-        /*
-        private IEnumerator ResetTimeFreeze(float resetDelay)
-        {
-            StartCoroutine(DisableThenDestroy(resetDelay));
-            yield return new WaitForSecondsRealtime(resetDelay);
-            GameManager.Instance.IsTimeFrozen = false;
-
-            //Gets all the objects that are currently frozen:
-            var asteroids = GameObject.FindGameObjectsWithTag("Asteroid");
-            var aliens = GameObject.FindGameObjectsWithTag("Alien");
-            var ufos = GameObject.FindGameObjectsWithTag("UFO");
-
-            //Resets velocity of asteroid:
-            foreach (var asteroid in asteroids)
-                asteroid.GetComponent<Rigidbody2D>().velocity = asteroid.GetComponent<AsteroidScript>().originalVelocity;
-            //Resets alien isFrozen to false so they start moving again:s
-            foreach (var alien in aliens) alien.GetComponent<Alien>().isFrozen = false;
-            //Allows UFOs to start spawning aliens again:
-            foreach (var ufo in ufos) ufo.GetComponent<UFO>().isAlienSpawn = true;
-        }
-        */
     }
 }

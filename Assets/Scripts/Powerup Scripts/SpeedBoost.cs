@@ -22,5 +22,10 @@ namespace Powerup_Scripts
             yield return new WaitForSecondsRealtime(resetDelay);
             Player.Instance.shipController.ChangeSpeed(75f);
         }
+
+        public override void ResetPowerupEffect()
+        {
+            Player.Instance.shipController.ChangeSpeed(75f);
+        }
     }
 }

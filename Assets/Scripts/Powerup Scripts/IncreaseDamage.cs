@@ -1,27 +1,25 @@
 using System.Collections;
 using UnityEngine;
 
-public class IncreaseDamage : Powerup
+namespace Powerup_Scripts
 {
-    //used to track the ship's damage BEFORE the powerup changes it:
-    private int initialDamageDealt;
-
-    protected override void TriggerPowerUpEffect()
+    public class IncreaseDamage : Powerup
     {
-        base.TriggerPowerUpEffect();
+        //used to track the ship's damage BEFORE the powerup changes it:
+        private int initialDamageDealt;
 
-        //Temporarily stores the initialDamage from the FireBullets component:
-        initialDamageDealt = Player.Instance.fireBullets.damageDealt;
-        //Changes the damage dealt by bullets to be 2 more than current value:
-        Player.Instance.fireBullets.damageDealt += 2;
-        //Starts Coroutine to reset damage after 10 seconds
-        StartCoroutine(ResetPlayerDamage(10f));
-    }
+        protected override void TriggerPowerUpEffect()
+        {
+            //Temporarily stores the initialDamage from the FireBullets component:
+            initialDamageDealt = Player.Instance.fireBullets.damageDealt;
 
-    private IEnumerator ResetPlayerDamage(float resetDelay)
-    {
-        StartCoroutine(DisableThenDestroy(resetDelay));
-        yield return new WaitForSecondsRealtime(resetDelay);
-        Player.Instance.fireBullets.damageDealt = initialDamageDealt;
+            Player.Instance.fireBullets.damageDealt += 2;
+            base.TriggerPowerUpEffect();
+        }
+
+        public override void ResetPowerupEffect()
+        {
+            Player.Instance.fireBullets.damageDealt = initialDamageDealt;
+        }
     }
 }

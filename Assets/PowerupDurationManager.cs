@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class PowerupDurationManager : Singleton<PowerupDurationManager>
 {
@@ -14,6 +15,13 @@ public class PowerupDurationManager : Singleton<PowerupDurationManager>
     // Update is called once per frame
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            foreach (var timing in timings)
+            {
+                timing.Key.ResetPowerupEffect();
+            }
+        }
         if (triggerCheck)
         {
         }
