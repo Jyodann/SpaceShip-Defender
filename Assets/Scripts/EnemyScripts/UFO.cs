@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Linq.Expressions;
 using UnityEngine;
 
 namespace EnemyScripts
@@ -14,7 +13,7 @@ namespace EnemyScripts
 
         //UFO De-spawn timer (Changes when UFO automatically disappears):
         [SerializeField] private float ufoDespawnRate = 40f;
-        
+
         //Uses an ailen prefab for spawnning aliens:
         [SerializeField] private GameObject alienObject;
 
@@ -49,6 +48,5 @@ namespace EnemyScripts
                 OnDeathAnimation.ExplosionTypes.UfoExplosion);
             base.EnemyDeath();
         }
-        
     }
 }

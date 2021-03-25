@@ -36,7 +36,7 @@ public class FireBullets : MonoBehaviour
     public int damageDealt = 10;
 
     //Stores an audioSource as a global variable so it can play the LazerShot sound
-    
+
 
     private void Start()
     {

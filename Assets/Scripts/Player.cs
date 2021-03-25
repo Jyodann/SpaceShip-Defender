@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class Player : Singleton<Player>, IDamageable
@@ -12,6 +11,8 @@ public class Player : Singleton<Player>, IDamageable
     [SerializeField] private float flickerRate = 0.3f;
 
     [SerializeField] private float invincibilityLength = 2f;
+    public FireBullets fireBullets;
+    public ShipController shipController;
 
     //isFlickering is a variable that toggles on and off to simulate the flickering of the sprite
     //this is used as a visual indicator for the player to know that they are invincible
@@ -19,8 +20,6 @@ public class Player : Singleton<Player>, IDamageable
 
     //Sprite renderer is cached so changes can be made to it's alpha to simulate flickering
     private SpriteRenderer spriteRenderer;
-    public FireBullets fireBullets;
-    public ShipController shipController;
 
 
     private void Start()
@@ -29,8 +28,23 @@ public class Player : Singleton<Player>, IDamageable
 
         fireBullets = GetComponent<FireBullets>();
         shipController = GetComponent<ShipController>();
-        
+
         //print(fireBullets.damageDealt);
+    }
+
+    public void TakeDamage(Collider2D collision, int damageDealt)
+    {
+        //This if statement will terminate if the player is invincible so that the player does not take damage:
+        if (isInvincible) return;
+        //StartsCourtine to disable Invincibility after a set amount of time:
+        StartCoroutine(DisableInvincibility(invincibilityLength));
+        //Starts Flicker Coroutine to start the visual of flickering to the player
+        StartCoroutine(Flicker(flickerRate));
+        isInvincible = true;
+        //Calls takeDamage in the GameManager for it to update the HealthBar HUD
+        GameManager.Instance.TakeDamage(damageDealt);
+        //Plays animation to show damage taken
+        GameManager.Instance.PlayExplosionAnimation(transform, OnDeathAnimation.ExplosionTypes.SmallExplosion);
     }
 
     private IEnumerator DisableInvincibility(float invincibilityLength)
@@ -55,20 +69,5 @@ public class Player : Singleton<Player>, IDamageable
             //uses a Ternary operator to set the colour of the sprite to a tranlucent white if isFlickering is true, and reset the colour if false:
             spriteRenderer.color = isFlickering ? new Color(1f, 1f, 1f, 0.2f) : Color.white;
         }
-    }
-
-    public void TakeDamage(Collider2D collision, int damageDealt)
-    {
-        //This if statement will terminate if the player is invincible so that the player does not take damage:
-        if (isInvincible) return;
-        //StartsCourtine to disable Invincibility after a set amount of time:
-        StartCoroutine(DisableInvincibility(invincibilityLength));
-        //Starts Flicker Coroutine to start the visual of flickering to the player
-        StartCoroutine(Flicker(flickerRate));
-        isInvincible = true;
-        //Calls takeDamage in the GameManager for it to update the HealthBar HUD
-        GameManager.Instance.TakeDamage(damageDealt);
-        //Plays animation to show damage taken
-        GameManager.Instance.PlayExplosionAnimation(transform, OnDeathAnimation.ExplosionTypes.SmallExplosion);
     }
 }

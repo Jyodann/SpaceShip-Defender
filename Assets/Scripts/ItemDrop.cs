@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class ItemDrop : Singleton<ItemDrop>
 {
-    
     //Powerups Prefabs are all dragged into this list, so a random powerup can be picked to spawn
     public Powerup[] powerupList;
 
     private List<int> powerupWeights;
     private int total;
+
     private void Awake()
     {
         powerupWeights = powerupList.OrderByDescending(x => x.ItemDropWeight).Select(x => x.ItemDropWeight).ToList();
@@ -30,8 +28,7 @@ public class ItemDrop : Singleton<ItemDrop>
         var randomNumber = Random.Range(0, total);
         //print("Random Number: " + randomNumber);
 
-        for (int i = 0; i < powerupWeights.Count; i++)
-        {
+        for (var i = 0; i < powerupWeights.Count; i++)
             if (randomNumber <= powerupWeights[i])
             {
                 //print("Award Weight: " + powerupWeights[i]);
@@ -43,6 +40,5 @@ public class ItemDrop : Singleton<ItemDrop>
             {
                 randomNumber -= powerupWeights[i];
             }
-        }
     }
 }

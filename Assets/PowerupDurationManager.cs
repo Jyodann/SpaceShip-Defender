@@ -1,28 +1,21 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class PowerupDurationManager : Singleton<PowerupDurationManager>
 {
     public bool triggerCheck;
-    private Dictionary<string, float> timings = new Dictionary<string, float>() ;
-    
+    private readonly Dictionary<Powerup, float> timings = new Dictionary<Powerup, float>();
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        foreach (var powerup in ItemDrop.Instance.powerupList)
-        {
-            timings[powerup.name] = 0;
-        }
+        foreach (var powerup in ItemDrop.Instance.powerupList) timings[powerup] = 0;
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (triggerCheck)
         {
-            
         }
     }
 }

@@ -24,7 +24,6 @@ public class GameManager : Singleton<GameManager>
 
     //Makes new instance of gameManager, not initialised as it uses a Singleton pattern similar to the one found in:
     //https://learn.unity.com/tutorial/level-generation?uv=5.x&projectId=5c514a00edbc2a0020694718#5c7f8528edbc2a002053b6f7 (2D RougueLike tutorial)
-   
 
     //Declares a static to store highScore for this instance of the game:
     private static int highScore;
@@ -43,15 +42,17 @@ public class GameManager : Singleton<GameManager>
     public GameObject gameOverMenu;
 
     public GameObject pauseMenu;
-    
-    public bool IsTimeFrozen = false;
+
+    public bool IsTimeFrozen;
     //Setting Eumn to allow player to change Control mode
 
 
     public bool flipControls;
-    
+
     //List that stores all the available background music:
     public List<AudioClip> backgroundMusic;
+
+    public Transform EnemyParent;
 
     //A static bool to track whether audio should be muted:
 
@@ -62,11 +63,18 @@ public class GameManager : Singleton<GameManager>
     private readonly string[] backgroundColourList =
         {"#0C2A46", "#4F106F", "#000000", "#500000", "#053D24", "#3C0527", "#221F21", "#41170F"};
 
+    //isTimeFrozen is responsible for the TimeFreeze powerup, it stops SpawnManagement from spawnning objects:
+    //public bool IsTimeFrozen { get; set; }
+
+    private ActivityManager activityManager;
+
     //Keeps track of the current session's gameState:
     private GameState currentGameState;
 
     //Keeps a reference to the deathAnimation player
     private OnDeathAnimation deathAnimationManager;
+
+    private long startTime;
 
     //private health property used within this Script only:
     private int Lives { get; set; }
@@ -83,15 +91,6 @@ public class GameManager : Singleton<GameManager>
     //isPaused keeps Pause State, read by FireBullets and SpawningManagement
     public bool isPaused { get; set; }
 
-    //isTimeFrozen is responsible for the TimeFreeze powerup, it stops SpawnManagement from spawnning objects:
-    //public bool IsTimeFrozen { get; set; }
-
-    private ActivityManager activityManager;
-
-    private Int64 startTime;
-
-    public Transform EnemyParent;
-
     private void Awake()
     {
         //Get saved hi-Score from PlayerPrefs:
@@ -101,7 +100,7 @@ public class GameManager : Singleton<GameManager>
         Lives = 10;
         Coins = 0;
         Score = 0;
-        
+
         startTime = DateTimeOffset.Now.ToUnixTimeSeconds();
 
 
@@ -124,27 +123,6 @@ public class GameManager : Singleton<GameManager>
         **/
     }
 
-    IEnumerator UpdateDiscord()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(10f);
-            activityManager.ClearActivity(result => { });
-            var activity = new Discord.Activity()
-            {
-                Details = "Defending Ship",
-                State = $"Current Score: {Score}",
-                Timestamps =
-                {
-                    Start = startTime
-                }
-            };
-        
-            activityManager.UpdateActivity(activity, result => { if (result == Result.Ok) Debug.Log("Discord status set");});
-            
-        }
-    }
-
     private void Start()
     {
         Color backgroundColour;
@@ -161,35 +139,16 @@ public class GameManager : Singleton<GameManager>
         coinsText.text = Coins.ToString().PadLeft(4, '0');
         livesText.text = Lives.ToString().PadLeft(2, '0');
         scoreText.text = Score.ToString().PadLeft(8, '0');
-        
+
         scoreBoostText.text = string.Empty;
 
-        if (SettingsHelper.CurrentControlMode == SettingsHelper.ControlMode.MobileInput)
-        {
-            joystickUI.SetActive(true);
-        }
+        if (SettingsHelper.CurrentControlMode == SettingsHelper.ControlMode.MobileInput) joystickUI.SetActive(true);
     }
 
-    private void OnDestroy()
-    {
-        /*
-        var activity = new Discord.Activity()
-        {
-            Details = "On the main menu",
-            State = "Playing Spaceship Defender"
-        };
-        activityManager.UpdateActivity(activity, result => { if (result == Result.Ok) Debug.Log("Discord status set");});
-        */
-    }
-    
-    
 
     private void Update()
     {
-        if (SettingsHelper.CurrentControlMode != SettingsHelper.ControlMode.MobileInput)
-        {
-            joystickUI.SetActive(false);
-        }
+        if (SettingsHelper.CurrentControlMode != SettingsHelper.ControlMode.MobileInput) joystickUI.SetActive(false);
         //Mutes/Unmutes the game by pausing the Global Audio listener:
         AudioListener.pause = !SettingsHelper.IsMusicOn;
 
@@ -246,6 +205,41 @@ public class GameManager : Singleton<GameManager>
 
                 if (Input.GetKeyDown(KeyCode.Escape)) GoToMainMenu();
                 break;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        /*
+        var activity = new Discord.Activity()
+        {
+            Details = "On the main menu",
+            State = "Playing Spaceship Defender"
+        };
+        activityManager.UpdateActivity(activity, result => { if (result == Result.Ok) Debug.Log("Discord status set");});
+        */
+    }
+
+    private IEnumerator UpdateDiscord()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(10f);
+            activityManager.ClearActivity(result => { });
+            var activity = new Activity
+            {
+                Details = "Defending Ship",
+                State = $"Current Score: {Score}",
+                Timestamps =
+                {
+                    Start = startTime
+                }
+            };
+
+            activityManager.UpdateActivity(activity, result =>
+            {
+                if (result == Result.Ok) Debug.Log("Discord status set");
+            });
         }
     }
 
@@ -371,7 +365,7 @@ public class GameManager : Singleton<GameManager>
         Lives = Mathf.Clamp(Lives, 0, 9999);
         livesText.text = Lives.ToString().PadLeft(2, '0');
     }
-    
+
     //Double Score is used by PowerupScript to manage DoubelScore powerup:
     public void ChangeDoubleScore(bool isEnabled)
     {

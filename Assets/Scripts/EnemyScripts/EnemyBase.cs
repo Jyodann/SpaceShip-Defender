@@ -53,6 +53,43 @@ public abstract class EnemyBase : MonoBehaviour, IFreezable, IDamageable
         Destroy(gameObject);
     }
 
+    public void TakeDamage(Collider2D collision, int dmg)
+    {
+        currentCollision = collision;
+        GameManager.Instance.PlayExplosionAnimation(collision.transform,
+            OnDeathAnimation.ExplosionTypes.SmallExplosion);
+        //Triggers the gameManager to play the smallExplosion effect on the landing, but not killing the
+        //asteroid
+
+        //Damages the enemyInstance with currentBullet Damage
+
+        DealDamage(dmg);
+
+        //print(Player.Instance.fireBullets.damageDealt);
+
+        if (!(enemyHealth <= 0)) return;
+
+        //sets the isDead boolean to true, so the animation code does not run twice
+
+        //Adds coins earned from enemy to currentCoins in game session
+        GameManager.Instance.AddCoins(coinsToAdd);
+
+        //Checks if "DoubleScore" powerup is activated
+        if (GameManager.Instance.isDoubleScore)
+            //Adds double the score of enemy the currentScore in Game session
+            GameManager.Instance.AddScore(scoreToAdd * 2);
+        else
+            //Adds normal the score of enemy the currentScore in Game session
+            GameManager.Instance.AddScore(scoreToAdd);
+
+        EnemyDeath();
+    }
+
+    public void IsFrozen(bool frozenState)
+    {
+        isFrozen = frozenState;
+    }
+
     //Helper method to dealDamage to currentEnemy:
     private void DealDamage(float damageDealt)
     {
@@ -64,42 +101,5 @@ public abstract class EnemyBase : MonoBehaviour, IFreezable, IDamageable
         //Add Audio To play here
         ItemDrop.Instance.DropItem(transform, enemyPercentageChanceDrop);
         Destroy(gameObject);
-    }
-    
-    public void IsFrozen(bool frozenState)
-    {
-        isFrozen = frozenState;
-    }
-    
-    public void TakeDamage(Collider2D collision, int dmg)
-    {
-        currentCollision = collision;
-        GameManager.Instance.PlayExplosionAnimation(collision.transform,
-            OnDeathAnimation.ExplosionTypes.SmallExplosion);
-        //Triggers the gameManager to play the smallExplosion effect on the landing, but not killing the
-        //asteroid
-            
-        //Damages the enemyInstance with currentBullet Damage
-           
-        DealDamage(dmg);
-        
-        //print(Player.Instance.fireBullets.damageDealt);
-
-        if (!(enemyHealth <= 0)) return;
-        
-        //sets the isDead boolean to true, so the animation code does not run twice
-            
-        //Adds coins earned from enemy to currentCoins in game session
-        GameManager.Instance.AddCoins(coinsToAdd);
-
-        //Checks if "DoubleScore" powerup is activated
-        if (GameManager.Instance.isDoubleScore)
-            //Adds double the score of enemy the currentScore in Game session
-            GameManager.Instance.AddScore(scoreToAdd * 2);
-        else
-            //Adds normal the score of enemy the currentScore in Game session
-            GameManager.Instance.AddScore(scoreToAdd);
-            
-        EnemyDeath();
     }
 }

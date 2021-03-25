@@ -13,16 +13,16 @@ public class SpawningManagement : MonoBehaviour
     [SerializeField] private float maxDifficultyUFOSpawnRate = 30f;
 
     [SerializeField] private Transform[] ufoSpawnLocations;
-    
+
     [SerializeField] private GameObject[] asteroidObjects;
     [SerializeField] private GameObject[] alienObjects;
     [SerializeField] private GameObject[] ufoObjects;
 
     [SerializeField] private float ScoreToSpawnAliens;
     [SerializeField] private float ScoreToSpawnUFO;
-    
+
     private readonly List<Coroutine> coroutineList = new List<Coroutine>();
-    
+
     private float currentFactor = -1f;
 
     public static float Factor { get; set; }
@@ -31,7 +31,7 @@ public class SpawningManagement : MonoBehaviour
      * OnStart, this Manager gets the player's current location and stores it in memory.
      * It also starts the CoRoutine CheckDifficulty so the spawnning will begin
     */
-    
+
     private void Start()
     {
         StartCoroutine(CheckDifficulty(false));
@@ -78,7 +78,7 @@ public class SpawningManagement : MonoBehaviour
                 if (coroutineList.Count >= 0)
                     //If current SpawnRates are not correct, it stops all previous co-routine calls to refresh it.
                     foreach (var coroutine in coroutineList)
-                        
+
                         StopCoroutine(coroutine);
 
                 //stores current factor as the new Factor number for future reference.

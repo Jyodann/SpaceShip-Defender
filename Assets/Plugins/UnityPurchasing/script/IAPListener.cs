@@ -1,8 +1,6 @@
 #if UNITY_PURCHASING || UNITY_UNIFIED_IAP
+using System;
 using UnityEngine.Events;
-using UnityEngine.UI;
-using System.IO;
-using System.Collections.Generic;
 
 namespace UnityEngine.Purchasing
 {
@@ -10,16 +8,6 @@ namespace UnityEngine.Purchasing
     [HelpURL("https://docs.unity3d.com/Manual/UnityIAP.html")]
     public class IAPListener : MonoBehaviour
     {
-        [System.Serializable]
-        public class OnPurchaseCompletedEvent : UnityEvent<Product>
-        {
-        };
-
-        [System.Serializable]
-        public class OnPurchaseFailedEvent : UnityEvent<Product, PurchaseFailureReason>
-        {
-        };
-
         [Tooltip("Consume successful purchases immediately")]
         public bool consumePurchase = true;
 
@@ -32,20 +20,20 @@ namespace UnityEngine.Purchasing
         [Tooltip("Event fired after a failed purchase of this product")]
         public OnPurchaseFailedEvent onPurchaseFailed;
 
-        void OnEnable()
+        private void OnEnable()
         {
             if (dontDestroyOnLoad)
                 DontDestroyOnLoad(gameObject);
             CodelessIAPStoreListener.Instance.AddListener(this);
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             CodelessIAPStoreListener.Instance.RemoveListener(this);
         }
 
         /**
-         *  Invoked to process a purchase of the product associated with this button
+         * Invoked to process a purchase of the product associated with this button
          */
         public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs e)
         {
@@ -54,11 +42,11 @@ namespace UnityEngine.Purchasing
 
             onPurchaseComplete.Invoke(e.purchasedProduct);
 
-            return (consumePurchase) ? PurchaseProcessingResult.Complete : PurchaseProcessingResult.Pending;
+            return consumePurchase ? PurchaseProcessingResult.Complete : PurchaseProcessingResult.Pending;
         }
 
         /**
-         *  Invoked on a failed purchase of the product associated with this button
+         * Invoked on a failed purchase of the product associated with this button
          */
         public void OnPurchaseFailed(Product product, PurchaseFailureReason reason)
         {
@@ -66,6 +54,16 @@ namespace UnityEngine.Purchasing
                 reason));
 
             onPurchaseFailed.Invoke(product, reason);
+        }
+
+        [Serializable]
+        public class OnPurchaseCompletedEvent : UnityEvent<Product>
+        {
+        }
+
+        [Serializable]
+        public class OnPurchaseFailedEvent : UnityEvent<Product, PurchaseFailureReason>
+        {
         }
     }
 }

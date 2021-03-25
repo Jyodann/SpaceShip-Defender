@@ -74,17 +74,16 @@ public static class SettingsHelper
         IsSwappedJoysticks = PlayerPrefs.GetInt("swappedSticks", 0) == 1;
         IsBatterySaver = PlayerPrefs.GetInt("batterySaver", 0) == 1;
         IsFirstTimePlaying = PlayerPrefs.GetInt("firstTime", 1) == 1;
-        
+
 #if UNITY_IOS || UNITY_ANDROID
         SettingsHelper.CurrentControlMode = SettingsHelper.ControlMode.MobileInput;
         Application.targetFrameRate = isBatterySaver ? 30 : 60;
         QualitySettings.vSyncCount = isBatterySaver ? 0 : 1;
         CurrentControlMode = ControlMode.MobileInput;
 #endif
-        
+
 #if UNITY_STANDALONE || UNITY_WEBGL
-        SettingsHelper.CurrentControlMode = SettingsHelper.ControlMode.MixedMouseKeyboard;
+        CurrentControlMode = ControlMode.MixedMouseKeyboard;
 #endif
-        
     }
 }

@@ -1,8 +1,7 @@
 #if UNITY_PURCHASING || UNITY_UNIFIED_IAP
+using System;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using System.IO;
-using System.Collections.Generic;
 
 namespace UnityEngine.Purchasing
 {
@@ -17,18 +16,7 @@ namespace UnityEngine.Purchasing
             Restore
         }
 
-        [System.Serializable]
-        public class OnPurchaseCompletedEvent : UnityEvent<Product>
-        {
-        };
-
-        [System.Serializable]
-        public class OnPurchaseFailedEvent : UnityEvent<Product, PurchaseFailureReason>
-        {
-        };
-
-        [HideInInspector]
-        public string productId;
+        [HideInInspector] public string productId;
 
         [Tooltip("The type of this button, can be either a purchase or a restore button")]
         public ButtonType buttonType = ButtonType.Purchase;
@@ -51,56 +39,40 @@ namespace UnityEngine.Purchasing
         [Tooltip("[Optional] Displays the localized price from the app store")]
         public Text priceText;
 
-        void Start()
+        private void Start()
         {
-            Button button = GetComponent<Button>();
+            var button = GetComponent<Button>();
 
             if (buttonType == ButtonType.Purchase)
             {
-                if (button)
-                {
-                    button.onClick.AddListener(PurchaseProduct);
-                }
+                if (button) button.onClick.AddListener(PurchaseProduct);
 
-                if (string.IsNullOrEmpty(productId))
-                {
-                    Debug.LogError("IAPButton productId is empty");
-                }
+                if (string.IsNullOrEmpty(productId)) Debug.LogError("IAPButton productId is empty");
 
                 if (!CodelessIAPStoreListener.Instance.HasProductInCatalog(productId))
-                {
                     Debug.LogWarning("The product catalog has no product with the ID \"" + productId + "\"");
-                }
             }
             else if (buttonType == ButtonType.Restore)
             {
-                if (button)
-                {
-                    button.onClick.AddListener(Restore);
-                }
+                if (button) button.onClick.AddListener(Restore);
             }
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             if (buttonType == ButtonType.Purchase)
             {
                 CodelessIAPStoreListener.Instance.AddButton(this);
-                if (CodelessIAPStoreListener.initializationComplete) {
-                    UpdateText();
-                }
+                if (CodelessIAPStoreListener.initializationComplete) UpdateText();
             }
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
-            if (buttonType == ButtonType.Purchase)
-            {
-                CodelessIAPStoreListener.Instance.RemoveButton(this);
-            }
+            if (buttonType == ButtonType.Purchase) CodelessIAPStoreListener.Instance.RemoveButton(this);
         }
 
-        void PurchaseProduct()
+        private void PurchaseProduct()
         {
             if (buttonType == ButtonType.Purchase)
             {
@@ -110,51 +82,41 @@ namespace UnityEngine.Purchasing
             }
         }
 
-        void Restore()
+        private void Restore()
         {
             if (buttonType == ButtonType.Restore)
             {
                 if (Application.platform == RuntimePlatform.WSAPlayerX86 ||
                     Application.platform == RuntimePlatform.WSAPlayerX64 ||
                     Application.platform == RuntimePlatform.WSAPlayerARM)
-                {
                     CodelessIAPStoreListener.Instance.ExtensionProvider.GetExtension<IMicrosoftExtensions>()
                         .RestoreTransactions();
-                }
                 else if (Application.platform == RuntimePlatform.IPhonePlayer ||
                          Application.platform == RuntimePlatform.OSXPlayer ||
                          Application.platform == RuntimePlatform.tvOS)
-                {
                     CodelessIAPStoreListener.Instance.ExtensionProvider.GetExtension<IAppleExtensions>()
                         .RestoreTransactions(OnTransactionsRestored);
-                }
                 else if (Application.platform == RuntimePlatform.Android &&
                          StandardPurchasingModule.Instance().appStore == AppStore.SamsungApps)
-                {
                     CodelessIAPStoreListener.Instance.ExtensionProvider.GetExtension<ISamsungAppsExtensions>()
                         .RestoreTransactions(OnTransactionsRestored);
-                }
                 else if (Application.platform == RuntimePlatform.Android &&
-                    StandardPurchasingModule.Instance().appStore == AppStore.GooglePlay)
-                {
+                         StandardPurchasingModule.Instance().appStore == AppStore.GooglePlay)
                     CodelessIAPStoreListener.Instance.ExtensionProvider.GetExtension<IGooglePlayStoreExtensions>()
                         .RestoreTransactions(OnTransactionsRestored);
-                }
                 else
-                {
-                    Debug.LogWarning(Application.platform.ToString() +
+                    Debug.LogWarning(Application.platform +
                                      " is not a supported platform for the Codeless IAP restore button");
-                }
             }
         }
 
-        void OnTransactionsRestored(bool success)
+        private void OnTransactionsRestored(bool success)
         {
             Debug.Log("Transactions restored: " + success);
         }
 
         /**
-         *  Invoked to process a purchase of the product associated with this button
+         * Invoked to process a purchase of the product associated with this button
          */
         public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs e)
         {
@@ -163,11 +125,11 @@ namespace UnityEngine.Purchasing
 
             onPurchaseComplete.Invoke(e.purchasedProduct);
 
-            return (consumePurchase) ? PurchaseProcessingResult.Complete : PurchaseProcessingResult.Pending;
+            return consumePurchase ? PurchaseProcessingResult.Complete : PurchaseProcessingResult.Pending;
         }
 
         /**
-         *  Invoked on a failed purchase of the product associated with this button
+         * Invoked on a failed purchase of the product associated with this button
          */
         public void OnPurchaseFailed(Product product, PurchaseFailureReason reason)
         {
@@ -182,21 +144,22 @@ namespace UnityEngine.Purchasing
             var product = CodelessIAPStoreListener.Instance.GetProduct(productId);
             if (product != null)
             {
-                if (titleText != null)
-                {
-                    titleText.text = product.metadata.localizedTitle;
-                }
+                if (titleText != null) titleText.text = product.metadata.localizedTitle;
 
-                if (descriptionText != null)
-                {
-                    descriptionText.text = product.metadata.localizedDescription;
-                }
+                if (descriptionText != null) descriptionText.text = product.metadata.localizedDescription;
 
-                if (priceText != null)
-                {
-                    priceText.text = product.metadata.localizedPriceString;
-                }
+                if (priceText != null) priceText.text = product.metadata.localizedPriceString;
             }
+        }
+
+        [Serializable]
+        public class OnPurchaseCompletedEvent : UnityEvent<Product>
+        {
+        }
+
+        [Serializable]
+        public class OnPurchaseFailedEvent : UnityEvent<Product, PurchaseFailureReason>
+        {
         }
     }
 }

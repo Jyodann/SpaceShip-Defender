@@ -32,7 +32,6 @@ public class ShipController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-
         //Gets Input from A/D/W/S:
         verticalMovement = Input.GetButton("Vertical");
         horizontalMovement = Input.GetButton("Horizontal");

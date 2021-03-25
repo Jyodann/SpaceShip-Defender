@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class IncreaseDamage : Powerup
@@ -10,7 +9,7 @@ public class IncreaseDamage : Powerup
     protected override void TriggerPowerUpEffect()
     {
         base.TriggerPowerUpEffect();
-        
+
         //Temporarily stores the initialDamage from the FireBullets component:
         initialDamageDealt = Player.Instance.fireBullets.damageDealt;
         //Changes the damage dealt by bullets to be 2 more than current value:
@@ -18,7 +17,7 @@ public class IncreaseDamage : Powerup
         //Starts Coroutine to reset damage after 10 seconds
         StartCoroutine(ResetPlayerDamage(10f));
     }
-    
+
     private IEnumerator ResetPlayerDamage(float resetDelay)
     {
         StartCoroutine(DisableThenDestroy(resetDelay));

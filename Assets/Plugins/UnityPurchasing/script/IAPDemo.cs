@@ -11,20 +11,18 @@
 //#define INTERCEPT_PROMOTIONAL_PURCHASES // Enables intercepting promotional purchases that come directly from the Apple App Store
 //#define SUBSCRIPTION_MANAGER //Enables subscription product manager for AppleStore and GooglePlay store
 //#define AGGRESSIVE_INTERRUPT_RECOVERY_GOOGLEPLAY // Enables also using getPurchaseHistory to recover from purchase interruptions, assuming developer is deduplicating to protect against "duplicate on cancel" flow
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Purchasing;
+using UnityEngine.UI;
 
 #if RECEIPT_VALIDATION
 using UnityEngine.Purchasing.Security;
 #endif
 
 /// <summary>
-/// An example of Unity IAP functionality.
-/// To use with your account, configure the product ids (AddProduct).
+///     An example of Unity IAP functionality.
+///     To use with your account, configure the product ids (AddProduct).
 /// </summary>
 [AddComponentMenu("Unity IAP/Demo")]
 public class IAPDemo : MonoBehaviour, IStoreListener
@@ -45,7 +43,7 @@ public class IAPDemo : MonoBehaviour, IStoreListener
 
     private bool m_PurchaseInProgress;
 
-    private Dictionary<string, IAPDemoProductUI> m_ProductUIs = new Dictionary<string, IAPDemoProductUI>();
+    private readonly Dictionary<string, IAPDemoProductUI> m_ProductUIs = new Dictionary<string, IAPDemoProductUI>();
 
     public GameObject productUITemplate;
     public RectTransform contentRect;
@@ -59,7 +57,7 @@ public class IAPDemo : MonoBehaviour, IStoreListener
 #endif
 
     /// <summary>
-    /// This will be called when Unity IAP has finished initialising.
+    ///     This will be called when Unity IAP has finished initialising.
     /// </summary>
     public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
     {
@@ -90,20 +88,11 @@ public class IAPDemo : MonoBehaviour, IStoreListener
 
         Debug.Log("Available items:");
         foreach (var item in controller.products.all)
-        {
             if (item.availableToPurchase)
             {
-                Debug.Log(string.Join(" - ",
-                    new[]
-                    {
-                        item.metadata.localizedTitle,
-                        item.metadata.localizedDescription,
-                        item.metadata.isoCurrencyCode,
-                        item.metadata.localizedPrice.ToString(),
-                        item.metadata.localizedPriceString,
-                        item.transactionID,
-                        item.receipt
-                    }));
+                Debug.Log(string.Join(" - ", item.metadata.localizedTitle, item.metadata.localizedDescription,
+                    item.metadata.isoCurrencyCode, item.metadata.localizedPrice.ToString(),
+                    item.metadata.localizedPriceString, item.transactionID, item.receipt));
 #if INTERCEPT_PROMOTIONAL_PURCHASES
                 // Set all these products to be visible in the user's App Store according to Apple's Promotional IAP feature
                 // https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/StoreKitGuide/PromotingIn-AppPurchases/PromotingIn-AppPurchases.html
@@ -115,7 +104,8 @@ public class IAPDemo : MonoBehaviour, IStoreListener
                 if (item.receipt != null) {
                     if (item.definition.type == ProductType.Subscription) {
                         if (checkIfProductIsAvailableForSubscriptionManager(item.receipt)) {
-                            string intro_json = (introductory_info_dict == null || !introductory_info_dict.ContainsKey(item.definition.storeSpecificId)) ? null : introductory_info_dict[item.definition.storeSpecificId];
+                            string intro_json =
+ (introductory_info_dict == null || !introductory_info_dict.ContainsKey(item.definition.storeSpecificId)) ? null : introductory_info_dict[item.definition.storeSpecificId];
                             SubscriptionManager p = new SubscriptionManager(item, intro_json);
                             SubscriptionInfo info = p.getSubscriptionInfo();
                             Debug.Log("product id is: " + info.getProductId());
@@ -142,7 +132,6 @@ public class IAPDemo : MonoBehaviour, IStoreListener
                 }
 #endif
             }
-        }
 
         // Populate the product menu now that we have Products
         AddProductUIs(m_Controller.products.all);
@@ -169,13 +158,15 @@ public class IAPDemo : MonoBehaviour, IStoreListener
                         Debug.Log("The product receipt does not contain enough information, the 'json' field is missing");
                         return false;
                     }
-                    var original_json_payload_wrapper = (Dictionary<string, object>)MiniJson.JsonDecode((string)payload_wrapper["json"]);
+                    var original_json_payload_wrapper =
+ (Dictionary<string, object>)MiniJson.JsonDecode((string)payload_wrapper["json"]);
                     if (original_json_payload_wrapper == null || !original_json_payload_wrapper.ContainsKey("developerPayload")) {
                         Debug.Log("The product receipt does not contain enough information, the 'developerPayload' field is missing");
                         return false;
                     }
                     var developerPayloadJSON = (string)original_json_payload_wrapper["developerPayload"];
-                    var developerPayload_wrapper = (Dictionary<string, object>)MiniJson.JsonDecode(developerPayloadJSON);
+                    var developerPayload_wrapper =
+ (Dictionary<string, object>)MiniJson.JsonDecode(developerPayloadJSON);
                     if (developerPayload_wrapper == null || !developerPayload_wrapper.ContainsKey("is_free_trial") || !developerPayload_wrapper.ContainsKey("has_introductory_price_trial")) {
                         Debug.Log("The product receipt does not contain enough information, the product is not purchased using 1.19 or later");
                         return false;
@@ -199,7 +190,7 @@ public class IAPDemo : MonoBehaviour, IStoreListener
 #endif
 
     /// <summary>
-    /// This will be called when a purchase completes.
+    ///     This will be called when a purchase completes.
     /// </summary>
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs e)
     {
@@ -245,7 +236,7 @@ public class IAPDemo : MonoBehaviour, IStoreListener
                 return PurchaseProcessingResult.Complete;
             }
         }
-        #endif
+#endif
 
         // Unlock content from purchases here.
 #if USE_PAYOUTS
@@ -302,7 +293,7 @@ public class IAPDemo : MonoBehaviour, IStoreListener
 #endif
 
     /// <summary>
-    /// This will be called if an attempted purchase fails.
+    ///     This will be called if an attempted purchase fails.
     /// </summary>
     public void OnPurchaseFailed(Product item, PurchaseFailureReason r)
     {
@@ -310,12 +301,11 @@ public class IAPDemo : MonoBehaviour, IStoreListener
         Debug.Log(r);
 
         // Detailed debugging information
-        Debug.Log("Store specific error code: " + m_TransactionHistoryExtensions.GetLastStoreSpecificPurchaseErrorCode());
+        Debug.Log(
+            "Store specific error code: " + m_TransactionHistoryExtensions.GetLastStoreSpecificPurchaseErrorCode());
         if (m_TransactionHistoryExtensions.GetLastPurchaseFailureDescription() != null)
-        {
             Debug.Log("Purchase failure description message: " +
                       m_TransactionHistoryExtensions.GetLastPurchaseFailureDescription().message);
-        }
 
         m_PurchaseInProgress = false;
     }
@@ -378,21 +368,16 @@ public class IAPDemo : MonoBehaviour, IStoreListener
         var catalog = ProductCatalog.LoadDefaultCatalog();
 
         foreach (var product in catalog.allValidProducts)
-        {
             if (product.allStoreIDs.Count > 0)
             {
                 var ids = new IDs();
-                foreach (var storeID in product.allStoreIDs)
-                {
-                    ids.Add(storeID.id, storeID.store);
-                }
+                foreach (var storeID in product.allStoreIDs) ids.Add(storeID.id, storeID.store);
                 builder.AddProduct(product.id, product.type, ids);
             }
             else
             {
                 builder.AddProduct(product.id, product.type);
             }
-        }
 
         // In this case our products have the same identifier across all the App stores,
         // except on the Mac App store where product IDs cannot be reused across both Mac and
@@ -412,21 +397,19 @@ public class IAPDemo : MonoBehaviour, IStoreListener
                 new PayoutDefinition(PayoutType.Currency, "gold", 50)
                 }
 #endif //USE_PAYOUTS
-                );
+        );
 
         builder.AddProduct("500.gold.coins", ProductType.Consumable, new IDs
             {
                 {"com.unity3d.unityiap.unityiapdemo.500goldcoins.7", MacAppStore.Name},
-                {"500.gold.coins", AmazonApps.Name},
+                {"500.gold.coins", AmazonApps.Name}
             }
 #if USE_PAYOUTS
         , new PayoutDefinition(PayoutType.Currency, "gold", 500)
 #endif //USE_PAYOUTS
         );
 
-        builder.AddProduct("300.gold.coins", ProductType.Consumable, new IDs
-            {
-            }
+        builder.AddProduct("300.gold.coins", ProductType.Consumable, new IDs()
 #if USE_PAYOUTS
         , new List<PayoutDefinition> {
             new PayoutDefinition(PayoutType.Item, "", 1, "item_id:76543"),
@@ -435,13 +418,9 @@ public class IAPDemo : MonoBehaviour, IStoreListener
 #endif //USE_PAYOUTS
         );
 
-        builder.AddProduct("sub1", ProductType.Subscription, new IDs
-        {
-        });
+        builder.AddProduct("sub1", ProductType.Subscription, new IDs());
 
-        builder.AddProduct("sub2", ProductType.Subscription, new IDs
-        {
-        });
+        builder.AddProduct("sub2", ProductType.Subscription, new IDs());
 
 
         // Write Amazon's JSON description of our products to storage when using Amazon's local sandbox.
@@ -480,7 +459,7 @@ public class IAPDemo : MonoBehaviour, IStoreListener
     }
 
     /// <summary>
-    /// This will be called after a call to IAppleExtensions.RestoreTransactions().
+    ///     This will be called after a call to IAppleExtensions.RestoreTransactions().
     /// </summary>
     private void OnTransactionsRestored(bool success)
     {
@@ -488,13 +467,12 @@ public class IAPDemo : MonoBehaviour, IStoreListener
     }
 
     /// <summary>
-    /// iOS Specific.
-    /// This is called as part of Apple's 'Ask to buy' functionality,
-    /// when a purchase is requested by a minor and referred to a parent
-    /// for approval.
-    ///
-    /// When the purchase is approved or rejected, the normal purchase events
-    /// will fire.
+    ///     iOS Specific.
+    ///     This is called as part of Apple's 'Ask to buy' functionality,
+    ///     when a purchase is requested by a minor and referred to a parent
+    ///     for approval.
+    ///     When the purchase is approved or rejected, the normal purchase events
+    ///     will fire.
     /// </summary>
     /// <param name="item">Item.</param>
     private void OnDeferred(Product item)
@@ -536,7 +514,7 @@ public class IAPDemo : MonoBehaviour, IStoreListener
 
     public void PurchaseButtonClick(string productID)
     {
-        if (m_PurchaseInProgress == true)
+        if (m_PurchaseInProgress)
         {
             Debug.Log("Please wait, purchase in progress");
             return;
@@ -565,37 +543,25 @@ public class IAPDemo : MonoBehaviour, IStoreListener
         //payload_dictionary["developerPayload"] = "Faked developer payload";
         //m_Controller.InitiatePurchase(m_Controller.products.WithID(productID), MiniJson.JsonEncode(payload_dictionary));
         m_Controller.InitiatePurchase(m_Controller.products.WithID(productID), "developerPayload");
-
     }
 
     public void RestoreButtonClick()
     {
         if (m_IsSamsungAppsStoreSelected)
-        {
             m_SamsungExtensions.RestoreTransactions(OnTransactionsRestored);
-        }
         else if (Application.platform == RuntimePlatform.WSAPlayerX86 ||
                  Application.platform == RuntimePlatform.WSAPlayerX64 ||
                  Application.platform == RuntimePlatform.WSAPlayerARM)
-        {
             m_MicrosoftExtensions.RestoreTransactions();
-        }
         else if (m_IsGooglePlayStoreSelected)
-        {
             m_GooglePlayStoreExtensions.RestoreTransactions(OnTransactionsRestored);
-        }
         else
-        {
             m_AppleExtensions.RestoreTransactions(OnTransactionsRestored);
-        }
     }
 
     private void ClearProductUIs()
     {
-        foreach (var productUIKVP in m_ProductUIs)
-        {
-            GameObject.Destroy(productUIKVP.Value.gameObject);
-        }
+        foreach (var productUIKVP in m_ProductUIs) Destroy(productUIKVP.Value.gameObject);
         m_ProductUIs.Clear();
     }
 
@@ -611,7 +577,7 @@ public class IAPDemo : MonoBehaviour, IStoreListener
 
         foreach (var p in products)
         {
-            var newProductUI = GameObject.Instantiate(productUITemplate.gameObject) as GameObject;
+            var newProductUI = Instantiate(productUITemplate.gameObject);
             newProductUI.transform.SetParent(productUITemplate.transform.parent, false);
             var rect = newProductUI.GetComponent<RectTransform>();
             rect.localPosition = currPos;
@@ -626,18 +592,12 @@ public class IAPDemo : MonoBehaviour, IStoreListener
 
     private void UpdateProductUI(Product p)
     {
-        if (m_ProductUIs.ContainsKey(p.definition.id))
-        {
-            m_ProductUIs[p.definition.id].SetProduct(p, PurchaseButtonClick);
-        }
+        if (m_ProductUIs.ContainsKey(p.definition.id)) m_ProductUIs[p.definition.id].SetProduct(p, PurchaseButtonClick);
     }
 
     private void UpdateProductPendingUI(Product p, int secondsRemaining)
     {
-        if (m_ProductUIs.ContainsKey(p.definition.id))
-        {
-            m_ProductUIs[p.definition.id].SetPendingTime(secondsRemaining);
-        }
+        if (m_ProductUIs.ContainsKey(p.definition.id)) m_ProductUIs[p.definition.id].SetPendingTime(secondsRemaining);
     }
 
     private bool NeedRestoreButton()
@@ -657,7 +617,9 @@ public class IAPDemo : MonoBehaviour, IStoreListener
         foreach (var product in products)
         {
 #if UNITY_5_6_OR_NEWER
-            Debug.Log(string.Format("id: {0}\nstore-specific id: {1}\ntype: {2}\nenabled: {3}\n", product.definition.id, product.definition.storeSpecificId, product.definition.type.ToString(), product.definition.enabled ? "enabled" : "disabled"));
+            Debug.Log(string.Format("id: {0}\nstore-specific id: {1}\ntype: {2}\nenabled: {3}\n", product.definition.id,
+                product.definition.storeSpecificId, product.definition.type.ToString(),
+                product.definition.enabled ? "enabled" : "disabled"));
 #else
             Debug.Log(string.Format("id: {0}\nstore-specific id: {1}\ntype: {2}\n", product.definition.id,
                 product.definition.storeSpecificId, product.definition.type.ToString()));

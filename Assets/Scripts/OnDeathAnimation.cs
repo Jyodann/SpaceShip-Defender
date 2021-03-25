@@ -26,7 +26,7 @@ public class OnDeathAnimation : MonoBehaviour
     [SerializeField] private AudioClip bigExplosionSounds;
 
     //Sets a global reference to audioSource so the sounds can be played:
-    
+
 
     //MakeExplosion method takes in two parameters: Transform of where the explosion should occur
     //ExplosionType takes in an ExplosionTypes enum so it plays the appropriate explosion:

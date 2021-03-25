@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 
 public class BuyButton : MonoBehaviour
 {
     public enum ItemType
     {
-        Dollar1, Dollar5, Dollar10
+        Dollar1,
+        Dollar5,
+        Dollar10
     }
 
     public ItemType itemType;
 
-    private TextMeshProUGUI priceText;
-
     private string defaultText;
+
+    private TextMeshProUGUI priceText;
 
     private void Start()
     {
@@ -40,19 +38,15 @@ public class BuyButton : MonoBehaviour
             case ItemType.Dollar10:
                 IAPManager.Instance.Buy10Dollar();
                 break;
-            
         }
     }
 
-    IEnumerator LoadPrice()
+    private IEnumerator LoadPrice()
     {
-        while (!IAPManager.Instance.IsInitialized())
-        {
-            yield return null;
-        }
-        
-        var loadedPrice = String.Empty;
-        
+        while (!IAPManager.Instance.IsInitialized()) yield return null;
+
+        var loadedPrice = string.Empty;
+
         switch (itemType)
         {
             case ItemType.Dollar1:
@@ -64,10 +58,8 @@ public class BuyButton : MonoBehaviour
             case ItemType.Dollar10:
                 loadedPrice = IAPManager.Instance.GetProductPriceFromStore(IAPManager.Instance.ConsumableProducts[2]);
                 break;
-            
         }
 
         priceText.text += " " + loadedPrice;
-
     }
 }

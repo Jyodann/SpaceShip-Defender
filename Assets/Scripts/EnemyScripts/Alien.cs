@@ -29,12 +29,6 @@ namespace EnemyScripts
             //Finds player character object and stores it as a global variable
             playerCharacter = FindObjectOfType<Player>();
         }
-        
-
-        protected override void EnemyDeath()
-        {
-            base.EnemyDeath();
-        }
 
         private void Update()
         {
@@ -43,6 +37,12 @@ namespace EnemyScripts
             //Code used from: https://docs.unity3d.com/ScriptReference/Vector2.MoveTowards.html
             transform.position = Vector2.MoveTowards(transform.position, playerCharacter.transform.position,
                 speed * Time.deltaTime);
+        }
+
+
+        protected override void EnemyDeath()
+        {
+            base.EnemyDeath();
         }
     }
 }

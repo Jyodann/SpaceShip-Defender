@@ -32,7 +32,7 @@ public class Powerup : MonoBehaviour
     {
         AudioManager.Instance.PlaySound(AudioManager.AudioName.SFX_Powerup);
     }
-    
+
     //Disable then destroy takes in one parameter, which is how long until the powerup is destoryed:
     //Uses Coroutine pattern because it needs to have a RealTime scale instead of a gameTime scale:
     //Needs to delay destruction of object so that it has an opportunity to reset it's effect before it destroys itself
@@ -47,5 +47,4 @@ public class Powerup : MonoBehaviour
 
         Destroy(gameObject);
     }
-    
 }

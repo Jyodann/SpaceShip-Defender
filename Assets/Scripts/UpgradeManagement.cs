@@ -15,11 +15,6 @@ public class UpgradeManagement : MonoBehaviour
     //References a Text, which is childed to the plane, so as to let the player know they can upgrade:
     [SerializeField] private Text upgradeText;
 
-    private UpgradeClass currentUpgrade;
-
-    //Gets a reference to the playerObject:
-    private FireBullets playerShip;
-
     //A list of upgrades that can be appended if required:
     private readonly List<UpgradeClass> upgrades = new List<UpgradeClass>
     {
@@ -35,6 +30,11 @@ public class UpgradeManagement : MonoBehaviour
         new UpgradeClass("+Fire Rate", 3500, 4, 0.05f, 5),
         new UpgradeClass("+1 Cannon", 5000, 5, 0.05f, 5)
     };
+
+    private UpgradeClass currentUpgrade;
+
+    //Gets a reference to the playerObject:
+    private FireBullets playerShip;
 
     private void Start()
     {
@@ -72,7 +72,6 @@ public class UpgradeManagement : MonoBehaviour
     //Apply upgrade takes in the Upgrade class and applies it to the ship:
     public void ApplyUpgrade()
     {
-        
         playerShip.damageDealt = currentUpgrade.DamageCount;
         //print(playerShip.damageDealt);
         playerShip.fireRate = currentUpgrade.FireRate;

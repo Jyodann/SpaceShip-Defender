@@ -31,6 +31,7 @@ namespace EnemyScripts
         //stores original velocity in Vector2 so it can be reused after a timeFreeze powerup
         private Vector2 originalVelocity;
         private Rigidbody2D rb2d;
+
         public override void Start()
         {
             base.Start();
@@ -72,6 +73,7 @@ namespace EnemyScripts
                 rb2d.velocity = Vector2.zero;
                 return;
             }
+
             rb2d.velocity = originalVelocity;
         }
 
@@ -91,14 +93,16 @@ namespace EnemyScripts
                     var mediumAsteroidsToSpawn = Random.Range(1, 4);
                     //Instantiates based on random number, on the current asteroid's position
                     for (var i = 0; i < mediumAsteroidsToSpawn; i++)
-                        Instantiate(asteroidToSpawn, transform.position, Quaternion.identity, GameManager.Instance.EnemyParent).GetComponent<AsteroidScript>().isFrozen = isFrozen;
+                        Instantiate(asteroidToSpawn, transform.position, Quaternion.identity,
+                            GameManager.Instance.EnemyParent).GetComponent<AsteroidScript>().isFrozen = isFrozen;
                     break;
 
                 case AsteroidSize.Medium:
                     //Same logic as above.
                     var smallAsteroidsToSpawn = Random.Range(1, 6);
                     for (var i = 0; i < smallAsteroidsToSpawn; i++)
-                        Instantiate(asteroidToSpawn, transform.position, Quaternion.identity, GameManager.Instance.EnemyParent).GetComponent<AsteroidScript>().isFrozen = isFrozen;
+                        Instantiate(asteroidToSpawn, transform.position, Quaternion.identity,
+                            GameManager.Instance.EnemyParent).GetComponent<AsteroidScript>().isFrozen = isFrozen;
                     break;
             }
 
@@ -111,7 +115,7 @@ namespace EnemyScripts
                 OnDeathAnimation.ExplosionTypes.BigExplosion);
             //trigger's the asteroid's spawnChildAsteroids method to break the asteroid:
             gameObject.GetComponent<AsteroidScript>().SpawnChildAsteroids();
-        
+
             base.EnemyDeath();
         }
     }

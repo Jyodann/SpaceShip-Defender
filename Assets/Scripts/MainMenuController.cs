@@ -9,7 +9,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private Toggle musicEffectToggle;
     [SerializeField] private Toggle swapJoysticksToggle;
     [SerializeField] private Toggle batterySaverToggle;
-    
+
     [SerializeField] private GameObject donationScreen;
     [SerializeField] private GameObject mainScreen;
 
@@ -21,7 +21,7 @@ public class MainMenuController : MonoBehaviour
     private void Start()
     {
         SettingsHelper.LoadSettings();
-        
+
         versionInformation.text = $"Version {Application.version} ({Application.platform})";
 
         musicEffectToggle.onValueChanged.AddListener(delegate(bool changed) { SettingsHelper.IsMusicOn = changed; });
@@ -33,8 +33,6 @@ public class MainMenuController : MonoBehaviour
         {
             SettingsHelper.IsBatterySaver = changed;
         });
-        
-
     }
 
     //Helper method to quit the Game when quit button is Clicked
@@ -53,21 +51,20 @@ public class MainMenuController : MonoBehaviour
 
     public void OpenDonationScreen()
     {
-        #if UNITY_STANDALONE
-            Application.OpenURL("https://ko-fi.com/jordynwinnie");
-        #endif
-        
-        #if UNITY_WEBGL
+#if UNITY_STANDALONE
+        Application.OpenURL("https://ko-fi.com/jordynwinnie");
+#endif
+
+#if UNITY_WEBGL
             openWindow("https://ko-fi.com/jordynwinnie");
-        #endif
-        
-        #if UNITY_IOS || UNITY_ANDROID
+#endif
+
+#if UNITY_IOS || UNITY_ANDROID
             mainScreen.SetActive(false);
             donationScreen.SetActive(true);
-        #endif
+#endif
     }
-    
+
     [DllImport("__Internal")]
     private static extern void openWindow(string url);
-
 }

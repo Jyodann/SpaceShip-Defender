@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using EnemyScripts;
-using UnityEditor;
 using UnityEngine;
 
 namespace Powerup_Scripts
@@ -11,15 +7,13 @@ namespace Powerup_Scripts
         protected override void TriggerPowerUpEffect()
         {
             base.TriggerPowerUpEffect();
-            
-            
+
+
             //Tells game manager that time is Frozen:
             GameManager.Instance.IsTimeFrozen = true;
 
             foreach (Transform enemy in GameManager.Instance.EnemyParent)
-            {
                 enemy.GetComponent<IFreezable>()?.IsFrozen(true);
-            }
         }
 
         private void OldFreezeMethod()
@@ -37,10 +31,10 @@ namespace Powerup_Scripts
             //foreach (var ufo in ufos) ufo.GetComponent<UFO>().isAlienSpawn = false;
 
             //Starts Coroutine to reset time freeze after 5 seconds:
-            
+
             //StartCoroutine(ResetTimeFreeze(5f));
         }
-        
+
         /*
         private IEnumerator ResetTimeFreeze(float resetDelay)
         {
@@ -63,5 +57,4 @@ namespace Powerup_Scripts
         }
         */
     }
-
 }

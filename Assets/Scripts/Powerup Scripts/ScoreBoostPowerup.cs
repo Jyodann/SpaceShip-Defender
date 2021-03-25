@@ -13,7 +13,7 @@ namespace Powerup_Scripts
             //Starts Coroutine to reset double score after 10 seconds:
             StartCoroutine(ResetDoubleScore(10f));
         }
-    
+
         private IEnumerator ResetDoubleScore(float resetDelay)
         {
             StartCoroutine(DisableThenDestroy(resetDelay));

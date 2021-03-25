@@ -1,40 +1,37 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Discord;
+﻿using Discord;
 using UnityEngine;
 
 public class DiscordRPC : Singleton<DiscordRPC>
 {
-    public Discord.Discord discord;
     private ActivityManager activityManager;
-    
-    void Start()
+    public Discord.Discord discord;
+
+    private void Start()
     {
-        discord = new Discord.Discord(750020541259448391, (ulong)Discord.CreateFlags.Default);
+        discord = new Discord.Discord(750020541259448391, (ulong) CreateFlags.Default);
 
         activityManager = discord.GetActivityManager();
-        var activity = new Discord.Activity()
+        var activity = new Activity
         {
             Details = "On the main menu",
             State = "Playing Spaceship Defender"
         };
-        
-        activityManager.UpdateActivity(activity, result => { if (result == Result.Ok) Debug.Log("Discord status set");});
-        
+
+        activityManager.UpdateActivity(activity, result =>
+        {
+            if (result == Result.Ok) Debug.Log("Discord status set");
+        });
+
         DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         discord.RunCallbacks();
-            
 
-        if (Input.GetKey(KeyCode.B))
-        {
-            activityManager.ClearActivity(result => { });
-        }
+
+        if (Input.GetKey(KeyCode.B)) activityManager.ClearActivity(result => { });
     }
 
     private void OnApplicationQuit()
