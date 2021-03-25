@@ -75,10 +75,12 @@ public class SpawningManagement : MonoBehaviour
             */
             if (Factor != currentFactor || forceUpdate)
             {
+                print("Coroutine Stopped");
                 //On first run, the coroutine list is Empty, this code is to prevent a Null-pointer Error.
                 if (coroutineList.Count >= 0)
                     //If current SpawnRates are not correct, it stops all previous co-routine calls to refresh it.
                     foreach (var coroutine in coroutineList)
+                        
                         StopCoroutine(coroutine);
 
                 //stores current factor as the new Factor number for future reference.

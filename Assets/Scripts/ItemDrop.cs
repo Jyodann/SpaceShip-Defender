@@ -31,13 +31,13 @@ public class ItemDrop : MonoBehaviour
         var percentChance = Random.Range(0, 101);
         if (percentChance >= enemyPercentChance) return;
         var randomNumber = Random.Range(0, total);
-        print("Random Number: " + randomNumber);
+        //print("Random Number: " + randomNumber);
 
         for (int i = 0; i < powerupWeights.Count; i++)
         {
             if (randomNumber <= powerupWeights[i])
             {
-                print("Award Weight: " + powerupWeights[i]);
+                //print("Award Weight: " + powerupWeights[i]);
                 if (i == 0) return;
                 Instantiate(powerupList[i - 1], positionToSpawn.position, Quaternion.identity);
                 return;

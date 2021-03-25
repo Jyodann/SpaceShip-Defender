@@ -42,7 +42,7 @@ public class Player : MonoBehaviour, IDamageable
         fireBullets = GetComponent<FireBullets>();
         shipController = GetComponent<ShipController>();
         
-        print(fireBullets.damageDealt);
+        //print(fireBullets.damageDealt);
     }
 
     private IEnumerator DisableInvincibility(float invincibilityLength)

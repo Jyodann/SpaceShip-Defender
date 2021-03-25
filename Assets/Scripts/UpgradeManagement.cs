@@ -74,7 +74,7 @@ public class UpgradeManagement : MonoBehaviour
     {
         
         playerShip.damageDealt = currentUpgrade.DamageCount;
-        print(playerShip.damageDealt);
+        //print(playerShip.damageDealt);
         playerShip.fireRate = currentUpgrade.FireRate;
         playerShip.cannonCount = currentUpgrade.CannonCount;
         //Changes upgradeIndex to next one:

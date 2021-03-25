@@ -24,7 +24,7 @@ public class FireBullets : MonoBehaviour
     [SerializeField] private AudioClip lazerShot;
 
     //Bullet speed can be changed from inspector, affects how fast the bullet flies from the ship.
-    [SerializeField] private float bulletSpeed = 100f;
+    public float bulletSpeed = 100f;
 
     //FireRate float will affect the number of bullets shot per second.
     public float fireRate = 0.5f;
@@ -110,7 +110,6 @@ public class FireBullets : MonoBehaviour
         //TransformDirection translates the current ship's facing direction (local) to a
         //world vector, which allows bullets to fly from where the ship is facing:
 
-        Instantiate(bulletObject, cannonLocation.position, transform.rotation).GetComponent<Rigidbody2D>().velocity =
-            transform.TransformDirection(Vector3.up * bulletSpeed);
+        Instantiate(bulletObject, cannonLocation.position, transform.rotation);
     }
 }
