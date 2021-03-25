@@ -2,9 +2,8 @@
 using System.Collections;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IDamageable
+public class Player : Singleton<Player>, IDamageable
 {
-    public static Player Instance;
     //isInvincible is a variable that can be checked by other classes, mainly the enemy class so that the enemy does not damage the player,
     //this is to balance the game, getting hit will ensure you have a small window of time to fight/escape a bad situation
     public bool isInvincible;
@@ -23,17 +22,6 @@ public class Player : MonoBehaviour, IDamageable
     public FireBullets fireBullets;
     public ShipController shipController;
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     private void Start()
     {
