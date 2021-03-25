@@ -8,7 +8,7 @@ public class ItemDrop : Singleton<ItemDrop>
 {
     
     //Powerups Prefabs are all dragged into this list, so a random powerup can be picked to spawn
-    [SerializeField] private Powerup[] powerupList;
+    public Powerup[] powerupList;
 
     private List<int> powerupWeights;
     private int total;
