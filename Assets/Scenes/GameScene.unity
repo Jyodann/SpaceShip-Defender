@@ -317,56 +317,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2101927979424221814}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1416941776
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1416941777}
-  - component: {fileID: 1416941778}
-  m_Layer: 0
-  m_Name: PowerupManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1416941777
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1416941776}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1133721369659782980}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1416941778
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1416941776}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a649014c63fdba4c8bd253c4671813a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  powerupList:
-  - {fileID: 2520563534150762818, guid: 606a0936ef8765140bed9bc0c6b05d64, type: 3}
-  - {fileID: -8859011653938128984, guid: cd7c79724c5ecf247a9c23e0546c9ad4, type: 3}
-  - {fileID: 5596697856508882359, guid: 4f84a7658c8930a45bc99db6969fda17, type: 3}
-  - {fileID: -2236096808582431458, guid: 144a4ef6717fac14eadb7f885711297f, type: 3}
-  - {fileID: 3307035540929636100, guid: 54aad314255bc674db67ad05012504ca, type: 3}
-  chanceForNothing: 1000
 --- !u!114 &1444140495 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3712389360617078051, guid: f2965283e626d884dbf10986ebd8c9ac,
@@ -554,10 +504,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 223488782}
     - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
-      propertyPath: flipControls
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
       propertyPath: gameOverMenu
       value: 
       objectReference: {fileID: 1836498647}
@@ -569,43 +515,6 @@ PrefabInstance:
       propertyPath: scoreBoostText
       value: 
       objectReference: {fileID: 1444140495}
-    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
-      propertyPath: playerControlMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
-      propertyPath: backgroundMusic.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
-      propertyPath: backgroundMusic.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: 56dcdac18f4f44440ae3063043967bd0, type: 3}
-    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
-      propertyPath: backgroundMusic.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: 3aff2711e7aa46c44820496e64c72674, type: 3}
-    - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
-      propertyPath: backgroundMusic.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: 704e1d81a4bceb144bfb16937b70870c, type: 3}
-    - target: {fileID: 996874560, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
-      propertyPath: Loop
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 996874560, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 996874560, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 6180841089854892229, guid: bd7759ebefda3be4db8198bb45361120,
-        type: 2}
-    - target: {fileID: 1349937148, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
-      propertyPath: parentObject
-      value: 
-      objectReference: {fileID: 223488782}
     - target: {fileID: 1349937148, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
       propertyPath: ufoSpawnLocations.Array.data[0]
       value: 
@@ -622,19 +531,6 @@ PrefabInstance:
       propertyPath: ufoSpawnLocations.Array.data[3]
       value: 
       objectReference: {fileID: 624525461}
-    - target: {fileID: 1677735988, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
-      propertyPath: rolloffMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1677735988, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 7852340288038931271, guid: bd7759ebefda3be4db8198bb45361120,
-        type: 2}
-    - target: {fileID: 1677735988, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
-      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1133721369239201910, guid: bbcdd9a2e7be351449d00a2dff305921,
         type: 3}
       propertyPath: m_RootOrder
@@ -705,24 +601,8 @@ PrefabInstance:
       propertyPath: upgradeButton
       value: 
       objectReference: {fileID: 1740278483}
-    - target: {fileID: 5291550183322431410, guid: bbcdd9a2e7be351449d00a2dff305921,
-        type: 3}
-      propertyPath: volumeScale
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5291550183322431410, guid: bbcdd9a2e7be351449d00a2dff305921,
-        type: 3}
-      propertyPath: enemyHitSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 94fea6bbc97742e4e9b811aa2a0c1a3b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
---- !u!4 &1133721369659782980 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1133721369239201910, guid: bbcdd9a2e7be351449d00a2dff305921,
-    type: 3}
-  m_PrefabInstance: {fileID: 1133721369659782979}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2101927979424221814
 PrefabInstance:
   m_ObjectHideFlags: 0

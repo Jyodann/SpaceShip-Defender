@@ -13,7 +13,7 @@ public class SpawningManagement : MonoBehaviour
     [SerializeField] private float maxDifficultyUFOSpawnRate = 30f;
 
     [SerializeField] private Transform[] ufoSpawnLocations;
-    [SerializeField] private Transform playerLocation;
+    
     [SerializeField] private GameObject[] asteroidObjects;
     [SerializeField] private GameObject[] alienObjects;
     [SerializeField] private GameObject[] ufoObjects;
@@ -35,7 +35,7 @@ public class SpawningManagement : MonoBehaviour
     private void Start()
     {
         //Finds the player and gets the currentTransform:
-        playerLocation = FindObjectOfType<Player>().transform;
+        
         StartCoroutine(CheckDifficulty(false));
     }
 
@@ -94,12 +94,12 @@ public class SpawningManagement : MonoBehaviour
 
                 //Starts spawnning Asteroids, and adds it to the coroutine List:
                 //** Spawner Coroutine mentioned later.
-                coroutineList.Add(StartCoroutine(Spawner(asteroidObjects, playerLocation.transform, asteroidSpawn, 25f,
+                coroutineList.Add(StartCoroutine(Spawner(asteroidObjects, Player.Instance.transform, asteroidSpawn, 25f,
                     50f)));
 
                 if (GameManager.instance.Score >= ScoreToSpawnAliens)
                     //Starts spawnning Aliens after score is more than 500, and adds it to the coroutine List:
-                    coroutineList.Add(StartCoroutine(Spawner(alienObjects, playerLocation.transform, alienSpawn, 40f,
+                    coroutineList.Add(StartCoroutine(Spawner(alienObjects, Player.Instance.transform, alienSpawn, 40f,
                         80f)));
                 if (GameManager.instance.Score >= ScoreToSpawnUFO)
                     //Starts spawnning UFOs after score is more than 1500, and adds it to the coroutine List:
