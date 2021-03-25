@@ -203,36 +203,77 @@ MonoBehaviour:
     isLooping: 0
     priority: 0
     volume: 1
+    pitch: 1
+    audioName: 0
+    source: {fileID: 0}
+    songLength: 0
+    isBGM: 1
   - audioClip: {fileID: 8300000, guid: 3aff2711e7aa46c44820496e64c72674, type: 3}
     mixingGroup: {fileID: 6180841089854892229, guid: bd7759ebefda3be4db8198bb45361120,
       type: 2}
     isLooping: 0
     priority: 0
     volume: 1
+    pitch: 1
+    audioName: 1
+    source: {fileID: 0}
+    songLength: 0
+    isBGM: 1
   - audioClip: {fileID: 8300000, guid: 704e1d81a4bceb144bfb16937b70870c, type: 3}
     mixingGroup: {fileID: 6180841089854892229, guid: bd7759ebefda3be4db8198bb45361120,
       type: 2}
     isLooping: 0
     priority: 0
     volume: 1
+    pitch: 1
+    audioName: 2
+    source: {fileID: 0}
+    songLength: 0
+    isBGM: 1
   - audioClip: {fileID: 8300000, guid: a426ecd3af7d9394dbda013239eab3b5, type: 3}
     mixingGroup: {fileID: 7852340288038931271, guid: bd7759ebefda3be4db8198bb45361120,
       type: 2}
     isLooping: 0
     priority: 128
     volume: 1
+    pitch: 1
+    audioName: 3
+    source: {fileID: 0}
+    songLength: 0
+    isBGM: 0
   - audioClip: {fileID: 8300000, guid: 6700538c86332ba4db2d535a0bd10e82, type: 3}
     mixingGroup: {fileID: 7852340288038931271, guid: bd7759ebefda3be4db8198bb45361120,
       type: 2}
     isLooping: 0
     priority: 128
     volume: 1
+    pitch: 0.5
+    audioName: 4
+    source: {fileID: 0}
+    songLength: 0
+    isBGM: 0
   - audioClip: {fileID: 8300000, guid: 4e573411f6b39b741a2336da441cdc59, type: 3}
     mixingGroup: {fileID: 7852340288038931271, guid: bd7759ebefda3be4db8198bb45361120,
       type: 2}
     isLooping: 0
     priority: 256
     volume: 1
+    pitch: 1
+    audioName: 5
+    source: {fileID: 0}
+    songLength: 0
+    isBGM: 0
+  - audioClip: {fileID: 8300000, guid: b5d531c5cc53c5147918372b3322bfbe, type: 3}
+    mixingGroup: {fileID: 7852340288038931271, guid: bd7759ebefda3be4db8198bb45361120,
+      type: 2}
+    isLooping: 0
+    priority: 128
+    volume: 0.1
+    pitch: 1
+    audioName: 6
+    source: {fileID: 0}
+    songLength: 0
+    isBGM: 0
 --- !u!4 &476055731 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2101927978960749253, guid: 2a1e89b897538f547a935560c8dbf550,
@@ -639,6 +680,10 @@ PrefabInstance:
       propertyPath: ufoSpawnLocations.Array.data[3]
       value: 
       objectReference: {fileID: 624525461}
+    - target: {fileID: 1677735988, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
+      propertyPath: m_Pitch
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1133721369239201910, guid: bbcdd9a2e7be351449d00a2dff305921,
         type: 3}
       propertyPath: m_RootOrder
@@ -1022,6 +1067,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6012131414832987246, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
+        type: 3}
+      propertyPath: m_Pitch
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6012131414832987246, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
         type: 3}
       propertyPath: m_Volume

@@ -9,15 +9,13 @@ public class Powerup : MonoBehaviour
 {
     public int ItemDropWeight = 100;
     [SerializeField] private AudioClip pickUpPowerUpSound;
-    private AudioSource audioSource;
-    
+
     //RigidBody2D reference:
     private Rigidbody2D rb;
 
     // Start is called before the first frame update
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
         //Caches object's rigidBody:
         rb = GetComponent<Rigidbody2D>();
         //Decides a random direction the powerup floats to:
@@ -35,7 +33,7 @@ public class Powerup : MonoBehaviour
 
     protected virtual void TriggerPowerUpEffect()
     {
-        audioSource.PlayOneShot(pickUpPowerUpSound, 0.5f);
+        AudioManager.Instance.PlaySound(AudioManager.AudioName.SFX_Powerup);
     }
     
     //Disable then destroy takes in one parameter, which is how long until the powerup is destoryed:

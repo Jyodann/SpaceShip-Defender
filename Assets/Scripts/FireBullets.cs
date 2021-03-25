@@ -36,12 +36,10 @@ public class FireBullets : MonoBehaviour
     public int damageDealt = 10;
 
     //Stores an audioSource as a global variable so it can play the LazerShot sound
-    private AudioSource audioSource;
+    
 
     private void Start()
     {
-        //Caches a reference to the audioSource component so it can be used afterwards:
-        audioSource = GetComponent<AudioSource>();
         //Starts the fire() Coroutine so that the player can start Firing Bullets:
         StartCoroutine(Fire());
     }
@@ -61,7 +59,7 @@ public class FireBullets : MonoBehaviour
             //If Fire1 (MouseLeft) is held, then it starts to fire:
             if (Input.GetButton("Fire1"))
             {
-                audioSource.PlayOneShot(lazerShot, 0.5f);
+                AudioManager.Instance.PlaySound(AudioManager.AudioName.SFX_Lazer);
                 //Fires from respective cannons depending on how many there are in the current upgrade:
                 switch (cannonCount)
                 {

@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
 
 
     //AudioSource List for all the soundtracks:
-    private AudioSource audioSource;
+    //private AudioSource audioSource;
 
     private readonly string[] backgroundColourList =
         {"#0C2A46", "#4F106F", "#000000", "#500000", "#053D24", "#3C0527", "#221F21", "#41170F"};
@@ -165,7 +165,6 @@ public class GameManager : MonoBehaviour
         scoreText.text = Score.ToString().PadLeft(8, '0');
         
         scoreBoostText.text = string.Empty;
-        audioSource = GetComponent<AudioSource>();
 
         if (SettingsHelper.CurrentControlMode == SettingsHelper.ControlMode.MobileInput)
         {
@@ -195,12 +194,7 @@ public class GameManager : MonoBehaviour
         }
         //Mutes/Unmutes the game by pausing the Global Audio listener:
         AudioListener.pause = !SettingsHelper.IsMusicOn;
-        if (!audioSource.isPlaying && SettingsHelper.IsMusicOn)
-        {
-            audioSource.clip = backgroundMusic[Random.Range(0, backgroundMusic.Count)];
-            audioSource.Play();
-        }
-        
+
         if (Input.GetKeyDown(KeyCode.M))
             //Flips the isAudioMuted variable:
             SettingsHelper.IsMusicOn = !SettingsHelper.IsMusicOn;

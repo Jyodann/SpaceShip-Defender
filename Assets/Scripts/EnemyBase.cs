@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
 public abstract class EnemyBase : MonoBehaviour, IFreezable, IDamageable
 {
     /*Enemy properties that can be set from inspector, like Health,
@@ -17,7 +16,6 @@ public abstract class EnemyBase : MonoBehaviour, IFreezable, IDamageable
     [SerializeField] private int enemyPercentageChanceDrop = 50;
 
     protected Collider2D currentCollision;
-    protected AudioSource audioSource;
 
     //isDead is boolean that temporarily stores a death state so that the deathAnimation does not play more
     //than once
@@ -29,7 +27,6 @@ public abstract class EnemyBase : MonoBehaviour, IFreezable, IDamageable
     private void Awake()
     {
         transform.parent = GameManager.instance.EnemyParent;
-        audioSource = GetComponent<AudioSource>();
     }
 
     public virtual void Start()
@@ -63,14 +60,14 @@ public abstract class EnemyBase : MonoBehaviour, IFreezable, IDamageable
 
     protected virtual void EnemyDeath()
     {
+        //Add Audio To play here
         ItemDrop.Instance.DropItem(transform, enemyPercentageChanceDrop);
         Destroy(gameObject);
     }
 
     public abstract void OnFreeze();
     public abstract void Unfreeze();
-
-
+    
     public void TakeDamage(Collider2D collision, int dmg)
     {
         currentCollision = collision;

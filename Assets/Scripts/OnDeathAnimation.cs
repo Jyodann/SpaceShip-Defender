@@ -26,13 +26,7 @@ public class OnDeathAnimation : MonoBehaviour
     [SerializeField] private AudioClip bigExplosionSounds;
 
     //Sets a global reference to audioSource so the sounds can be played:
-    private AudioSource audioSource;
-
-    private void Start()
-    {
-        //Caches the audioSource so it can be used later:
-        audioSource = GetComponent<AudioSource>();
-    }
+    
 
     //MakeExplosion method takes in two parameters: Transform of where the explosion should occur
     //ExplosionType takes in an ExplosionTypes enum so it plays the appropriate explosion:
@@ -43,7 +37,8 @@ public class OnDeathAnimation : MonoBehaviour
         {
             case ExplosionTypes.BigExplosion:
                 //Plays the small explosionSound using audio source with a volume of 0.35:
-                audioSource.PlayOneShot(smallExplosionSound, 0.35f);
+                //audioSource.PlayOneShot(smallExplosionSound, 0.35f);
+                AudioManager.Instance.PlaySound(AudioManager.AudioName.SFX_Explosion);
                 Destroy(Instantiate(bigExplosion, explosionLocation.position, Quaternion.identity), 2f);
                 break;
 
@@ -53,7 +48,8 @@ public class OnDeathAnimation : MonoBehaviour
 
             case ExplosionTypes.UfoExplosion:
                 //Plays the large explosionSound using audio source with a volume of 1:
-                audioSource.PlayOneShot(bigExplosionSounds, 1);
+                //audioSource.PlayOneShot(bigExplosionSounds, 1);
+                AudioManager.Instance.PlaySound(AudioManager.AudioName.SFX_BigExplosion);
                 Destroy(Instantiate(ufoExplosion, explosionLocation.position, Quaternion.identity), 2f);
                 break;
         }
