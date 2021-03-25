@@ -10,8 +10,6 @@ namespace Powerup_Scripts
             
             //Tells game manager to add DoubleScore:
             GameManager.Instance.ChangeDoubleScore(true);
-            //Starts Coroutine to reset double score after 10 seconds:
-            //StartCoroutine(ResetDoubleScore(10f));
             base.TriggerPowerUpEffect();
         }
         

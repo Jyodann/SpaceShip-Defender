@@ -7,9 +7,9 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class Powerup : MonoBehaviour
 {
+    [SerializeField] private float PowerupTime = 5f;
     public int ItemDropWeight = 100;
-    [SerializeField] private AudioClip pickUpPowerUpSound;
-
+    
     //RigidBody2D reference:
     private Rigidbody2D rb;
 
@@ -30,25 +30,11 @@ public class Powerup : MonoBehaviour
 
     protected virtual void TriggerPowerUpEffect()
     {
-        AudioManager.Instance.PlaySound(AudioManager.AudioName.SFX_Powerup);
+        AudioManager.Instance.PlaySound(AudioManager.AudioName.SFX_Powerup);    
+        PowerupDurationManager.Instance.AddTiming(gameObject.name, PowerupTime);
         Destroy(gameObject);
     }
 
     public virtual void ResetPowerupEffect() { }
-
-
-    //Disable then destroy takes in one parameter, which is how long until the powerup is destoryed:
-    //Uses Coroutine pattern because it needs to have a RealTime scale instead of a gameTime scale:
-    //Needs to delay destruction of object so that it has an opportunity to reset it's effect before it destroys itself
-    protected IEnumerator DisableThenDestroy(float destoryDelay)
-    {
-        //Sets the powerup position to be somewhere impossible for the player to reach:
-        transform.position = new Vector2(-200, -100);
-        //Freezes the position of the powerup
-        rb.velocity = new Vector2(0, 0);
-        //Waits for time to end before it destorys the object:
-        yield return new WaitForSecondsRealtime(destoryDelay);
-
-        Destroy(gameObject);
-    }
+    
 }
