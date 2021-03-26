@@ -1,12 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 public class FireBullets : MonoBehaviour
 {
     /// <summary>
     ///     This class is mainly for handling bullet firing from the playerObject
     /// </summary>
-
+    private InputMaster controls;
     //Takes in a bullet prefab as the bullet to be shot:
     [SerializeField] private GameObject bulletObject;
 
@@ -38,10 +41,42 @@ public class FireBullets : MonoBehaviour
     //Stores an audioSource as a global variable so it can play the LazerShot sound
 
 
+    private ButtonControl btn;
+    private bool isShootHeld;
+    private void Awake()
+    {
+        controls = new InputMaster();
+        controls.Player.Shoot.performed += ShootOnperformed;
+        
+    }
+
+    private void ShootOnperformed(InputAction.CallbackContext obj)
+    {
+        isShootHeld = !isShootHeld;
+    }
+
+    private void OnEnable()
+    {
+        controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Disable();
+    }
+
     private void Start()
     {
         //Starts the fire() Coroutine so that the player can start Firing Bullets:
         StartCoroutine(Fire());
+    }
+
+    private void Update()
+    {
+        if (isShootHeld)
+        {
+            print("Shooting");
+        }   
     }
 
     /// <summary>
@@ -54,10 +89,12 @@ public class FireBullets : MonoBehaviour
     {
         while (true)
         {
+            
+            
             //If game is paused, disallows any other action to occur:
             while (GameManager.Instance.isPaused) yield return null;
             //If Fire1 (MouseLeft) is held, then it starts to fire:
-            if (Input.GetButton("Fire1"))
+            if (isShootHeld)
             {
                 AudioManager.Instance.PlaySound(AudioManager.AudioName.SFX_Lazer);
                 //Fires from respective cannons depending on how many there are in the current upgrade:
