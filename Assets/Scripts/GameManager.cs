@@ -152,9 +152,11 @@ public class GameManager : Singleton<GameManager>
         //Mutes/Unmutes the game by pausing the Global Audio listener:
         AudioListener.pause = !SettingsHelper.IsMusicOn;
 
+        #if !ENABLE_INPUT_SYSTEM
         if (Input.GetKeyDown(KeyCode.M))
             //Flips the isAudioMuted variable:
             SettingsHelper.IsMusicOn = !SettingsHelper.IsMusicOn;
+        
         //Checks currentGameState:
         switch (currentGameState)
         {
@@ -206,6 +208,7 @@ public class GameManager : Singleton<GameManager>
                 if (Input.GetKeyDown(KeyCode.Escape)) GoToMainMenu();
                 break;
         }
+    #endif
     }
 
     private void OnDestroy()

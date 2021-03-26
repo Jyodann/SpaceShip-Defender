@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.DualShock;
+using UnityEngine.InputSystem.Users;
+using UnityEngine.InputSystem.XInput;
 
 public class ShipController : MonoBehaviour
 {
@@ -10,15 +15,91 @@ public class ShipController : MonoBehaviour
     [SerializeField] private float rotateSpeed = 10f;
     public Joystick leftJoystick;
     public Joystick rightJoystick;
-    public bool verticalMovement;
-    public bool horizontalMovement;
+    public float verticalMovement;
+    public float horizontalMovement;
+    public float verticalRotation;
+    public float horizontalRotation;
     public Rigidbody2D rb2d;
+    public enum ControlMode
+    {
+        Controller, PC
+    }
 
+    public ControlMode controlMode;
     private bool isWrappingX;
     private bool isWrappingY;
 
     //Checks all 4 screen bounds:
     private Renderer[] renderers;
+
+    private InputMaster controls;
+    private InputDevice lastDevice;
+    private string lastDeviceInterface = string.Empty;
+    
+    private void Awake()
+    {
+        controls = new InputMaster();
+        controls.Enable();
+        
+        controls.Player.Movement.performed += MovementOnperformed;
+        controls.Player.Movement.canceled += MovementOncanceled;
+        
+        controls.Player.Rotation.performed += RotationOnperformed;
+        controls.Player.Rotation.canceled += RotationOncanceled;
+        
+        InputSystem.onActionChange += InputSystemOnonActionChange;
+    }
+
+    private void RotationOncanceled(InputAction.CallbackContext obj)
+    {
+        verticalRotation = 0;
+        horizontalRotation = 0;
+    }
+
+    private void RotationOnperformed(InputAction.CallbackContext obj)
+    {
+        var vectorToRead = obj.ReadValue<Vector2>();
+        verticalRotation = vectorToRead.y;
+        horizontalRotation = vectorToRead.x;
+    }
+
+    private void InputSystemOnonActionChange(object arg1, InputActionChange arg2)
+    {
+        if (arg2 != InputActionChange.ActionStarted) return;
+        var lastAction = ((InputAction) arg1).activeControl;
+        lastDevice = lastAction.device;
+        
+        if (!lastDeviceInterface.Equals(lastDevice.description.interfaceName))
+        {
+            lastDeviceInterface = lastDevice.description.interfaceName;
+            print("Device Switched: " + lastDevice.description.interfaceName);
+            if (lastDeviceInterface.Equals("RawInput"))
+            {
+                print("PC Detected");
+                controlMode = ControlMode.PC;
+            }
+            else
+            {
+                print("Controller Detected");
+                controlMode = ControlMode.Controller;
+            }
+        }
+    }
+    
+    private void MovementOncanceled(InputAction.CallbackContext obj)
+    {
+        verticalMovement = 0;
+        horizontalMovement = 0;
+    }
+
+    private void MovementOnperformed(InputAction.CallbackContext obj)
+    {
+        //print(obj.control.device.deviceId);
+        var vectorToRead = obj.ReadValue<Vector2>();
+        verticalMovement = vectorToRead.y;
+        horizontalMovement = vectorToRead.x;
+        //print(vectorToRead);
+    }
 
     private void Start()
     {
@@ -32,18 +113,22 @@ public class ShipController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+#if !ENABLE_INPUT_SYSTEM
         //Gets Input from A/D/W/S:
         verticalMovement = Input.GetButton("Vertical");
         horizontalMovement = Input.GetButton("Horizontal");
+        #endif
 
-        //If controlMode is Mixed, detect for mousePointer:
-        if (SettingsHelper.CurrentControlMode == SettingsHelper.ControlMode.MixedMouseKeyboard)
+        if (controlMode == ControlMode.PC)
         {
+            //If controlMode is Mixed, detect for mousePointer:
+        
             //Code Referenced from Danndx on YouTube:
             //https://www.youtube.com/watch?v=_XdqA3xbP2A
 
             //Get CurrentMousePosition
-            var mousePosition = Input.mousePosition;
+            var mousePosition = controls.Player.PointerLocation.ReadValue<Vector2>();
+            
             //Gets mouse position, but converted from ScreenPoint, to a WorldPosition:
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
@@ -54,10 +139,22 @@ public class ShipController : MonoBehaviour
             //Sets the ship to face the direction:
             transform.up = directionToFace;
         }
+        else
+        {
+            var rotation = Mathf.Atan2(horizontalRotation, verticalRotation) * 180 / Mathf.PI;
+            if (rotation != 0) transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -rotation));
+        }
+
     }
 
     private void FixedUpdate()
     {
+        
+        rb2d.AddForce(new Vector2(horizontalMovement, verticalMovement) * speed);
+
+#if !ENABLE_INPUT_SYSTEM
+        
+
         //Changes movement based on controlMode Selected from MainMenu:
         switch (SettingsHelper.CurrentControlMode)
         {
@@ -83,17 +180,7 @@ public class ShipController : MonoBehaviour
 
             case SettingsHelper.ControlMode.MixedMouseKeyboard:
                 //If mixed, "vertical", "horizontal" will add Relativeforce on the y-axis and x-axis respectively
-                if (verticalMovement)
-                {
-                    var v = Input.GetAxisRaw("Vertical");
-                    rb2d.AddRelativeForce(new Vector2(0, v) * speed);
-                }
-
-                if (horizontalMovement)
-                {
-                    var v = Input.GetAxisRaw("Horizontal");
-                    rb2d.AddRelativeForce(new Vector2(v, 0) * speed);
-                }
+                
 
                 break;
 
@@ -128,7 +215,7 @@ public class ShipController : MonoBehaviour
 
                 break;
         }
-
+#endif
         ScreenWrap();
     }
 

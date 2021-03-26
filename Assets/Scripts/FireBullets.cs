@@ -47,12 +47,17 @@ public class FireBullets : MonoBehaviour
     {
         controls = new InputMaster();
         controls.Player.Shoot.performed += ShootOnperformed;
-        
+        controls.Player.Shoot.canceled += ShootOncanceled;
+    }
+
+    private void ShootOncanceled(InputAction.CallbackContext obj)
+    {
+        isShootHeld = false;
     }
 
     private void ShootOnperformed(InputAction.CallbackContext obj)
     {
-        isShootHeld = !isShootHeld;
+        isShootHeld = true;
     }
 
     private void OnEnable()
@@ -73,10 +78,7 @@ public class FireBullets : MonoBehaviour
 
     private void Update()
     {
-        if (isShootHeld)
-        {
-            print("Shooting");
-        }   
+        
     }
 
     /// <summary>
@@ -89,14 +91,14 @@ public class FireBullets : MonoBehaviour
     {
         while (true)
         {
-            
-            
             //If game is paused, disallows any other action to occur:
             while (GameManager.Instance.isPaused) yield return null;
             //If Fire1 (MouseLeft) is held, then it starts to fire:
             if (isShootHeld)
             {
                 AudioManager.Instance.PlaySound(AudioManager.AudioName.SFX_Lazer);
+                
+                
                 //Fires from respective cannons depending on how many there are in the current upgrade:
                 switch (cannonCount)
                 {
@@ -131,6 +133,7 @@ public class FireBullets : MonoBehaviour
                         FireCannon(extremeRightCannon.transform);
                         break;
                 }
+                
             }
 
             //returns waitForSecondsRealTime as fireRate is counted in realSeconds, and this method will wait for the seconds to end

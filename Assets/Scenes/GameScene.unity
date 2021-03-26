@@ -380,7 +380,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1133721369659782979}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dffe934f5fd4c0345a151bd7a8449eb9, type: 3}
   m_Name: 
@@ -529,7 +529,7 @@ PrefabInstance:
       objectReference: {fileID: 985133703}
     - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 655531830, guid: bbcdd9a2e7be351449d00a2dff305921, type: 3}
       propertyPath: pauseMenu
@@ -975,7 +975,7 @@ PrefabInstance:
     - target: {fileID: 6051054198046076313, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6051054198046076313, guid: 3c4351b4e0d294042ad735c4d5a56a0d,
         type: 3}

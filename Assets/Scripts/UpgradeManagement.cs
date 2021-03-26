@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,6 +37,13 @@ public class UpgradeManagement : MonoBehaviour
     //Gets a reference to the playerObject:
     private FireBullets playerShip;
 
+    private InputMaster controls;
+    private void Awake()
+    {
+        controls = new InputMaster();
+        controls.Enable();
+    }
+
     private void Start()
     {
         //Sets HUD to be a blank, since no upgrades are purchasable:
@@ -65,7 +73,7 @@ public class UpgradeManagement : MonoBehaviour
         else
         {
             upgradeText.text = $"Press E to Upgrade: {currentUpgrade.UpgradeName}";
-            if (Input.GetKeyDown(KeyCode.E)) ApplyUpgrade();
+            if (controls.Player.Upgrade.triggered) ApplyUpgrade();
         }
     }
 
