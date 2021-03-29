@@ -29,7 +29,7 @@ public class PowerupDurationManager : Singleton<PowerupDurationManager>
     {
         foreach (var powerup in ItemDrop.Instance.powerupList)
         {
-            print(powerup.gameObject.name);
+            //print(powerup.gameObject.name);
             powerupDictionary[$"{powerup.name}(Clone)"] = new TimingAndPowerupClass(powerup, 0);
         }
         foreach (var timing in powerupDictionary)
@@ -62,7 +62,7 @@ public class PowerupDurationManager : Singleton<PowerupDurationManager>
                 powerupDictionary[timing].timing--;
                 powerupDictionary[timing].timing = Mathf.Clamp(powerupDictionary[timing].timing, -1, Mathf.Infinity);
                 if (powerupDictionary[timing].timing != 0) continue;
-                print("Reset: " + powerupDictionary[timing].currentPowerup.name);
+                //print("Reset: " + powerupDictionary[timing].currentPowerup.name);
                 powerupDictionary[timing].currentPowerup.ResetPowerupEffect();
             }
         }

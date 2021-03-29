@@ -68,7 +68,7 @@ public class ShipController : MonoBehaviour
         if (arg2 != InputActionChange.ActionStarted) return;
         var lastAction = ((InputAction) arg1).activeControl;
         lastDevice = lastAction.device;
-        
+        print("Device Detected: " + lastDevice.description.interfaceName);
         if (!lastDeviceInterface.Equals(lastDevice.description.interfaceName))
         {
             lastDeviceInterface = lastDevice.description.interfaceName;

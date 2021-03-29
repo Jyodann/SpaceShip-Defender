@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Discord;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -65,8 +64,7 @@ public class GameManager : Singleton<GameManager>
 
     //isTimeFrozen is responsible for the TimeFreeze powerup, it stops SpawnManagement from spawnning objects:
     //public bool IsTimeFrozen { get; set; }
-
-    private ActivityManager activityManager;
+    
 
     //Keeps track of the current session's gameState:
     private GameState currentGameState;
@@ -223,6 +221,7 @@ public class GameManager : Singleton<GameManager>
         */
     }
 
+    /*
     private IEnumerator UpdateDiscord()
     {
         while (true)
@@ -245,6 +244,7 @@ public class GameManager : Singleton<GameManager>
             });
         }
     }
+    */
 
     private void ExitGame()
     {
