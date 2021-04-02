@@ -1,9 +1,6 @@
-﻿using System;
+﻿using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.DualShock;
-using UnityEngine.InputSystem.Users;
-using UnityEngine.InputSystem.XInput;
 
 public class ShipController : MonoBehaviour
 {
@@ -13,19 +10,12 @@ public class ShipController : MonoBehaviour
     [SerializeField] private float speed = 10f;
 
     [SerializeField] private float rotateSpeed = 10f;
-    public Joystick leftJoystick;
-    public Joystick rightJoystick;
     public float verticalMovement;
     public float horizontalMovement;
     public float verticalRotation;
     public float horizontalRotation;
     public Rigidbody2D rb2d;
-    public enum ControlMode
-    {
-        Controller, PC
-    }
-
-    public ControlMode controlMode;
+    
     private bool isWrappingX;
     private bool isWrappingY;
 
@@ -46,8 +36,6 @@ public class ShipController : MonoBehaviour
         
         controls.Player.Rotation.performed += RotationOnperformed;
         controls.Player.Rotation.canceled += RotationOncanceled;
-        
-        InputSystem.onActionChange += InputSystemOnonActionChange;
     }
 
     private void RotationOncanceled(InputAction.CallbackContext obj)
@@ -61,28 +49,14 @@ public class ShipController : MonoBehaviour
         var vectorToRead = obj.ReadValue<Vector2>();
         verticalRotation = vectorToRead.y;
         horizontalRotation = vectorToRead.x;
-    }
 
-    private void InputSystemOnonActionChange(object arg1, InputActionChange arg2)
-    {
-        if (arg2 != InputActionChange.ActionStarted) return;
-        var lastAction = ((InputAction) arg1).activeControl;
-        lastDevice = lastAction.device;
-        print("Device Detected: " + lastDevice.description.interfaceName);
-        if (!lastDeviceInterface.Equals(lastDevice.description.interfaceName))
+        if (obj.control.device.native)
         {
-            lastDeviceInterface = lastDevice.description.interfaceName;
-            print("Device Switched: " + lastDevice.description.interfaceName);
-            if (lastDeviceInterface.Equals("RawInput"))
-            {
-                print("PC Detected");
-                controlMode = ControlMode.PC;
-            }
-            else
-            {
-                print("Controller Detected");
-                controlMode = ControlMode.Controller;
-            }
+            print("RotVector: " + vectorToRead + "Controller Detected");
+        }
+        else
+        {
+            print("Mobile");
         }
     }
     
@@ -94,11 +68,9 @@ public class ShipController : MonoBehaviour
 
     private void MovementOnperformed(InputAction.CallbackContext obj)
     {
-        //print(obj.control.device.deviceId);
         var vectorToRead = obj.ReadValue<Vector2>();
         verticalMovement = vectorToRead.y;
         horizontalMovement = vectorToRead.x;
-        //print(vectorToRead);
     }
 
     private void Start()
@@ -113,38 +85,35 @@ public class ShipController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-#if !ENABLE_INPUT_SYSTEM
+        //var currentBindingGroup = controls.controlSchemes.First().bindingGroup;
+        #if !ENABLE_INPUT_SYSTEM
         //Gets Input from A/D/W/S:
         verticalMovement = Input.GetButton("Vertical");
         horizontalMovement = Input.GetButton("Horizontal");
         #endif
 
-        if (controlMode == ControlMode.PC)
-        {
-            //If controlMode is Mixed, detect for mousePointer:
+
+        //If controlMode is Mixed, detect for mousePointer:
+    
+        //Code Referenced from Danndx on YouTube:
+        //https://www.youtube.com/watch?v=_XdqA3xbP2A
+
+        //Get CurrentMousePosition
+        var mousePosition = controls.Player.PointerLocation.ReadValue<Vector2>();
         
-            //Code Referenced from Danndx on YouTube:
-            //https://www.youtube.com/watch?v=_XdqA3xbP2A
+        //Gets mouse position, but converted from ScreenPoint, to a WorldPosition:
+        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
-            //Get CurrentMousePosition
-            var mousePosition = controls.Player.PointerLocation.ReadValue<Vector2>();
-            
-            //Gets mouse position, but converted from ScreenPoint, to a WorldPosition:
-            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        //Gets the directionToFace RELATIVE to mouse position, based on player's current location:
+        var directionToFace = new Vector2(mousePosition.x - transform.position.x,
+            mousePosition.y - transform.position.y);
 
-            //Gets the directionToFace RELATIVE to mouse position, based on player's current location:
-            var directionToFace = new Vector2(mousePosition.x - transform.position.x,
-                mousePosition.y - transform.position.y);
-
-            //Sets the ship to face the direction:
-            transform.up = directionToFace;
-        }
-        else
-        {
-            var rotation = Mathf.Atan2(horizontalRotation, verticalRotation) * 180 / Mathf.PI;
-            if (rotation != 0) transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -rotation));
-        }
-
+        //Sets the ship to face the direction:
+        transform.up = directionToFace;
+        
+        
+        var rotation = Mathf.Atan2(horizontalRotation, verticalRotation) * 180 / Mathf.PI;
+        if (rotation != 0) transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -rotation));
     }
 
     private void FixedUpdate()

@@ -262,11 +262,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 75
   rotateSpeed: 7.5
-  leftJoystick: {fileID: 0}
-  rightJoystick: {fileID: 0}
   verticalMovement: 0
   horizontalMovement: 0
+  verticalRotation: 0
+  horizontalRotation: 0
   rb2d: {fileID: 0}
+  controlMode: 0
 --- !u!114 &6051054198046076319
 MonoBehaviour:
   m_ObjectHideFlags: 0
