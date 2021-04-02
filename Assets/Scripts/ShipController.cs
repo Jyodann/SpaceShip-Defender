@@ -98,6 +98,7 @@ public class ShipController : MonoBehaviour
         //Code Referenced from Danndx on YouTube:
         //https://www.youtube.com/watch?v=_XdqA3xbP2A
 
+    #if !(UNITY_IOS || UNITY_ANDROID)
         //Get CurrentMousePosition
         var mousePosition = controls.Player.PointerLocation.ReadValue<Vector2>();
         
@@ -110,7 +111,7 @@ public class ShipController : MonoBehaviour
 
         //Sets the ship to face the direction:
         transform.up = directionToFace;
-        
+    #endif
         
         var rotation = Mathf.Atan2(horizontalRotation, verticalRotation) * 180 / Mathf.PI;
         if (rotation != 0) transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -rotation));
