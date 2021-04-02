@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -139,8 +140,9 @@ public class GameManager : Singleton<GameManager>
         scoreText.text = Score.ToString().PadLeft(8, '0');
 
         scoreBoostText.text = string.Empty;
-
+        SettingsHelper.CurrentControlMode = SettingsHelper.ControlMode.MobileInput;
         if (SettingsHelper.CurrentControlMode == SettingsHelper.ControlMode.MobileInput) joystickUI.SetActive(true);
+        print(SettingsHelper.CurrentControlMode);
     }
 
 
