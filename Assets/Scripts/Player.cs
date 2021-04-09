@@ -22,7 +22,7 @@ public class Player : Singleton<Player>, IDamageable
     private SpriteRenderer spriteRenderer;
 
 
-    private void Start()
+    private void Awake()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 

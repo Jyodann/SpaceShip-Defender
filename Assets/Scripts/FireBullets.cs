@@ -43,11 +43,13 @@ public class FireBullets : MonoBehaviour
 
     private ButtonControl btn;
     private bool isShootHeld;
+    private ObjectPooler objectPooler; 
     private void Awake()
     {
         controls = new InputMaster();
         controls.Player.Shoot.performed += ShootOnperformed;
         controls.Player.Shoot.canceled += ShootOncanceled;
+        objectPooler = ObjectPooler.Instance;
     }
 
     private void ShootOncanceled(InputAction.CallbackContext obj)
@@ -103,34 +105,33 @@ public class FireBullets : MonoBehaviour
                 switch (cannonCount)
                 {
                     case 1:
-                        FireCannon(mainCannon.transform);
+                        objectPooler.SpawnFromPool("Bullet", mainCannon.position, mainCannon.rotation);
                         break;
 
                     case 2:
-                        FireCannon(leftCannon.transform);
-                        FireCannon(rightCannon.transform);
+                        objectPooler.SpawnFromPool("Bullet", leftCannon.position, leftCannon.rotation);
+                        objectPooler.SpawnFromPool("Bullet", rightCannon.position, rightCannon.rotation);
                         break;
 
                     case 3:
-                        FireCannon(mainCannon.transform);
-                        FireCannon(leftCannon.transform);
-                        FireCannon(rightCannon.transform);
+                        objectPooler.SpawnFromPool("Bullet", mainCannon.position, mainCannon.rotation);
+                        objectPooler.SpawnFromPool("Bullet", leftCannon.position, leftCannon.rotation);
+                        objectPooler.SpawnFromPool("Bullet", rightCannon.position, rightCannon.rotation);
                         break;
 
                     case 4:
-
-                        FireCannon(leftCannon.transform);
-                        FireCannon(rightCannon.transform);
-                        FireCannon(extremeLeftCannon.transform);
-                        FireCannon(extremeRightCannon.transform);
+                        objectPooler.SpawnFromPool("Bullet", extremeLeftCannon.position, extremeLeftCannon.rotation);
+                        objectPooler.SpawnFromPool("Bullet", leftCannon.position, leftCannon.rotation);
+                        objectPooler.SpawnFromPool("Bullet", rightCannon.position, rightCannon.rotation);
+                        objectPooler.SpawnFromPool("Bullet", extremeRightCannon.position, extremeRightCannon.rotation);
                         break;
 
                     case 5:
-                        FireCannon(mainCannon.transform);
-                        FireCannon(leftCannon.transform);
-                        FireCannon(rightCannon.transform);
-                        FireCannon(extremeLeftCannon.transform);
-                        FireCannon(extremeRightCannon.transform);
+                        objectPooler.SpawnFromPool("Bullet", extremeLeftCannon.position, extremeLeftCannon.rotation);
+                        objectPooler.SpawnFromPool("Bullet", leftCannon.position, leftCannon.rotation);
+                        objectPooler.SpawnFromPool("Bullet", rightCannon.position, rightCannon.rotation);
+                        objectPooler.SpawnFromPool("Bullet", extremeRightCannon.position, extremeRightCannon.rotation);
+                        objectPooler.SpawnFromPool("Bullet", mainCannon.position, mainCannon.rotation);
                         break;
                 }
                 
