@@ -288,10 +288,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 1165268831}
   - {fileID: 3699362918420780447}
   - {fileID: 2559248287071500933}
   - {fileID: 1650539813869953434}
-  - {fileID: 1165268831}
   m_Father: {fileID: 1893811749}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -660,7 +660,7 @@ RectTransform:
   - {fileID: 8170153792479393641}
   - {fileID: 8170153793022602057}
   m_Father: {fileID: 396972941}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -721,7 +721,7 @@ Canvas:
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
-  m_OverrideSorting: 0
+  m_OverrideSorting: 1
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
@@ -1389,7 +1389,7 @@ RectTransform:
   - {fileID: 5599139172837327587}
   - {fileID: 7495599736356806597}
   m_Father: {fileID: 396972941}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1593,7 +1593,7 @@ RectTransform:
   - {fileID: 8954882733020313898}
   - {fileID: 2568845990509487642}
   m_Father: {fileID: 396972941}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2381,7 +2381,7 @@ Transform:
   - {fileID: 2568845990547822151}
   - {fileID: 2568845989941545863}
   m_Father: {fileID: 396972941}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!222 &3746645019238981951
 CanvasRenderer:
