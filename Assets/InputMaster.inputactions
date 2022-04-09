@@ -11,7 +11,8 @@
                     "id": "14bb03db-bb05-46b1-9fc8-256c2dc60336",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Movement",
@@ -19,7 +20,8 @@
                     "id": "2145ae80-1560-4933-b1c6-f20218640890",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Rotation",
@@ -27,7 +29,8 @@
                     "id": "4f99b999-4a86-4ce6-885f-b6405e075f87",
                     "expectedControlType": "Stick",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "PointerLocation",
@@ -35,7 +38,8 @@
                     "id": "3894ce5a-5ead-4436-ab34-3294fdb482ee",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Upgrade",
@@ -43,7 +47,8 @@
                     "id": "7ae74197-63e8-49ee-baf3-b03584e96288",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
