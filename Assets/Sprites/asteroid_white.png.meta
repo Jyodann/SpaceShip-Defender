@@ -132,6 +132,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -140,9 +141,9 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -163,6 +164,8 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
@@ -914,6 +917,39 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      asteroid_white_5: -7531345547397006942
+      asteroid_white_10: -4968025620821457991
+      asteroid_white_19: -4572269981094236292
+      asteroid_white_7: -4783541236329554398
+      asteroid_white_9: 1456745711685349574
+      asteroid_white_15: 4789312467189068171
+      asteroid_white_23: 2046481706049780622
+      asteroid_white_13: 967542575292210362
+      asteroid_white_18: -5041507488149066449
+      asteroid_white_25: 3363806037564228423
+      asteroid_white_30: 4985195463172032870
+      asteroid_white_21: 3419479435075853021
+      asteroid_white_28: 2408582810014690553
+      asteroid_white_8: -6756402420090546170
+      asteroid_white_27: -6506959788021854496
+      asteroid_white_6: -2218145642084691589
+      asteroid_white_3: -7706545007538667556
+      asteroid_white_14: 806009437369843672
+      asteroid_white_20: 43986292690718394
+      asteroid_white_22: -1962965040165059236
+      asteroid_white_17: 4414239829620680542
+      asteroid_white_16: -4120883561057412461
+      asteroid_white_12: 1272565174838784965
+      asteroid_white_31: 8759839275946522478
+      asteroid_white_26: 5572212798398733049
+      asteroid_white_1: 3206986635564293229
+      asteroid_white_11: 3011566506930792524
+      asteroid_white_24: -4988957006068236648
+      asteroid_white_0: 131405073733498087
+      asteroid_white_2: -5422798857116654392
+      asteroid_white_29: 7834496639404774203
+      asteroid_white_4: 3393699024402705169
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
