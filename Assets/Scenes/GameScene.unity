@@ -948,11 +948,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca7b964a43803bb42bcdca5971c782e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pools:
-  - tag: Bullet
-    prefab: {fileID: 9149756014913222673, guid: 7245e3953cfda0547a2a211e71f50da3,
-      type: 3}
-    size: 200
+  _bulletPrefab: {fileID: 8581842457997534866, guid: 7245e3953cfda0547a2a211e71f50da3,
+    type: 3}
+  spawnAmount: 100
 --- !u!114 &2018464225
 MonoBehaviour:
   m_ObjectHideFlags: 0
