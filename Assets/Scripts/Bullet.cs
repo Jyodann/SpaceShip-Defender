@@ -1,15 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class Bullet : MonoBehaviour, IPooledObject
+public class Bullet : MonoBehaviour
 {
     private FireBullets fireBullets;
     private Rigidbody2D rb2d;
-
-    private void Awake()
-    {
-       
-        
-    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -18,17 +13,18 @@ public class Bullet : MonoBehaviour, IPooledObject
 
         if (damageComponent == null) return;
         damageComponent.TakeDamage(other, fireBullets.damageDealt);
-        //Destroy(gameObject);
     }
 
-    public void OnObjectSpawn()
+    public void OnObjectSpawn(Vector2 position, Quaternion rotation)
     {
+        var transform1 = transform;
+        transform1.position = position;
+        transform1.rotation = rotation;
         rb2d.velocity = transform.TransformDirection(Vector3.up * fireBullets.bulletSpeed);
     }
 
     public void InitialSetUp()
     {
-        print("Initial Setup Complete!");
         fireBullets = Player.Instance.fireBullets;
         rb2d = GetComponent<Rigidbody2D>();
     }

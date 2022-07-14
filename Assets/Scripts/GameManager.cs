@@ -101,25 +101,6 @@ public class GameManager : Singleton<GameManager>
         Score = 0;
 
         startTime = DateTimeOffset.Now.ToUnixTimeSeconds();
-
-
-        /**
-        activityManager = DiscordRPC.Instance.discord.GetActivityManager();
-        activityManager.ClearActivity(result => { });
-        var activity = new Discord.Activity()
-        {
-            Details = "Defending Ship",
-            State = $"Current Score: {Score}",
-            Timestamps =
-            {
-                Start = startTime
-            }
-        };
-        
-        activityManager.UpdateActivity(activity, result => { if (result == Result.Ok) Debug.Log("Discord status set");});
-
-        StartCoroutine(UpdateDiscord());
-        **/
     }
 
     private void Start()
@@ -140,7 +121,7 @@ public class GameManager : Singleton<GameManager>
         scoreText.text = Score.ToString().PadLeft(8, '0');
 
         scoreBoostText.text = string.Empty;
-        SettingsHelper.CurrentControlMode = SettingsHelper.ControlMode.MobileInput;
+        
         if (SettingsHelper.CurrentControlMode == SettingsHelper.ControlMode.MobileInput) joystickUI.SetActive(true);
         print(SettingsHelper.CurrentControlMode);
     }
@@ -151,102 +132,8 @@ public class GameManager : Singleton<GameManager>
         if (SettingsHelper.CurrentControlMode != SettingsHelper.ControlMode.MobileInput) joystickUI.SetActive(false);
         //Mutes/Unmutes the game by pausing the Global Audio listener:
         AudioListener.pause = !SettingsHelper.IsMusicOn;
-
-        #if !ENABLE_INPUT_SYSTEM
-        if (Input.GetKeyDown(KeyCode.M))
-            //Flips the isAudioMuted variable:
-            SettingsHelper.IsMusicOn = !SettingsHelper.IsMusicOn;
-        
-        //Checks currentGameState:
-        switch (currentGameState)
-        {
-            case GameState.InGame:
-
-                //If gameState is inGame: Pressing Escape will pause the game
-                if (Input.GetKeyDown(KeyCode.Escape)) PauseGame();
-
-                #region CheatCodes
-
-                //These are not meant to be in the game, but are added to facilitate testing :)
-                //P = Add 50 Coins
-                //K = Add 1000 Coins
-                //R = Add 250 Score
-                //Q = Add 1000 Score
-                //I = Take 1 Damage
-                //O = Add 1 Life:
-                //L = Add 10 Lives:
-                if (Input.GetKeyDown(KeyCode.P)) AddCoins(50);
-
-                if (Input.GetKeyDown(KeyCode.K)) AddCoins(1000);
-
-                if (Input.GetKeyDown(KeyCode.R)) AddScore(250);
-                if (Input.GetKeyDown(KeyCode.Q)) AddScore(1000);
-
-                if (Input.GetKeyDown(KeyCode.I)) TakeDamage(1);
-
-                if (Input.GetKeyDown(KeyCode.O)) TakeDamage(-1);
-
-                if (Input.GetKeyDown(KeyCode.L)) TakeDamage(-10);
-
-                #endregion CheatCodes
-
-                break;
-
-            case GameState.Paused:
-                //If Game is paused, pressing escape will unpause it:
-                if (Input.GetKeyDown(KeyCode.Escape)) Unpause();
-                //Press R to allow restart during pause:
-                if (Input.GetKeyDown(KeyCode.R)) RestartGame();
-                //Press E to allow quitting during pause:
-                if (Input.GetKeyDown(KeyCode.E)) ExitGame();
-                break;
-
-            case GameState.GameOver:
-                //If gameOver, checks to see if the player Preses R, which is to restart, or ESC to go back to main menu:
-                if (Input.GetKeyDown(KeyCode.R)) RestartGame();
-
-                if (Input.GetKeyDown(KeyCode.Escape)) GoToMainMenu();
-                break;
-        }
-    #endif
     }
-
-    private void OnDestroy()
-    {
-        /*
-        var activity = new Discord.Activity()
-        {
-            Details = "On the main menu",
-            State = "Playing Spaceship Defender"
-        };
-        activityManager.UpdateActivity(activity, result => { if (result == Result.Ok) Debug.Log("Discord status set");});
-        */
-    }
-
-    /*
-    private IEnumerator UpdateDiscord()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(10f);
-            activityManager.ClearActivity(result => { });
-            var activity = new Activity
-            {
-                Details = "Defending Ship",
-                State = $"Current Score: {Score}",
-                Timestamps =
-                {
-                    Start = startTime
-                }
-            };
-
-            activityManager.UpdateActivity(activity, result =>
-            {
-                if (result == Result.Ok) Debug.Log("Discord status set");
-            });
-        }
-    }
-    */
+    
 
     private void ExitGame()
     {

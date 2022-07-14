@@ -9,7 +9,7 @@ public class Player : Singleton<Player>, IDamageable
 
     //flickerRate and Invincibility length are fields that can be changed if neccessary to balance the game:
     [SerializeField] private float flickerRate = 0.3f;
-
+    
     [SerializeField] private float invincibilityLength = 2f;
     public FireBullets fireBullets;
     public ShipController shipController;

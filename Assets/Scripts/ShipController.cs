@@ -9,7 +9,7 @@ public class ShipController : MonoBehaviour
     /// </summary>
     [SerializeField] private float speed = 10f;
 
-    [SerializeField] private float rotateSpeed = 10f;
+    [SerializeField] private GameObject joystickCanvas;
     public float verticalMovement;
     public float horizontalMovement;
     public float verticalRotation;
@@ -24,7 +24,7 @@ public class ShipController : MonoBehaviour
 
     private InputMaster controls;
     private InputDevice lastDevice;
-    private string lastDeviceInterface = string.Empty;
+    
     
     private void Awake()
     {
@@ -49,15 +49,6 @@ public class ShipController : MonoBehaviour
         var vectorToRead = obj.ReadValue<Vector2>();
         verticalRotation = vectorToRead.y;
         horizontalRotation = vectorToRead.x;
-
-        if (obj.control.device.native)
-        {
-            print("RotVector: " + vectorToRead + "Controller Detected");
-        }
-        else
-        {
-            print("Mobile");
-        }
     }
     
     private void MovementOncanceled(InputAction.CallbackContext obj)
@@ -80,6 +71,7 @@ public class ShipController : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         //Gets 4 of the screenbounds:
         renderers = GetComponentsInChildren<Renderer>();
+        joystickCanvas.SetActive(false);
     }
 
     // Update is called once per frame
@@ -98,7 +90,7 @@ public class ShipController : MonoBehaviour
         //Code Referenced from Danndx on YouTube:
         //https://www.youtube.com/watch?v=_XdqA3xbP2A
 
-    #if !(UNITY_IOS || UNITY_ANDROID)
+        #if !(UNITY_IOS || UNITY_ANDROID)
         //Get CurrentMousePosition
         var mousePosition = controls.Player.PointerLocation.ReadValue<Vector2>();
         
@@ -111,7 +103,7 @@ public class ShipController : MonoBehaviour
 
         //Sets the ship to face the direction:
         transform.up = directionToFace;
-    #endif
+        #endif
         
         var rotation = Mathf.Atan2(horizontalRotation, verticalRotation) * 180 / Mathf.PI;
         if (rotation != 0) transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -rotation));
@@ -119,73 +111,7 @@ public class ShipController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
         rb2d.AddForce(new Vector2(horizontalMovement, verticalMovement) * speed);
-
-#if !ENABLE_INPUT_SYSTEM
-        
-
-        //Changes movement based on controlMode Selected from MainMenu:
-        switch (SettingsHelper.CurrentControlMode)
-        {
-            /** KeyboardOnly Controls (DEPRECATED)
-                //RelativeForces are used as they steer the ship based on WHERE the ship is facing
-                case SettingsHelper.ControlMode.KeyboardOnly:
-                    //If keyboard only, the "vertical" (W/S) buttons will add relativeForce in the Y-axis:
-                    if (verticalMovement)
-                    {
-                        var v = Input.GetAxisRaw("Vertical");
-                        rb2d.AddRelativeForce(new Vector2(0, v) * speed);
-                    }
-
-                    //If keyboard only, the "horizontal" (A/D) buttons will rotate the ship left/right:
-                    if (horizontalMovement)
-                    {
-                        var v = Input.GetAxisRaw("Horizontal");
-                        transform.Rotate(new Vector3(0, 0, -v) * rotateSpeed);
-                    }
-
-                    break;
-            **/
-
-            case SettingsHelper.ControlMode.MixedMouseKeyboard:
-                //If mixed, "vertical", "horizontal" will add Relativeforce on the y-axis and x-axis respectively
-                
-
-                break;
-
-            case SettingsHelper.ControlMode.MobileInput:
-
-                if (!SettingsHelper.IsSwappedJoysticks)
-                {
-                    if (leftJoystick.Vertical >= 0.2f)
-                        rb2d.AddForce(new Vector2(0, 1) * speed);
-                    else if (leftJoystick.Vertical <= -0.2f) rb2d.AddForce(new Vector2(0, -1) * speed);
-
-                    if (leftJoystick.Horizontal >= 0.2f)
-                        rb2d.AddForce(new Vector2(1, 0) * speed);
-                    else if (leftJoystick.Horizontal <= -0.2f) rb2d.AddForce(new Vector2(-1, 0) * speed);
-
-                    var rotation = Mathf.Atan2(rightJoystick.Horizontal, rightJoystick.Vertical) * 180 / Mathf.PI;
-                    if (rotation != 0) transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -rotation));
-                }
-                else
-                {
-                    if (rightJoystick.Vertical >= 0.2f)
-                        rb2d.AddForce(new Vector2(0, 1) * speed);
-                    else if (rightJoystick.Vertical <= -0.2f) rb2d.AddForce(new Vector2(0, -1) * speed);
-
-                    if (rightJoystick.Horizontal >= 0.2f)
-                        rb2d.AddForce(new Vector2(1, 0) * speed);
-                    else if (rightJoystick.Horizontal <= -0.2f) rb2d.AddForce(new Vector2(-1, 0) * speed);
-
-                    var rotation = Mathf.Atan2(leftJoystick.Horizontal, leftJoystick.Vertical) * 180 / Mathf.PI;
-                    if (rotation != 0) transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -rotation));
-                }
-
-                break;
-        }
-#endif
         ScreenWrap();
     }
 

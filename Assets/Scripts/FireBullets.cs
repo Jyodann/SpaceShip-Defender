@@ -49,7 +49,7 @@ public class FireBullets : MonoBehaviour
         controls = new InputMaster();
         controls.Player.Shoot.performed += ShootOnperformed;
         controls.Player.Shoot.canceled += ShootOncanceled;
-        objectPooler = ObjectPooler.Instance;
+        //objectPooler = ObjectPooler.Instance;
     }
 
     private void ShootOncanceled(InputAction.CallbackContext obj)
@@ -105,33 +105,35 @@ public class FireBullets : MonoBehaviour
                 switch (cannonCount)
                 {
                     case 1:
-                        objectPooler.SpawnFromPool("Bullet", mainCannon.position, mainCannon.rotation);
+                        var bullet = ObjectPooler.Pool.Get();
+                        bullet.OnObjectSpawn(mainCannon.position, mainCannon.rotation);
+                        //objectPooler.SpawnFromPool("Bullet", mainCannon.position, mainCannon.rotation);
                         break;
 
                     case 2:
-                        objectPooler.SpawnFromPool("Bullet", leftCannon.position, leftCannon.rotation);
-                        objectPooler.SpawnFromPool("Bullet", rightCannon.position, rightCannon.rotation);
+                        //objectPooler.SpawnFromPool("Bullet", leftCannon.position, leftCannon.rotation);
+                        //objectPooler.SpawnFromPool("Bullet", rightCannon.position, rightCannon.rotation);
                         break;
 
                     case 3:
-                        objectPooler.SpawnFromPool("Bullet", mainCannon.position, mainCannon.rotation);
-                        objectPooler.SpawnFromPool("Bullet", leftCannon.position, leftCannon.rotation);
-                        objectPooler.SpawnFromPool("Bullet", rightCannon.position, rightCannon.rotation);
+                       // objectPooler.SpawnFromPool("Bullet", mainCannon.position, mainCannon.rotation);
+                        //objectPooler.SpawnFromPool("Bullet", leftCannon.position, leftCannon.rotation);
+                        //objectPooler.SpawnFromPool("Bullet", rightCannon.position, rightCannon.rotation);
                         break;
 
                     case 4:
-                        objectPooler.SpawnFromPool("Bullet", extremeLeftCannon.position, extremeLeftCannon.rotation);
-                        objectPooler.SpawnFromPool("Bullet", leftCannon.position, leftCannon.rotation);
-                        objectPooler.SpawnFromPool("Bullet", rightCannon.position, rightCannon.rotation);
-                        objectPooler.SpawnFromPool("Bullet", extremeRightCannon.position, extremeRightCannon.rotation);
+                        //objectPooler.SpawnFromPool("Bullet", extremeLeftCannon.position, extremeLeftCannon.rotation);
+                        //objectPooler.SpawnFromPool("Bullet", leftCannon.position, leftCannon.rotation);
+                        //objectPooler.SpawnFromPool("Bullet", rightCannon.position, rightCannon.rotation);
+                        //objectPooler.SpawnFromPool("Bullet", extremeRightCannon.position, extremeRightCannon.rotation);
                         break;
 
                     case 5:
-                        objectPooler.SpawnFromPool("Bullet", extremeLeftCannon.position, extremeLeftCannon.rotation);
-                        objectPooler.SpawnFromPool("Bullet", leftCannon.position, leftCannon.rotation);
-                        objectPooler.SpawnFromPool("Bullet", rightCannon.position, rightCannon.rotation);
-                        objectPooler.SpawnFromPool("Bullet", extremeRightCannon.position, extremeRightCannon.rotation);
-                        objectPooler.SpawnFromPool("Bullet", mainCannon.position, mainCannon.rotation);
+                        //objectPooler.SpawnFromPool("Bullet", extremeLeftCannon.position, extremeLeftCannon.rotation);
+                        //objectPooler.SpawnFromPool("Bullet", leftCannon.position, leftCannon.rotation);
+                        //objectPooler.SpawnFromPool("Bullet", rightCannon.position, rightCannon.rotation);
+                        //objectPooler.SpawnFromPool("Bullet", extremeRightCannon.position, extremeRightCannon.rotation);
+                        //objectPooler.SpawnFromPool("Bullet", mainCannon.position, mainCannon.rotation);
                         break;
                 }
                 
