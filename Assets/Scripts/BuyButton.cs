@@ -29,6 +29,8 @@ public class BuyButton : MonoBehaviour
 
     public void ClickBuy()
     {
+        throw new NotImplementedException();
+        /*
         switch (itemType)
         {
             case ItemType.Dollar1:
@@ -42,10 +44,13 @@ public class BuyButton : MonoBehaviour
                 break;
             
         }
+        */
     }
 
     IEnumerator LoadPrice()
     {
+        throw new NotImplementedException();
+        /*
         while (!IAPManager.Instance.IsInitialized())
         {
             yield return null;
@@ -68,6 +73,6 @@ public class BuyButton : MonoBehaviour
         }
 
         priceText.text += " " + loadedPrice;
-
+*/
     }
 }

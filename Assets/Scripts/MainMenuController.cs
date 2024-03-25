@@ -66,8 +66,9 @@ public class MainMenuController : MonoBehaviour
             donationScreen.SetActive(true);
         #endif
     }
-    
+
+    #if UNITY_WEBGL
     [DllImport("__Internal")]
     private static extern void openWindow(string url);
-
+    #endif
 }

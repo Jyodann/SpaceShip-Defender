@@ -1108,7 +1108,6 @@ MonoBehaviour:
   musicEffectToggle: {fileID: 359986071}
   swapJoysticksToggle: {fileID: 715807601}
   batterySaverToggle: {fileID: 66789241}
-  setControlModeDeveloper: 1
   donationScreen: {fileID: 1654258611}
   mainScreen: {fileID: 214391938}
 --- !u!1001 &231773746
@@ -1777,7 +1776,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &377205591
 RectTransform:
   m_ObjectHideFlags: 0
